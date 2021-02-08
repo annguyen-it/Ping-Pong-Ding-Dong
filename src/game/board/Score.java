@@ -1,4 +1,4 @@
-package game;
+package game.board;
 
 import javax.swing.JFrame;
 import java.awt.*;

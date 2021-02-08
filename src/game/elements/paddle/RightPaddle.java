@@ -2,7 +2,7 @@ package game.elements.paddle;
 
 import game.elements.Ball;
 import game.Game;
-import game.Score;
+import game.board.Score;
 
 import java.awt.event.KeyEvent;
 

@@ -3,7 +3,7 @@ package game.elements.paddle;
 import game.elements.Ball;
 import game.elements.Element;
 import game.Game;
-import game.Score;
+import game.board.Score;
 
 import java.awt.Graphics;
 import java.awt.Color;

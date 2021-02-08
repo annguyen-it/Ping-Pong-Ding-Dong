@@ -1,4 +1,4 @@
-package game;
+package game.board;
 
 import game.elements.Ball;
 import game.elements.paddle.*;
@@ -10,17 +10,14 @@ import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class Board extends JPanel implements ActionListener {
 
-    private final int DELAY = 2;
+    private static final int DELAY = 2;
 
-    private final int INITIAL_BALL_X = 588;
-    private final int INITIAL_BALL_Y = 388;
+    private static final int INITIAL_BALL_X = 588;
+    private static final int INITIAL_BALL_Y = 388;
 
-    private Timer timer;
     private Paddle leftPaddle, rightPaddle;
     private Ball ball;
 
@@ -29,15 +26,16 @@ public class Board extends JPanel implements ActionListener {
     }
 
     private void initBoard() {
-        addKeyListener(new TAdapter());
+        leftPaddle = new LeftPaddle();
+        rightPaddle = new RightPaddle();
+
+        ball = new Ball(INITIAL_BALL_X, INITIAL_BALL_Y);
+
+        addKeyListener(new TAdapter(leftPaddle, rightPaddle));
         setBackground(Color.BLACK);
         setFocusable(true);
 
-        leftPaddle = new LeftPaddle();
-        rightPaddle = new RightPaddle();
-        ball = new Ball(INITIAL_BALL_X, INITIAL_BALL_Y);
-
-        timer = new Timer(DELAY, this);
+        Timer timer = new Timer(DELAY, this);
         timer.start();
     }
 
@@ -47,7 +45,8 @@ public class Board extends JPanel implements ActionListener {
 
         doDrawing(g);
 
-        Toolkit.getDefaultToolkit().sync();
+        //? Khong biet co can thiet hay khong
+//        Toolkit.getDefaultToolkit().sync();
     }
 
     private void doDrawing(Graphics g) {
@@ -90,20 +89,4 @@ public class Board extends JPanel implements ActionListener {
             ball = new Ball(INITIAL_BALL_X, INITIAL_BALL_Y);
         }
     }
-
-    private class TAdapter extends KeyAdapter {
-
-        @Override
-        public void keyPressed(KeyEvent e) {
-            leftPaddle.keyPressed(e);
-            rightPaddle.keyPressed(e);
-        }
-
-        @Override
-        public void keyReleased(KeyEvent e) {
-            leftPaddle.keyReleased(e);
-            rightPaddle.keyReleased(e);
-        }
-    }
-
 }

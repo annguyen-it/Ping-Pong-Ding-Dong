@@ -1,5 +1,7 @@
 package game;
 
+import game.board.Board;
+
 import javax.swing.JFrame;
 import java.awt.EventQueue;
 
