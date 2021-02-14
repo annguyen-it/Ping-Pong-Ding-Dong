@@ -12,8 +12,8 @@ public class Game extends JFrame {
     }
 
     private void initUI() {
-        add(new Board());
-
+        add(new Client());
+        //add(new Board());
         setTitle("Application");
         setSize(WIDTH, HEIGHT);
         setResizable(false);
