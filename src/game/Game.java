@@ -4,6 +4,7 @@ import javax.swing.JFrame;
 import java.awt.EventQueue;
 
 public class Game extends JFrame {
+
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
 
@@ -13,7 +14,7 @@ public class Game extends JFrame {
 
     private void initUI() {
         add(new Client());
-        //add(new Board());
+
         setTitle("Application");
         setSize(WIDTH, HEIGHT);
         setResizable(false);
