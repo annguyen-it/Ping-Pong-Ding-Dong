@@ -15,7 +15,7 @@ public class Game extends JFrame {
     }
 
     private void initUI() {
-        add(new Client());
+        add(new Client(this));
 
         setTitle("Application");
         setSize(WIDTH, HEIGHT);

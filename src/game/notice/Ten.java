@@ -1,5 +1,7 @@
 package game.notice;
 
+import game.board.Board;
+
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
@@ -27,14 +29,14 @@ public class Ten extends JDialog {
     private String name1 = "Player 1";
     private String name2 = "Player 2";
 
-   // private boolean getPlay = false;
+    // private boolean getPlay = false;
 
     /**
      * Create the dialog.
      */
-    public Ten() {
+    public Ten(JFrame game, JPanel client) {
         Color borColor = new Color(0, 21, 232);
-        Color oranColor = new Color(251,111,0);
+        Color oranColor = new Color(251, 111, 0);
         setBounds(100, 100, 450, 300);
         getContentPane().setLayout(new BorderLayout());
         contentPanel.setBackground(oranColor);
@@ -50,7 +52,7 @@ public class Ten extends JDialog {
         txtPlayer_1.setFont(new Font("Tahoma", Font.PLAIN, 12));
         txtPlayer_1.setBackground(new Color(255, 153, 0));
         contentPanel.add(txtPlayer_1);
-        txtPlayer_1.setBorder(BorderFactory.createLineBorder(borColor,2));
+        txtPlayer_1.setBorder(BorderFactory.createLineBorder(borColor, 2));
 
         txtPlayer = new JTextField("PLAYER 1 :");
         txtPlayer.setBounds(10, 52, 96, 30);
@@ -62,7 +64,7 @@ public class Ten extends JDialog {
         contentPanel.add(txtPlayer);
         txtPlayer.setColumns(10);
         txtPlayer.setForeground(Color.WHITE);
-        txtPlayer.setBorder(BorderFactory.createLineBorder(borColor,2));
+        txtPlayer.setBorder(BorderFactory.createLineBorder(borColor, 2));
 
         txtPlayer_2 = new JTextField();
         txtPlayer_2.setBounds(110, 145, 241, 46);
@@ -71,7 +73,7 @@ public class Ten extends JDialog {
         txtPlayer_2.setFont(new Font("Tahoma", Font.PLAIN, 12));
         txtPlayer_2.setBackground(new Color(255, 153, 0));
         contentPanel.add(txtPlayer_2);
-        txtPlayer_2.setBorder(BorderFactory.createLineBorder(borColor,2));
+        txtPlayer_2.setBorder(BorderFactory.createLineBorder(borColor, 2));
 
         txtPlayer_3 = new JTextField();
         txtPlayer_3.setBounds(10, 133, 96, 30);
@@ -82,7 +84,7 @@ public class Ten extends JDialog {
         txtPlayer_3.setEditable(false);
         txtPlayer_3.setBackground(oranColor);
         contentPanel.add(txtPlayer_3);
-        txtPlayer_3.setBorder(BorderFactory.createLineBorder(borColor,2));
+        txtPlayer_3.setBorder(BorderFactory.createLineBorder(borColor, 2));
 
 
         button_1 = new JButton("LET PLAY");
@@ -90,7 +92,7 @@ public class Ten extends JDialog {
         button_1.setFont(new Font("Tahoma", Font.BOLD, 10));
         button_1.setBackground(oranColor);
         button_1.setBounds(281, 220, 103, 30);
-        button_1.setBorder(BorderFactory.createLineBorder(borColor,2));
+        button_1.setBorder(BorderFactory.createLineBorder(borColor, 2));
         contentPanel.add(button_1);
 
 
@@ -107,20 +109,36 @@ public class Ten extends JDialog {
 
         button_1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                    name1 = txtPlayer_1.getText();
-                    name2 = txtPlayer_2.getText();
-                    playGame = true;
+                name1 = txtPlayer_1.getText();
+                name2 = txtPlayer_2.getText();
+
+                Board board = new Board();
+
+                System.out.println(client);
+
+                game.remove(client);
+                game.add(board);
+
+//                frame1.setVisible(false);
+//                frame2.add(new Board());
+//                frame2.setVisible(true);
+//                frame2.setResizable(false);
+//                frame2.setLocationRelativeTo(null);
+//                frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             }
         });
     }
-    public boolean getPlay(){
+
+    public boolean getPlay() {
         return playGame;
     }
-    public String getName1(){
+
+    public String getName1() {
         return name1;
     }
-    public String getName2(){
+
+    public String getName2() {
         return name2;
     }
-    
+
 }
