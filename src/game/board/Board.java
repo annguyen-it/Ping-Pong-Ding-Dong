@@ -1,12 +1,13 @@
 package game.board;
 
+import game.Game;
 import game.elements.Ball;
 import game.elements.paddle.*;
 
-import javax.swing.JPanel;
-import javax.swing.Timer;
+
+import javax.swing.*;
 import java.awt.Graphics;
-import java.awt.Toolkit;
+//import java.awt.Toolkit;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -21,11 +22,15 @@ public class Board extends JPanel implements ActionListener {
     private Paddle leftPaddle, rightPaddle;
     private Ball ball;
 
+
+
     public Board() {
         initBoard();
     }
 
     private void initBoard() {
+        setBounds(0, 0, Game.WIDTH, Game.HEIGHT);
+
         leftPaddle = new LeftPaddle();
         rightPaddle = new RightPaddle();
 
