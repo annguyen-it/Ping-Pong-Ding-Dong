@@ -1,8 +1,10 @@
 package game.board;
 
 import game.Game;
+import game.Home;
 import game.elements.Ball;
 import game.elements.paddle.*;
+import game.information.Exit;
 
 
 import javax.swing.*;
@@ -11,6 +13,7 @@ import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 public class Board extends JPanel implements ActionListener {
 
@@ -94,4 +97,12 @@ public class Board extends JPanel implements ActionListener {
             ball = new Ball(INITIAL_BALL_X, INITIAL_BALL_Y);
         }
     }
+//  ESC hien hop thoai tiep tuc or choi lai
+//    public void keyPressed(KeyEvent e) {
+//        int key = e.getKeyCode();
+//
+//        if (key == KeyEvent.VK_ESCAPE) {
+//            Home.switchPanels(new Exit());
+//        }
+//    }
 }

@@ -15,14 +15,13 @@ public class Choose extends JPanel {
     private JButton exit;
     private JButton help;
 
-
     public Choose(){ initChoose(); }
 
     private  void initChoose(){
 
-        setBounds((Game.WIDTH-300)/2,400,300,600);
+        setBounds((Game.WIDTH-300)/2,400,300,250);
         setLayout(null);
-
+        setOpaque(false); //nền trong suốt
         play = new JButton("PLAY");
         help = new JButton("HELP");
         exit = new JButton("EXIT");
@@ -60,6 +59,7 @@ public class Choose extends JPanel {
         button.setFont(new Font("Algerian",Font.PLAIN,30));
         Color myColor = new Color(251, 111, 0);
         button.setBackground(myColor);
+        button.setBorder(BorderFactory.createLineBorder(Player.borColor, 2));
 
     }
 

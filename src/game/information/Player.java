@@ -69,7 +69,7 @@ public class Player extends JPanel{
 
         btPlayGame.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Home.switchPanels(new Board());
+                Home.playGame();
 
 
                 name1 = txtName1.getText();

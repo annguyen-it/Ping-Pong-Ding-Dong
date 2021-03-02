@@ -1,37 +1,36 @@
 package game;
 
 
+import game.board.Board;
 import game.information.Choose;
 
 import javax.swing.*;
 
 
-
 public class Home extends JPanel {
     private static final long serialVersionUID = 1L;
 
-    public static JPanel home = new JPanel();
+    public static JLabel label = new JLabel();
+    public static JLabel labelGame = new JLabel();
     public static JLayeredPane layeredPane = new JLayeredPane();
 
     public Home(JFrame game) {
         initClient(game);
-        home = this;
+        //home = this;
     }
 
     private void initClient(JFrame game) {
-        home.setLayout(null);
-
-        setBack();
+        //home.setLayout(null);
         game.setVisible(true);
-        game.setContentPane(home);
+        //game.setContentPane(home);
+        label= new JLabel(new ImageIcon("Client.jpg"));
+        game.setContentPane(label);
 
         layeredPane.setBounds(0,0,Game.WIDTH,Game.HEIGHT);
-        home.add(layeredPane);
+        label.add(new Board());
         layeredPane.add(new Choose());
         layeredPane.setFocusable(true);
         layeredPane.requestFocus();
-
-
     }
 
     public static void switchPanels(JPanel panel){
@@ -39,11 +38,12 @@ public class Home extends JPanel {
         layeredPane.add(panel);
         layeredPane.repaint();
         layeredPane.revalidate();
-
+    }
+    public static void playGame(){
+        label.removeAll();
+        label.add(new Board());
+        label.revalidate();
+        label.repaint();
     }
 
-    public void setBack(){
-        JLabel background = new JLabel(new ImageIcon("Client.jpg"));
-        home.add(background);
-    }
 }
