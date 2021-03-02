@@ -27,7 +27,7 @@ public class Home extends JPanel {
         game.setContentPane(label);
 
         layeredPane.setBounds(0,0,Game.WIDTH,Game.HEIGHT);
-        label.add(new Board());
+        label.add(layeredPane);
         layeredPane.add(new Choose());
         layeredPane.setFocusable(true);
         layeredPane.requestFocus();
