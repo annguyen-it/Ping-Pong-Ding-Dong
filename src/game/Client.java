@@ -33,18 +33,18 @@ public class Client extends JPanel {
     public String name1 = "Player 1";
     public String name2 = "Player 2";
 
-    public Client(JFrame game) {
+    public Client(JLayeredPane game) {
         initClient();
         client = this;
     }
 
     private void initClient() {
         Ten dialog;
-        frame1 = new JFrame();
-        frame2 = new JFrame();
-        //  JFrame frame3 = new JFrame();
-        frame1.setSize(Game.WIDTH, Game.HEIGHT);
-        frame2.setSize(Game.WIDTH, Game.HEIGHT);
+        //        frame1 = new JFrame();
+        //        frame2 = new JFrame();
+        //        //  JFrame frame3 = new JFrame();
+        //        frame1.setSize(Game.WIDTH, Game.HEIGHT);
+        //        frame2.setSize(Game.WIDTH, Game.HEIGHT);
 
         ImageIcon image = new ImageIcon("Client.jpg");
         background = new JLabel("", image, JLabel.CENTER);
@@ -68,12 +68,6 @@ public class Client extends JPanel {
         frame1.setVisible(true);
         frame1.setLocationRelativeTo(null);
         frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-        //EXIT
-
-        //Huong dan choi game
-
 
         play.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -113,9 +107,9 @@ public class Client extends JPanel {
         //        Toolkit.getDefaultToolkit().sync();
     }
 
-    private void doDrawing(Graphics g){
+    private void doDrawing(Graphics g) {
         ImageIcon image = new ImageIcon("Client.jpg");
-        g.drawImage(image, 0, 0, Game.WIDTH, Game.HEIGHT);
+        //        g.drawImage(image, 0, 0, Game.WIDTH, Game.HEIGHT);
     }
 
     public void setButton(JButton button, JLabel labelx, int x, int yl, int yb) {
@@ -135,10 +129,11 @@ public class Client extends JPanel {
     private void addEventToExitButton() {
         exit.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                int output = JOptionPane.showConfirmDialog(frame1
-                        , "Do you want to exit"
-                        , " "
-                        , JOptionPane.YES_NO_OPTION);
+                int output = JOptionPane.showConfirmDialog(
+                        frame1,
+                        "Do you want to exit",
+                        " ",
+                        JOptionPane.YES_NO_OPTION);
 
                 if (output == JOptionPane.YES_OPTION) {
                     System.exit(0);
@@ -167,7 +162,7 @@ public class Client extends JPanel {
         });
     }
 
-    private void setButtons(){
+    private void setButtons() {
         setButton(play, play1, (Game.WIDTH - 300)/2, 370, 0);
         setButton(help, play1, (Game.WIDTH - 300)/2, 370, 100);
         setButton(exit, play1, (Game.WIDTH - 300)/2, 370, 200);

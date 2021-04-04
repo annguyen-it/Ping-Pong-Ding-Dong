@@ -2,10 +2,12 @@ package game;
 
 import game.board.Board;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.awt.EventQueue;
+import java.util.Stack;
 
 public class Game extends JFrame {
+    Stack<JPanel> panelStack = new Stack<>();
 
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
@@ -15,7 +17,13 @@ public class Game extends JFrame {
     }
 
     private void initUI() {
-        add(new Client(this));
+        JLayeredPane frame = new JLayeredPane();
+        Client firstClient = new Client(frame);
+
+        frame.add(firstClient);
+        panelStack.add(firstClient);
+
+        add(frame);
 
         setTitle("Application");
         setSize(WIDTH, HEIGHT);
