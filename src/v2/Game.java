@@ -1,34 +1,31 @@
-package game;
+package v2;
 
-import game.board.Board;
+import v2.controller.Controller;
 
-import javax.swing.JFrame;
-import java.awt.EventQueue;
+import javax.swing.*;
 
 public class Game extends JFrame {
+    JLayeredPane layer = new JLayeredPane();
 
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
 
     public Game() {
-        initUI();
+        setupGame();
+
+        Controller controller = new Controller(layer);
+        controller.setup();
     }
 
-    private void initUI() {
-        add(new Client(this));
+    private void setupGame() {
+        add(layer);
 
         setTitle("Application");
         setSize(WIDTH, HEIGHT);
         setResizable(false);
 
+        setVisible(true);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            Game app = new Game();
-            app.setVisible(true);
-        });
     }
 }
