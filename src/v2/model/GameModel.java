@@ -9,7 +9,7 @@ import v2.component.paddle.RightPaddle;
 public class GameModel extends Model {
 
     private Paddle rightPaddle;
-    private LeftPaddle leftPaddle;
+    private Paddle leftPaddle;
     private Ball ball;
 
     public GameModel(Controller controller) {
@@ -17,7 +17,7 @@ public class GameModel extends Model {
         initBoard();
     }
 
-    public LeftPaddle getLeftPaddle() {
+    public Paddle getLeftPaddle() {
         return leftPaddle;
     }
 
