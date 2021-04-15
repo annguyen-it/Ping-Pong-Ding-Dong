@@ -29,8 +29,6 @@ public class GameView extends View implements ActionListener {
         rightPlayerName = enterNameDialogModel.getPlayerName2();
     }
 
-
-
     @Override
     public void initEvent() {
         addKeyListener(new TAdapter(model.getLeftPaddle(), model.getRightPaddle(), model.getBall()));
@@ -41,8 +39,6 @@ public class GameView extends View implements ActionListener {
        // setBackground(Color.BLACK);
         setFocusable(true);
         new Timer(DELAY, this).start();
-
-
     }
 
     //region paint components
