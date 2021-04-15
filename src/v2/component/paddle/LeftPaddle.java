@@ -3,6 +3,7 @@ package v2.component.paddle;
 import v2.Game;
 import v2.board.Score;
 import v2.component.Ball;
+import v2.model.GameModel;
 
 import java.awt.event.KeyEvent;
 
@@ -13,7 +14,7 @@ public class LeftPaddle extends Paddle {
     public static final int SCORE_LEFT_Y = Game.HEIGHT/2 - 40;
 
     public LeftPaddle() {
-        super(INITIAL_LEFT_PADDLE_X, INITIAL_PADDLE_Y, new Score(SCORE_LEFT_X, SCORE_LEFT_Y));
+        super(INITIAL_LEFT_PADDLE_X, INITIAL_PADDLE_Y, new Score(/*SCORE_LEFT_X, SCORE_LEFT_Y*/));
     }
 
     @Override
@@ -31,14 +32,18 @@ public class LeftPaddle extends Paddle {
         //        if (key == KeyEvent.VK_RIGHT) {
         //            dx = 3;
         //        }
+        if(GameModel.pause==false) {
+            if (key == KeyEvent.VK_W) {
+                dy = -PADDLE_SPEED;
+            }
 
-        if (key == KeyEvent.VK_W) {
-            dy = -PADDLE_SPEED;
+
+            if (key == KeyEvent.VK_S) {
+                dy = PADDLE_SPEED;
+            }
         }
 
-        if (key == KeyEvent.VK_S) {
-            dy = PADDLE_SPEED;
-        }
+
     }
 
     @Override
@@ -75,5 +80,7 @@ public class LeftPaddle extends Paddle {
         return x <= ballX && ballX <= x + PADDLE_WIDTH &&
                 y <= ballY + Ball.BALL_SIZE && ballY <= y + PADDLE_HEIGHT &&
                 ballDx < 0;
+
     }
+
 }

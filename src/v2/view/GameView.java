@@ -10,8 +10,7 @@ import v2.model.EnterNameDialogModel;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public class GameView extends View implements ActionListener {
 
@@ -30,19 +29,29 @@ public class GameView extends View implements ActionListener {
         rightPlayerName = enterNameDialogModel.getPlayerName2();
     }
 
+
+
     @Override
     public void initEvent() {
-        addKeyListener(new TAdapter(model.getLeftPaddle(), model.getRightPaddle()));
+        addKeyListener(new TAdapter(model.getLeftPaddle(), model.getRightPaddle(), model.getBall()));
     }
 
     @Override
     public void initUI() {
-        setBackground(Color.BLACK);
+       // setBackground(Color.BLACK);
         setFocusable(true);
         new Timer(DELAY, this).start();
+
+
     }
 
     //region paint components
+
+    public void stopGame(Graphics g){
+        if(GameModel.pause){
+            paintStopGame(g);
+        }
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -51,13 +60,22 @@ public class GameView extends View implements ActionListener {
     }
 
     private void paintChildComponents(Graphics g) {
+        paintBackground(g);
+
         paintPaddle(g, model.getLeftPaddle());
         paintPaddle(g, model.getRightPaddle());
 
         paintBall(g);
 
-        paintScore(g, model.getLeftPaddle());
-        paintScore(g, model.getRightPaddle());
+        paintScore(g);
+
+        paintName(g);
+        stopGame(g);
+    }
+
+    private void paintBackground(Graphics g){
+        g.setColor(Color.black);
+        g.fillRect(0,0, v2.Game.WIDTH, v2.Game.HEIGHT);
     }
 
     private void paintPaddle(Graphics g, Paddle paddle){
@@ -70,12 +88,34 @@ public class GameView extends View implements ActionListener {
         g.fillOval(model.getBall().getX(), model.getBall().getY(), Ball.BALL_SIZE, Ball.BALL_SIZE);
     }
 
-    private void paintScore(Graphics g, Paddle paddle){
-        Score scoreObj = paddle.getScoreObject();
-
-        g.setFont(new Font("Serif", Font.PLAIN, 80));
+    private void paintStopGame(Graphics g){
         g.setColor(Color.gray);
-        g.drawString(Integer.toString(scoreObj.getScore()), scoreObj.getX(), scoreObj.getY());
+        g.setFont(new Font("Serif", Font.PLAIN, 20));
+        String stopp = "Enter Space To Continue This Game";
+        g.drawString(stopp,(v2.Game.WIDTH-g.getFontMetrics().stringWidth(stopp))/2,200);
+    }
+
+    private void paintName(Graphics g){
+        int widthName1 = g.getFontMetrics().stringWidth(leftPlayerName);
+        int widthName2 = g.getFontMetrics().stringWidth(rightPlayerName);
+
+        g.setColor(Color.gray);
+        g.setFont(new Font("Serif", Font.PLAIN, 50));
+        g.drawString(leftPlayerName,(v2.Game.WIDTH/2-widthName1)/2,60);
+        g.drawString(rightPlayerName,600+(v2.Game.WIDTH/2-widthName2)/2,60);
+
+    }
+
+    private void paintScore(Graphics g){
+        Score scoreObj1 = model.getLeftPaddle().getScoreObject();
+        Score scoreObj2 = model.getRightPaddle().getScoreObject();
+        String displayScore1 = Integer.toString(scoreObj1.getScore());
+        String displayScore2 = Integer.toString(scoreObj2.getScore());
+
+        g.setFont(new Font("Serif", Font.PLAIN, 50));
+        g.setColor(Color.gray);
+        g.drawString(displayScore1 , (v2.Game.WIDTH/2-75-g.getFontMetrics().stringWidth(displayScore1)), 60 );
+        g.drawString(displayScore2 ,v2.Game.WIDTH/2+75, 60 );
     }
 
     //endregion

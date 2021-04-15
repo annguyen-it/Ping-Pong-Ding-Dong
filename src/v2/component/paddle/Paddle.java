@@ -14,7 +14,7 @@ public abstract class Paddle extends GameObject {
     public static final int DISTANCE_TO_CROSS = 30;
     public static final int INITIAL_PADDLE_Y = Game.HEIGHT / 2 - PADDLE_HEIGHT / 2;
 
-    protected static final int PADDLE_SPEED = 4;
+    protected static final int PADDLE_SPEED = 10; //4
     protected Score score;
 
     public Paddle(int x, int y, Score score) {

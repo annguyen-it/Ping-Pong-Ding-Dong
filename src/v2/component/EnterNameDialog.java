@@ -20,9 +20,6 @@ public class EnterNameDialog extends JPanel {
 
     private EnterNameDialogModel model;
 
-    private final Color borderColor = new Color(0, 21, 232);
-    private final Color orangeColor = new Color(251, 111, 0);
-
     private JButton playButton;
 
     public EnterNameDialog(View parentView) {
@@ -36,8 +33,8 @@ public class EnterNameDialog extends JPanel {
     private void setup() {
         setBounds(Game.WIDTH/2 - 450/2, Game.HEIGHT/2 - 350/2, 450, 300);
 
-        setBackground(orangeColor);
-        setBorder(new LineBorder(borderColor, 2, true));
+        setBackground(Game.orangeColor);
+        setBorder(new LineBorder(Game.blueColor, 2, true));
         setLayout(null);
     }
 
@@ -55,7 +52,7 @@ public class EnterNameDialog extends JPanel {
     //region Init Dialog Title
     private void addDialogTitle() {
         JTextField dialogTitle = new JTextField("ENTER YOUR NAMES");
-        dialogTitle.setBackground(orangeColor);
+        dialogTitle.setBackground(Game.orangeColor);
         dialogTitle.setForeground(Color.WHITE);
         dialogTitle.setEditable(false);
         dialogTitle.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -84,12 +81,12 @@ public class EnterNameDialog extends JPanel {
         playerLabel.setDropMode(DropMode.INSERT);
         playerLabel.setHorizontalAlignment(SwingConstants.CENTER);
         playerLabel.setFont(new Font("Tahoma", Font.BOLD, 10));
-        playerLabel.setBackground(orangeColor);
+        playerLabel.setBackground(Game.orangeColor);
         playerLabel.setEditable(false);
         add(playerLabel);
         playerLabel.setColumns(10);
         playerLabel.setForeground(Color.WHITE);
-        playerLabel.setBorder(BorderFactory.createLineBorder(borderColor, 2));
+        playerLabel.setBorder(BorderFactory.createLineBorder(Game.blueColor, 2));
     }
 
     private void addPlayerNameTextField() {
@@ -99,7 +96,7 @@ public class EnterNameDialog extends JPanel {
         playerNameTextField1.setFont(new Font("Tahoma", Font.PLAIN, 12));
         playerNameTextField1.setBackground(new Color(255, 153, 0));
         add(playerNameTextField1);
-        playerNameTextField1.setBorder(BorderFactory.createLineBorder(borderColor, 2));
+        playerNameTextField1.setBorder(BorderFactory.createLineBorder(Game.blueColor, 2));
 
 
         playerNameTextField2 = new JTextField("Player 2");
@@ -108,7 +105,7 @@ public class EnterNameDialog extends JPanel {
         playerNameTextField2.setFont(new Font("Tahoma", Font.PLAIN, 12));
         playerNameTextField2.setBackground(new Color(255, 153, 0));
         add(playerNameTextField2);
-        playerNameTextField2.setBorder(BorderFactory.createLineBorder(borderColor, 2));
+        playerNameTextField2.setBorder(BorderFactory.createLineBorder(Game.blueColor, 2));
     }
 
     //endregion
@@ -117,11 +114,11 @@ public class EnterNameDialog extends JPanel {
 
     private void addPlayButton() {
         playButton = new JButton("LET PLAY");
-        playButton.setForeground(borderColor);
+        playButton.setForeground(Game.blueColor);
         playButton.setFont(new Font("Tahoma", Font.BOLD, 10));
-        playButton.setBackground(orangeColor);
+        playButton.setBackground(Game.orangeColor);
         playButton.setBounds(281, 220, 103, 30);
-        playButton.setBorder(BorderFactory.createLineBorder(borderColor, 2));
+        playButton.setBorder(BorderFactory.createLineBorder(Game.blueColor, 2));
         add(playButton, Integer.valueOf(1));
     }
 

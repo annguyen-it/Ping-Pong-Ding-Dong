@@ -1,5 +1,6 @@
 package v2.board;
 
+import v2.component.Ball;
 import v2.component.paddle.Paddle;
 
 import java.awt.event.KeyAdapter;
@@ -9,15 +10,19 @@ public class TAdapter extends KeyAdapter {
 
     private final Paddle leftPaddle, rightPaddle;
 
-    public TAdapter(Paddle leftPaddle, Paddle rightPaddle) {
+    private final Ball ball;
+
+    public TAdapter(Paddle leftPaddle, Paddle rightPaddle, Ball ball) {
         this.leftPaddle = leftPaddle;
         this.rightPaddle = rightPaddle;
+        this.ball = ball;
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         leftPaddle.keyPressed(e);
         rightPaddle.keyPressed(e);
+        ball.keyPressed(e);
     }
 
     @Override
