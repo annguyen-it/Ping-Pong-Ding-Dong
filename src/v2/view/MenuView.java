@@ -1,6 +1,7 @@
 package v2.view;
 
 import game.Game;
+import v2.JTextFieldLimit;
 import v2.controller.Controller;
 import v2.model.EnterNameDialogModel;
 import v2.model.GameModel;
@@ -27,6 +28,18 @@ public class MenuView extends View {
         setLayout(null);
         setupButtons();
         setupBackground();
+        setupDialog();
+    }
+
+    //Mau nen cho dialog
+    public void setupDialog(){
+        UIManager UI = new UIManager();
+        //  UI.put("text", new ColorUIResource(255,0,0));
+        // UI.getLookAndFeelDefaults().put("Panel.background",new ColorUIResource(255,0,0));
+        UI.put("OptionPane.background", v2.Game.orangeColor);
+        UI.put("Panel.background", v2.Game.orangeColor);
+        UI.put("Button.background", Color.ORANGE);
+
     }
 
     private void setupButtons() {
@@ -51,12 +64,11 @@ public class MenuView extends View {
         buttonsWrapper.add(button);
 
         button.setBounds(0, yb, 300, 50);
-        Color borColor = new Color(0, 21, 232);
 
-        button.setBorder(BorderFactory.createLineBorder(borColor, 2));
+        button.setBorder(BorderFactory.createLineBorder(v2.Game.blueColor, 2));
         button.setFont(new Font("Algerian", Font.PLAIN, 30));
-        button.setForeground(borColor);
-        button.setBackground(new Color(251, 111, 0));
+        button.setForeground(v2.Game.blueColor);
+        button.setBackground(v2.Game.orangeColor);
 
         add(buttonsWrapper);
     }
@@ -80,24 +92,33 @@ public class MenuView extends View {
         addExitButtonEvent();
     }
 
+
+
     private void addPlayButtonEvent() {
         playButton.addActionListener(e -> {
-            JTextField playerNameTextField1 = new JTextField("Player 1");
-            JTextField playerNameTextField2 = new JTextField("Player 2");
+            JTextField playerNameTextField1 = new JTextField(new JTextFieldLimit(10),"Player 1",10);
+            JTextField playerNameTextField2 = new JTextField(new JTextFieldLimit(10),"Player 2",10);
+
 
             JPanel dialog = new JPanel();
-            dialog.add(new JLabel("x:"));
+            dialog.setPreferredSize(new Dimension(400,50));
+            dialog.add(new JLabel("Player 1:"));
             dialog.add(playerNameTextField1);
             dialog.add(Box.createHorizontalStrut(15)); // a spacer
-            dialog.add(new JLabel("y:"));
+            dialog.add(new JLabel("Player 2:"));
             dialog.add(playerNameTextField2);
+            dialog.setBackground(v2.Game.orangeColor);
+
 
             int result = JOptionPane.showConfirmDialog(
                     null,
                     dialog,
-                    "message",
-                    JOptionPane.OK_CANCEL_OPTION
+                    "Fill in your names",
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE
             );
+
+
+
 
             if (result == JOptionPane.OK_OPTION){
                 String playerName1 = playerNameTextField1.getText();
@@ -113,13 +134,17 @@ public class MenuView extends View {
 
     private void addHelpButtonEvent() {
         helpButton.addActionListener(e -> {
-            String[] play = { "Play", "Cancel" };
+            String[] play = { "     OK     " };
+
+            JLabel helpp = new JLabel("Di chuyen Paddle de Ball khong bi roi ra ngoai");
+            helpp.setPreferredSize(new Dimension(400,75));
+            helpp.setHorizontalAlignment(CENTER);
             JOptionPane.showOptionDialog(
                     null,
-                    "Di chuyen Paddle de Ball khong bi roi ra ngoai",
+                    helpp,
                     "Help",
                     JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.INFORMATION_MESSAGE,
+                    JOptionPane.PLAIN_MESSAGE,
                     null,
                     play,
                     0);

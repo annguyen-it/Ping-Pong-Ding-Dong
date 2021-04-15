@@ -1,7 +1,7 @@
 package game;
 
 import game.board.Board;
-import game.notice.Ten;
+//import game.notice.Ten;
 
 import java.awt.*;
 
@@ -39,7 +39,7 @@ public class Client extends JPanel {
     }
 
     private void initClient() {
-        Ten dialog;
+
         frame1 = new JFrame();
         frame2 = new JFrame();
         //  JFrame frame3 = new JFrame();
@@ -78,9 +78,9 @@ public class Client extends JPanel {
         play.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Dien ten nguoi choi
-                Ten dialog = new Ten(game, client);
-                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-                dialog.setVisible(true);
+//                Ten dialog = new Ten(game, client);
+//                dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+//                dialog.setVisible(true);
             }
 
             //                int option = JOptionPane.showConfirmDialog(null, message, "Enter your name", JOptionPane.OK_OPTION);
@@ -115,7 +115,7 @@ public class Client extends JPanel {
 
     private void doDrawing(Graphics g){
         ImageIcon image = new ImageIcon("Client.jpg");
-        g.drawImage(image, 0, 0, Game.WIDTH, Game.HEIGHT);
+      //  g.drawImage(image, 0, 0, Game.WIDTH, Game.HEIGHT);
     }
 
     public void setButton(JButton button, JLabel labelx, int x, int yl, int yb) {
