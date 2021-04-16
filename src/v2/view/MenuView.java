@@ -1,10 +1,7 @@
 package v2.view;
 
-import game.Game;
+import v2.Game;
 import v2.JTextFieldLimit;
-import v2.controller.Controller;
-import v2.model.EnterNameDialogModel;
-import v2.model.GameModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,44 +10,90 @@ public class MenuView extends View {
 
     JLabel background;
     JLabel buttonsWrapper = new JLabel();
-    JButton helpButton;
-    JButton exitButton;
-    JButton playButton;
 
-    public MenuView(Controller controller) {
-        super(controller);
+    private final JButton helpButton = new JButton("HELP");
+    private final JButton exitButton = new JButton("EXIT");
+    private final JButton playButton = new JButton("PLAY");
+
+    private final JPanel playDialog = new JPanel();
+    private final JTextField playerNameTextField1 = new JTextField(new JTextFieldLimit(10), "Player 1", 10);
+    private final JTextField playerNameTextField2 = new JTextField(new JTextFieldLimit(10), "Player 2", 10);
+
+    private final JLabel helpDialog = new JLabel("Di chuyen Paddle de Ball khong bi roi ra ngoai");
+
+    public MenuView() { super(); }
+
+    //region getter
+
+    public JButton getHelpButton() {
+        return helpButton;
     }
+
+    public JButton getExitButton() {
+        return exitButton;
+    }
+
+    public JButton getPlayButton() {
+        return playButton;
+    }
+
+    public JPanel getPlayDialog() {
+        return playDialog;
+    }
+
+    public JTextField getPlayerNameTextField1() {
+        return playerNameTextField1;
+    }
+
+    public JTextField getPlayerNameTextField2() {
+        return playerNameTextField2;
+    }
+
+    //endregion
 
     //region UI
 
     @Override
     public void initUI() {
         setLayout(null);
-        setupButtons();
         setupBackground();
-        setupDialog();
+        setupButtons();
+        setupDialogs();
     }
 
     //Mau nen cho dialog
-    public void setupDialog(){
+    public void setupDialogs() {
+        setupPlayDialog();
+        setupHelpDialog();
+        setupDialogUI();
+    }
+
+    private void setupPlayDialog() {
+        playDialog.setPreferredSize(new Dimension(400, 50));
+        playDialog.add(new JLabel("Player 1:"));
+        playDialog.add(playerNameTextField1);
+        playDialog.add(Box.createHorizontalStrut(15)); // a spacer
+        playDialog.add(new JLabel("Player 2:"));
+        playDialog.add(playerNameTextField2);
+        playDialog.setBackground(v2.Game.orangeColor);
+    }
+
+    private void setupHelpDialog() {
+        helpDialog.setPreferredSize(new Dimension(400, 75));
+        helpDialog.setHorizontalAlignment(CENTER);
+    }
+
+    private void setupDialogUI() {
         UIManager UI = new UIManager();
         //  UI.put("text", new ColorUIResource(255,0,0));
         // UI.getLookAndFeelDefaults().put("Panel.background",new ColorUIResource(255,0,0));
-        UI.put("OptionPane.background", v2.Game.orangeColor);
-        UI.put("Panel.background", v2.Game.orangeColor);
-        UI.put("Button.background", Color.ORANGE);
-
+        UIManager.put("OptionPane.background", v2.Game.orangeColor);
+        UIManager.put("Panel.background", v2.Game.orangeColor);
+        UIManager.put("Button.background", Color.ORANGE);
     }
 
     private void setupButtons() {
-        addButtons();
         positionButtons();
-    }
-
-    private void addButtons() {
-        helpButton = new JButton("HELP");
-        exitButton = new JButton("EXIT");
-        playButton = new JButton("PLAY");
     }
 
     private void positionButtons() {
@@ -85,85 +128,81 @@ public class MenuView extends View {
 
     //region Events
 
-    @Override
-    public void initEvent() {
-        addPlayButtonEvent();
-        addHelpButtonEvent();
-        addExitButtonEvent();
-    }
+    //    @Override
+    //    public void initEvent() {
+    //        addPlayButtonEvent();
+    //        addHelpButtonEvent();
+    //        addExitButtonEvent();
+    //    }
 
 
+    //    private void addPlayButtonEvent() {
+    //        playButton.addActionListener(e -> {
+    //            JTextField playerNameTextField1 = new JTextField(new JTextFieldLimit(10), "Player 1", 10);
+    //            JTextField playerNameTextField2 = new JTextField(new JTextFieldLimit(10), "Player 2", 10);
+    //
+    //
+    //            JPanel dialog = new JPanel();
+    //            dialog.setPreferredSize(new Dimension(400, 50));
+    //            dialog.add(new JLabel("Player 1:"));
+    //            dialog.add(playerNameTextField1);
+    //            dialog.add(Box.createHorizontalStrut(15)); // a spacer
+    //            dialog.add(new JLabel("Player 2:"));
+    //            dialog.add(playerNameTextField2);
+    //            dialog.setBackground(v2.Game.orangeColor);
+    //
+    //
+    //            int result = JOptionPane.showConfirmDialog(
+    //                    null,
+    //                    dialog,
+    //                    "Fill in your names",
+    //                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE
+    //            );
+    //
+    //            if (result == JOptionPane.OK_OPTION) {
+    //                String playerName1 = playerNameTextField1.getText();
+    //                String playerName2 = playerNameTextField2.getText();
+    //
+    //                EnterNameDialogModel model = new EnterNameDialogModel(playerName1, playerName2);
+    //
+    //                controller.setModel(new GameModel(controller));
+    //                controller.setView(new GameView(controller, model));
+    //            }
+    //        });
+    //    }
 
-    private void addPlayButtonEvent() {
-        playButton.addActionListener(e -> {
-            JTextField playerNameTextField1 = new JTextField(new JTextFieldLimit(10),"Player 1",10);
-            JTextField playerNameTextField2 = new JTextField(new JTextFieldLimit(10),"Player 2",10);
+    //    private void addHelpButtonEvent() {
+    //        helpButton.addActionListener(e -> {
+    //            String[] play = { "     OK     " };
+    //
+    //            JLabel helpp = new JLabel("Di chuyen Paddle de Ball khong bi roi ra ngoai");
+    //            helpp.setPreferredSize(new Dimension(400, 75));
+    //            helpp.setHorizontalAlignment(CENTER);
+    //            JOptionPane.showOptionDialog(
+    //                    null,
+    //                    helpp,
+    //                    "Help",
+    //                    JOptionPane.OK_CANCEL_OPTION,
+    //                    JOptionPane.PLAIN_MESSAGE,
+    //                    null,
+    //                    play,
+    //                    0);
+    //        });
+    //    }
 
-
-            JPanel dialog = new JPanel();
-            dialog.setPreferredSize(new Dimension(400,50));
-            dialog.add(new JLabel("Player 1:"));
-            dialog.add(playerNameTextField1);
-            dialog.add(Box.createHorizontalStrut(15)); // a spacer
-            dialog.add(new JLabel("Player 2:"));
-            dialog.add(playerNameTextField2);
-            dialog.setBackground(v2.Game.orangeColor);
-
-
-            int result = JOptionPane.showConfirmDialog(
-                    null,
-                    dialog,
-                    "Fill in your names",
-                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE
-            );
-
-
-
-
-            if (result == JOptionPane.OK_OPTION){
-                String playerName1 = playerNameTextField1.getText();
-                String playerName2 = playerNameTextField2.getText();
-
-                EnterNameDialogModel model = new EnterNameDialogModel(playerName1, playerName2);
-
-                controller.setModel(new GameModel(controller));
-                controller.setView(new GameView(controller, model));
-            }
-        });
-    }
-
-    private void addHelpButtonEvent() {
-        helpButton.addActionListener(e -> {
-            String[] play = { "     OK     " };
-
-            JLabel helpp = new JLabel("Di chuyen Paddle de Ball khong bi roi ra ngoai");
-            helpp.setPreferredSize(new Dimension(400,75));
-            helpp.setHorizontalAlignment(CENTER);
-            JOptionPane.showOptionDialog(
-                    null,
-                    helpp,
-                    "Help",
-                    JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.PLAIN_MESSAGE,
-                    null,
-                    play,
-                    0);
-        });
-    }
-
-    private void addExitButtonEvent() {
-        exitButton.addActionListener(e -> {
-            int output = JOptionPane.showConfirmDialog(
-                    this,
-                    "Do you want to exit",
-                    " ",
-                    JOptionPane.YES_NO_OPTION);
-
-            if (output == JOptionPane.YES_OPTION) {
-                System.exit(0);
-            }
-        });
-    }
+    //    private void addExitButtonEvent() {
+    //        exitButton.addActionListener(e -> {
+    //            int output = JOptionPane.showConfirmDialog(
+    //                    this,
+    //                    "Do you want to exit",
+    //                    " ",
+    //                    JOptionPane.YES_NO_OPTION);
+    //
+    //            if (output == JOptionPane.YES_OPTION) {
+    //                System.exit(0);
+    //            }
+    //        });
+    //    }
 
     //endregion
 }

@@ -1,6 +1,6 @@
 package v2;
 
-import v2.controller.Controller;
+import v2.controller.FlowController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,8 +16,8 @@ public class Game extends JFrame {
     public Game() {
         setupGame();
 
-        Controller controller = new Controller(layer);
-        controller.setup();
+        FlowController controller = new FlowController(layer);
+        controller.init();
     }
 
     private void setupGame() {

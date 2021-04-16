@@ -1,11 +1,9 @@
 package v2.model;
 
 import v2.component.Ball;
-import v2.controller.Controller;
 import v2.component.paddle.LeftPaddle;
 import v2.component.paddle.Paddle;
 import v2.component.paddle.RightPaddle;
-
 
 public class GameModel extends Model {
 
@@ -14,8 +12,7 @@ public class GameModel extends Model {
     private Ball ball;
     public static boolean pause = false;
 
-    public GameModel(Controller controller) {
-        super(controller);
+    public GameModel() {
         initBoard();
     }
 
@@ -47,7 +44,6 @@ public class GameModel extends Model {
         }
     }
 
-
     public void updateBall() {
         ball.move();
         Paddle losePaddle = ball.isOutTheBoard(leftPaddle, rightPaddle);
@@ -62,6 +58,4 @@ public class GameModel extends Model {
             ball.paddleCollide();
         }
     }
-
-
 }

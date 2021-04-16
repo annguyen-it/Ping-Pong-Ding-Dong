@@ -1,7 +1,7 @@
 package v2.component;
 
 import v2.Game;
-import v2.controller.Controller;
+import v2.controller.FlowController;
 import v2.model.EnterNameDialogModel;
 import v2.model.MenuModel;
 import v2.view.GameView;
@@ -139,9 +139,9 @@ public class EnterNameDialog extends JPanel {
 
             model = new EnterNameDialogModel(playerName1, playerName2);
 
-            Controller controller = parentView.getController();
-            controller.setView(new GameView(controller, model));
-            controller.setModel(new MenuModel(controller));
+//            FlowController controller = parentView.getController();
+//            controller.setView(new GameView(controller, model));
+//            controller.setModel(new MenuModel(controller));
         });
     }
 

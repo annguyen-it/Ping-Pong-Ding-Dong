@@ -1,68 +1,40 @@
 package v2.controller;
 
-import v2.Game;
-import v2.model.MenuModel;
 import v2.model.Model;
-import v2.view.MenuView;
 import v2.view.View;
 
-import javax.swing.*;
+public abstract class Controller<V extends View, M extends Model> extends IController {
 
-public class Controller {
+    protected final V view;
+    protected final M model;
 
-    private View view;
-    private Model model;
-    private final JLayeredPane layer;
+    private final FlowController flowController;
 
-    public Controller(JLayeredPane layer) {
-        this.layer = layer;
-    }
-
-    public void setup() {
-        setView();
-        this.model = new MenuModel(this);
-    }
-
-    public View getView() {
-        return view;
-    }
-
-    public Model getModel() {
-        return model;
-    }
-
-    public JLayeredPane getLayer() {
-        return layer;
-    }
-
-    public void setView(){
-        view = new MenuView(this);
-        view.setBounds(0, 0, Game.WIDTH, Game.HEIGHT);
-
-        layer.add(view);
-        layer.repaint();
-
-        drawUI();
-    }
-
-    public void setView(View view) {
-        layer.removeAll();
-
-        view.setBounds(0, 0, Game.WIDTH, Game.HEIGHT);
+    public Controller(FlowController flowController, V view, M model) {
+        this.flowController = flowController;
         this.view = view;
-
-        layer.add(view);
-        layer.repaint();
-
-        drawUI();
-    }
-
-    public void setModel(Model model) {
         this.model = model;
     }
 
-    public void drawUI() {
-        view.initUI();
-        view.initEvent();
+    public V getView() {
+        return view;
     }
+
+    public M getModel() {
+        return model;
+    }
+
+    protected void drawUI() {
+        view.initUI();
+    }
+
+    protected void switchController(Controller<? extends View, ? extends Model> newController) {
+        flowController.switchController(newController);
+    }
+
+    protected FlowController getFlowController() {
+        return flowController;
+    }
+
+    public abstract void initEvent();
 }
