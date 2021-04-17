@@ -5,7 +5,6 @@ import v2.component.paddle.Paddle;
 import v2.model.GameModel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Ball extends GameObject {

@@ -7,9 +7,6 @@ import v2.view.GameView;
 import v2.view.MenuView;
 
 import javax.swing.*;
-import java.awt.*;
-
-import static javax.swing.SwingConstants.CENTER;
 
 public class MenuController extends Controller<MenuView, MenuModel> {
 
@@ -43,10 +40,9 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                 GameView gameView = new GameView(model);
                 GameModel gameModel = new GameModel();
 
-                GameController gameController = new GameController(getFlowController(), gameView, gameModel);
+                GameController gameController = new GameController(flowController, gameView, gameModel);
 
                 gameView.setController(gameController);
-                gameModel.setController(gameController);
 
                 switchController(gameController);
             }
@@ -55,25 +51,19 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
     private void addHelpButtonEvent() {
         MenuView view = getView();
+        String[] play = { "OK" };
 
-        view.getHelpButton().addActionListener(e -> {
-            String[] play = { "     OK     " };
-
-            JLabel help = new JLabel("Di chuyen Paddle de Ball khong bi roi ra ngoai");
-
-            help.setPreferredSize(new Dimension(400, 75));
-            help.setHorizontalAlignment(CENTER);
-
-            JOptionPane.showOptionDialog(
-                    null,
-                    help,
-                    "Help",
-                    JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.PLAIN_MESSAGE,
-                    null,
-                    play,
-                    0);
-        });
+        view.getHelpButton().addActionListener(e ->
+                JOptionPane.showOptionDialog(
+                        null,
+                        view.getHelpDialog(),
+                        "Help",
+                        JOptionPane.OK_CANCEL_OPTION,
+                        JOptionPane.PLAIN_MESSAGE,
+                        null,
+                        play,
+                        null)
+        );
     }
 
     private void addExitButtonEvent() {

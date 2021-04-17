@@ -5,7 +5,7 @@ import v2.component.paddle.LeftPaddle;
 import v2.component.paddle.Paddle;
 import v2.component.paddle.RightPaddle;
 
-public class GameModel extends Model {
+public class GameModel implements Model {
 
     private Paddle rightPaddle;
     private Paddle leftPaddle;
