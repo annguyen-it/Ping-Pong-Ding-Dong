@@ -18,9 +18,11 @@ public class GameController extends Controller<GameView, GameModel> implements A
     private static final int rightUp = KeyEvent.VK_UP;
     private static final int rightDown = KeyEvent.VK_DOWN;
     private static final int escape = KeyEvent.VK_ESCAPE;
+    private static final int space = KeyEvent.VK_SPACE;
 
     private Timer timer;
     private boolean isPausing = false;
+    private boolean isStarted = false;
 
     public GameController(FlowController flowController, GameView view, GameModel model) {
         super(flowController, view, model);
@@ -35,7 +37,6 @@ public class GameController extends Controller<GameView, GameModel> implements A
     protected void drawUI() {
         super.drawUI();
         timer = new Timer(DELAY, this);
-        timer.start();
     }
 
     @Override
@@ -49,6 +50,10 @@ public class GameController extends Controller<GameView, GameModel> implements A
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         switch (key){
+            case space:
+                start();
+                break;
+
             case leftUp:
                 model.getLeftPaddle().willUp();
                 break;
@@ -83,10 +88,13 @@ public class GameController extends Controller<GameView, GameModel> implements A
             case rightDown:
                 model.getRightPaddle().willStop();
                 break;
+        }
+    }
 
-            case escape:
-//                model.getLeftPaddle().willUp();
-                break;
+    private void start(){
+        if (!isStarted){
+            timer.start();
+            isStarted = true;
         }
     }
 
