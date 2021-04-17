@@ -51,41 +51,41 @@ public class Ball extends GameObject {
 
     public void paddleCollide() { dx *= -1; }
 
-    //Nhan esc de thoat game, Nhan space de tiep tuc game
-    public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
-
-        if (key == KeyEvent.VK_ESCAPE) {
-            if (!GameModel.pause) {
-                stop();
-                //GameModel.pause = true;
-
-                int output = JOptionPane.showOptionDialog(
-                        null,
-                        "Do you want exit this game? ",
-                        "",
-                        JOptionPane.OK_CANCEL_OPTION,
-                        JOptionPane.PLAIN_MESSAGE,
-                        null, null
-                        ,
-                        0);
-
-                if (output == JOptionPane.OK_OPTION) {
-
-                }
-            }
-
-        }
-        if (key == KeyEvent.VK_SPACE) {
-            if (!GameModel.pause) {
-                stop();
-                GameModel.pause = true;
-            } else {
-                continueB();
-                GameModel.pause = false;
-            }
-        }
-    }
+//    //Nhan esc de thoat game, Nhan space de tiep tuc game
+//    public void keyPressed(KeyEvent e) {
+//        int key = e.getKeyCode();
+//
+//        if (key == KeyEvent.VK_ESCAPE) {
+//            if (!GameModel.pause) {
+//                stop();
+//                //GameModel.pause = true;
+//
+//                int output = JOptionPane.showOptionDialog(
+//                        null,
+//                        "Do you want exit this game? ",
+//                        "",
+//                        JOptionPane.OK_CANCEL_OPTION,
+//                        JOptionPane.PLAIN_MESSAGE,
+//                        null, null
+//                        ,
+//                        0);
+//
+//                if (output == JOptionPane.OK_OPTION) {
+//
+//                }
+//            }
+//
+//        }
+//        if (key == KeyEvent.VK_SPACE) {
+//            if (!GameModel.pause) {
+//                stop();
+//                GameModel.pause = true;
+//            } else {
+//                continueB();
+//                GameModel.pause = false;
+//            }
+//        }
+//    }
 
 
 

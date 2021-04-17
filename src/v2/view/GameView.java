@@ -7,6 +7,7 @@ import v2.model.GameModel;
 import v2.component.paddle.Paddle;
 import v2.model.EnterNameDialogModel;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class GameView extends View {
@@ -76,7 +77,7 @@ public class GameView extends View {
     private void paintStartGame(Graphics g) {
         g.setColor(Color.gray);
         g.setFont(new Font("Serif", Font.PLAIN, 20));
-        String stop = "Enter Space To Start Game";
+        String stop = "Press Space To Start Game";
         g.drawString(stop, (v2.Game.WIDTH - g.getFontMetrics().stringWidth(stop))/2, 200);
     }
 

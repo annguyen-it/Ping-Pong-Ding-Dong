@@ -1,8 +1,11 @@
 package v2.controller;
 
 import v2.board.GameAdapter;
+import v2.model.EnterNameDialogModel;
 import v2.model.GameModel;
+import v2.model.MenuModel;
 import v2.view.GameView;
+import v2.view.MenuView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -49,7 +52,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
 
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
-        switch (key){
+        switch (key) {
             case space:
                 start();
                 break;
@@ -78,7 +81,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
 
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
-        switch (key){
+        switch (key) {
             case leftUp:
             case leftDown:
                 model.getLeftPaddle().willStop();
@@ -91,29 +94,64 @@ public class GameController extends Controller<GameView, GameModel> implements A
         }
     }
 
-    private void start(){
-        if (!isStarted){
+    private void start() {
+        if (!isStarted) {
             timer.start();
             isStarted = true;
         }
     }
 
-    private void pauseOrResume(){
+    private void pauseOrResume() {
         if (isPausing) {
             resume();
-        }
-        else {
+
+        } else {
+
             pause();
+            addPauseEvent();
+
         }
     }
 
-    private void pause(){
+    private void addPauseEvent() {
+        String[] play = {"Home","Continue", "New Game"};
+        int output = JOptionPane.showOptionDialog(
+                null,
+                "Do you want exit this game? ",
+                "",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null, play
+                ,
+                play[0]);
+        if (output == 0) {
+            MenuController menuController = new MenuController(flowController);
+            switchController(menuController);
+        }
+        if(output==1){resume(); }
+        if(output ==2){
+            EnterNameDialogModel model = new EnterNameDialogModel(MenuController.playerName1, MenuController.playerName2);
+            GameView gameView = new GameView(model);
+            GameModel gameModel = new GameModel();
+
+            GameController gameController = new GameController(flowController, gameView, gameModel);
+
+            gameView.setController(gameController);
+
+            switchController(gameController);
+        }
+
+    }
+
+    private void pause() {
         timer.stop();
         isPausing = true;
     }
 
-    private void resume(){
+    private void resume() {
         timer.restart();
         isPausing = false;
     }
 }
+
+
