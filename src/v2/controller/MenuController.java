@@ -11,9 +11,7 @@ import javax.swing.*;
 public class MenuController extends Controller<MenuView, MenuModel> {
 
     public static String playerName1;
-
     public static String playerName2;
-
 
     public MenuController(FlowController flowController) {
         super(flowController, new MenuView(), new MenuModel());

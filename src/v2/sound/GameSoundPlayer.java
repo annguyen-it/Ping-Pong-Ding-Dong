@@ -44,6 +44,15 @@ public class GameSoundPlayer {
     }
 
     public void ballCollide() {
+        try {
+            AudioInputStream stream = getStream(ballCollideAudioFile);
+            DataLine.Info info = getInfo(stream);
+            ballCollide = (Clip) AudioSystem.getLine(info);
+            ballCollide.open(stream);
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        }
+
         play(ballCollide);
     }
 
