@@ -109,8 +109,7 @@ public class Ball extends GameObject {
             if (!GameModel.pause) {
                 stop();
                 GameModel.pause = true;
-            }
-            else {
+            } else {
                 continueB();
                 GameModel.pause = false;
             }

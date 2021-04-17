@@ -10,6 +10,11 @@ import javax.swing.*;
 
 public class MenuController extends Controller<MenuView, MenuModel> {
 
+    public static String playerName1;
+
+    public static String playerName2;
+
+
     public MenuController(FlowController flowController) {
         super(flowController, new MenuView(), new MenuModel());
     }
@@ -33,8 +38,8 @@ public class MenuController extends Controller<MenuView, MenuModel> {
             );
 
             if (result == JOptionPane.OK_OPTION) {
-                String playerName1 = view.getPlayerNameTextField1().getText();
-                String playerName2 = view.getPlayerNameTextField2().getText();
+                playerName1 = view.getPlayerNameTextField1().getText();
+                playerName2 = view.getPlayerNameTextField2().getText();
 
                 EnterNameDialogModel model = new EnterNameDialogModel(playerName1, playerName2);
                 GameView gameView = new GameView(model);

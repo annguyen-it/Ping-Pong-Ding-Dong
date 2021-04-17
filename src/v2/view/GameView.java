@@ -7,6 +7,7 @@ import v2.model.GameModel;
 import v2.component.paddle.Paddle;
 import v2.model.EnterNameDialogModel;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class GameView extends View {
@@ -34,12 +35,6 @@ public class GameView extends View {
 
     //region paint components
 
-    public void stopGame(Graphics g) {
-        if (GameModel.pause) {
-            paintStopGame(g);
-        }
-    }
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -59,7 +54,7 @@ public class GameView extends View {
         paintScore(g);
 
         paintName(g);
-        stopGame(g);
+        paintStartGame(g);
     }
 
     private void paintBackground(Graphics g) {
@@ -79,10 +74,10 @@ public class GameView extends View {
         g.fillOval(model.getBall().getX(), model.getBall().getY(), Ball.BALL_SIZE, Ball.BALL_SIZE);
     }
 
-    private void paintStopGame(Graphics g) {
+    private void paintStartGame(Graphics g) {
         g.setColor(Color.gray);
         g.setFont(new Font("Serif", Font.PLAIN, 20));
-        String stop = "Enter Space To Continue This Game";
+        String stop = "Press Space To Start Game";
         g.drawString(stop, (v2.Game.WIDTH - g.getFontMetrics().stringWidth(stop))/2, 200);
     }
 

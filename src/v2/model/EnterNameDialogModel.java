@@ -10,7 +10,7 @@ public class EnterNameDialogModel {
         this.playerName2 = playerName2;
     }
 
-    public String getPlayerName1() {
+    public  String getPlayerName1() {
         return playerName1;
     }
 
