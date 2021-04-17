@@ -4,12 +4,16 @@ import v2.component.Ball;
 import v2.component.paddle.LeftPaddle;
 import v2.component.paddle.Paddle;
 import v2.component.paddle.RightPaddle;
+import v2.sound.GameSoundPlayer;
 
 public class GameModel implements Model {
 
     private Paddle rightPaddle;
     private Paddle leftPaddle;
     private Ball ball;
+
+    private final GameSoundPlayer soundPlayer = new GameSoundPlayer();
+
     public static boolean pause = false;
 
     public GameModel() {
@@ -32,7 +36,7 @@ public class GameModel implements Model {
         leftPaddle = new LeftPaddle();
         rightPaddle = new RightPaddle();
 
-        ball = new Ball();
+        ball = new Ball(soundPlayer);
     }
 
     public void updatePaddles() {
@@ -50,12 +54,11 @@ public class GameModel implements Model {
 
         if (losePaddle == leftPaddle) {
             rightPaddle.increaseScore();
-            ball = new Ball();
+            ball = new Ball(soundPlayer);
         }
         else if (losePaddle == rightPaddle) {
             leftPaddle.increaseScore();
-            ball = new Ball();
-            ball.paddleCollide();
+            ball = new Ball(soundPlayer, Ball.InitialDirection.left);
         }
     }
 }

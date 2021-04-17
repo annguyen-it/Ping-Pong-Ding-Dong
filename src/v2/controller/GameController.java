@@ -2,6 +2,7 @@ package v2.controller;
 
 import v2.board.GameAdapter;
 import v2.model.GameModel;
+import v2.sound.GameSoundPlayer;
 import v2.view.GameView;
 
 import javax.swing.*;

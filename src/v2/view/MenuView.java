@@ -63,7 +63,7 @@ public class MenuView extends View {
 
 
     private void setupBackground() {
-        ImageIcon image = new ImageIcon("Client.jpg");
+        ImageIcon image = new ImageIcon("resources/img/Client.jpg");
         background = new JLabel("", image, JLabel.CENTER);
         background.setBounds(0, 0, Game.WIDTH, Game.HEIGHT);
 
