@@ -7,14 +7,13 @@ import v2.model.GameModel;
 import v2.component.paddle.Paddle;
 import v2.model.EnterNameDialogModel;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class GameView extends View {
     private GameController controller;
 
-    private String leftPlayerName;
-    private String rightPlayerName;
+    private final String leftPlayerName;
+    private final String rightPlayerName;
 
     public GameView(EnterNameDialogModel enterNameDialogModel) {
         super();
@@ -54,7 +53,10 @@ public class GameView extends View {
         paintScore(g);
 
         paintName(g);
-        paintStartGame(g);
+
+        if (!controller.isStarted()){
+            paintStartGame(g);
+        }
     }
 
     private void paintBackground(Graphics g) {

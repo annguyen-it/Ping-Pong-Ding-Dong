@@ -25,8 +25,6 @@ public class MenuController extends Controller<MenuView, MenuModel> {
     }
 
     private void addPlayButtonEvent() {
-        MenuView view = getView();
-
         view.getPlayButton().addActionListener(e -> {
             int result = JOptionPane.showConfirmDialog(
                     null,
@@ -53,7 +51,6 @@ public class MenuController extends Controller<MenuView, MenuModel> {
     }
 
     private void addHelpButtonEvent() {
-        MenuView view = getView();
         String[] play = { "OK" };
 
         view.getHelpButton().addActionListener(e ->
@@ -70,8 +67,6 @@ public class MenuController extends Controller<MenuView, MenuModel> {
     }
 
     private void addExitButtonEvent() {
-        MenuView view = getView();
-
         view.getExitButton().addActionListener(e -> {
             int output = JOptionPane.showConfirmDialog(
                     view,

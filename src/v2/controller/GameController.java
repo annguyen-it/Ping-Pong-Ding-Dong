@@ -22,11 +22,14 @@ public class GameController extends Controller<GameView, GameModel> implements A
     private static final int space = KeyEvent.VK_SPACE;
 
     private Timer timer;
-    private boolean isPausing = false;
     private boolean isStarted = false;
 
     public GameController(FlowController flowController, GameView view, GameModel model) {
         super(flowController, view, model);
+    }
+
+    public boolean isStarted() {
+        return isStarted;
     }
 
     @Override
@@ -72,7 +75,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
                 break;
 
             case escape:
-                pauseOrResume();
+                pause();
                 break;
         }
     }
@@ -99,35 +102,33 @@ public class GameController extends Controller<GameView, GameModel> implements A
         }
     }
 
-    private void pauseOrResume() {
-        if (isPausing) {
-            resume();
+    private void pause() {
+        timer.stop();
+        addPauseEvent();
+    }
 
-        } else {
-
-            pause();
-            addPauseEvent();
-
-        }
+    private void resume() {
+        timer.restart();
     }
 
     private void addPauseEvent() {
-        String[] play = {"Home","Continue", "New Game"};
+        String[] play = { "Home", "Continue", "New Game" };
         int output = JOptionPane.showOptionDialog(
                 null,
                 "Do you want exit this game? ",
                 "",
                 JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE,
-                null, play
-                ,
-                play[0]);
+                null,
+                play,
+                play[1]);
+
         if (output == 0) {
             MenuController menuController = new MenuController(flowController);
             switchController(menuController);
         }
-        if(output==1){resume(); }
-        if(output ==2){
+        else if (output == 1) {resume(); }
+        else if (output == 2) {
             EnterNameDialogModel model = new EnterNameDialogModel(MenuController.playerName1, MenuController.playerName2);
             GameView gameView = new GameView(model);
             GameModel gameModel = new GameModel();
@@ -138,16 +139,9 @@ public class GameController extends Controller<GameView, GameModel> implements A
 
             switchController(gameController);
         }
-
+        else {
+            resume();
+        }
     }
 
-    private void pause() {
-        timer.stop();
-        isPausing = true;
-    }
-
-    private void resume() {
-        timer.restart();
-        isPausing = false;
-    }
 }
