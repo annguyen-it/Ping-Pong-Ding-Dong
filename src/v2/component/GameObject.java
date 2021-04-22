@@ -23,8 +23,6 @@ public abstract class GameObject {
 
     public abstract void move();
 
-
-
     public int getX() {
         return x;
     }

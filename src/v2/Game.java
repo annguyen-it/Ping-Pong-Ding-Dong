@@ -23,7 +23,7 @@ public class Game extends JFrame {
     private void setupGame() {
         add(layer);
 
-        setTitle("Application");
+        setTitle("Ping pong");
         setSize(WIDTH, HEIGHT);
         setResizable(false);
 

@@ -43,8 +43,11 @@ public class GameModel implements Model {
         leftPaddle.move();
         rightPaddle.move();
 
-        if (leftPaddle.isTouched(ball) || rightPaddle.isTouched(ball)) {
-            ball.paddleCollide();
+        if (leftPaddle.isTouched(ball)){
+            ball.paddleCollide(leftPaddle);
+        }
+        else if (rightPaddle.isTouched(ball)) {
+            ball.paddleCollide(rightPaddle);
         }
     }
 

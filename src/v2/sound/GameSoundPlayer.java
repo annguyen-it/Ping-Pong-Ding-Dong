@@ -19,30 +19,6 @@ public class GameSoundPlayer {
         preloadAll();
     }
 
-    public void preloadAll() {
-        preloadBallCollide(ballCollideAudioFile);
-    }
-
-    public void preloadBallCollide(File file) {
-        try {
-            AudioInputStream stream = getStream(file);
-            DataLine.Info info = getInfo(stream);
-            ballCollide = (Clip) AudioSystem.getLine(info);
-            ballCollide.open(stream);
-        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private AudioInputStream getStream(File file) throws UnsupportedAudioFileException, IOException {
-        return AudioSystem.getAudioInputStream(file);
-    }
-
-    private DataLine.Info getInfo(AudioInputStream stream) {
-        AudioFormat format = stream.getFormat();
-        return new DataLine.Info(Clip.class, format);
-    }
-
     public void ballCollide() {
         try {
             AudioInputStream stream = getStream(ballCollideAudioFile);
@@ -58,5 +34,29 @@ public class GameSoundPlayer {
 
     private void play(Clip clip) {
         clip.start();
+    }
+
+    private void preloadAll() {
+        preloadBallCollide(ballCollideAudioFile);
+    }
+
+    private AudioInputStream getStream(File file) throws UnsupportedAudioFileException, IOException {
+        return AudioSystem.getAudioInputStream(file);
+    }
+
+    private DataLine.Info getInfo(AudioInputStream stream) {
+        AudioFormat format = stream.getFormat();
+        return new DataLine.Info(Clip.class, format);
+    }
+
+    private void preloadBallCollide(File file) {
+        try {
+            AudioInputStream stream = getStream(file);
+            DataLine.Info info = getInfo(stream);
+            ballCollide = (Clip) AudioSystem.getLine(info);
+            ballCollide.open(stream);
+        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+            e.printStackTrace();
+        }
     }
 }
