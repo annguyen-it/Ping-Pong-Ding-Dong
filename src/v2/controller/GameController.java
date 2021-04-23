@@ -1,6 +1,7 @@
 package v2.controller;
 
 import v2.board.GameAdapter;
+import v2.component.Star;
 import v2.model.EnterNameDialogModel;
 import v2.model.GameModel;
 import v2.view.GameView;
@@ -47,6 +48,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
     public void actionPerformed(ActionEvent e) {
         model.updatePaddles();
         model.updateBall();
+        model.updateStar();
 
         view.repaint();
     }
@@ -138,6 +140,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
             gameView.setController(gameController);
 
             switchController(gameController);
+
         }
         else {
             resume();

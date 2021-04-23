@@ -1,6 +1,7 @@
 package v2.model;
 
 import v2.component.Ball;
+import v2.component.Star;
 import v2.component.paddle.LeftPaddle;
 import v2.component.paddle.Paddle;
 import v2.component.paddle.RightPaddle;
@@ -11,6 +12,7 @@ public class GameModel implements Model {
     private Paddle rightPaddle;
     private Paddle leftPaddle;
     private Ball ball;
+    private Star star;
 
     private final GameSoundPlayer soundPlayer = new GameSoundPlayer();
 
@@ -37,6 +39,7 @@ public class GameModel implements Model {
         rightPaddle = new RightPaddle();
 
         ball = new Ball(soundPlayer);
+        star = new Star();
     }
 
     public void updatePaddles() {
@@ -47,6 +50,9 @@ public class GameModel implements Model {
             ball.paddleCollide();
         }
     }
+
+
+
 
     public void updateBall() {
         ball.move();
@@ -59,6 +65,30 @@ public class GameModel implements Model {
         else if (losePaddle == rightPaddle) {
             leftPaddle.increaseScore();
             ball = new Ball(soundPlayer, Ball.InitialDirection.left);
+        }
+    }
+
+    public void updateStar(){
+        if(star.isCollision(ball)){
+            pickupStar();
+            star.checkStar = false;
+            ball.starCollide();
+            star = new Star();
+        }
+    }
+
+    public void pickupStar(){
+        switch (star.getImage()){
+            case "resources/img/starBlue.png":
+                ball.upsizeBall();
+            case "resources/img/starGreen.png":
+                ball.upsizeBall();
+            case "resources/img/starPink.png":
+                ball.upsizeBall();
+            case "resources/img/starRed.png":
+                ball.upsizeBall();
+            case "resources/img/starYellow.png":
+                ball.upsizeBall();
         }
     }
 }

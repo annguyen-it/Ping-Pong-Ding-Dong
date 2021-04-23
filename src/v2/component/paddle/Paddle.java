@@ -54,4 +54,7 @@ public abstract class Paddle extends GameObject {
     public Score getScoreObject() {
         return score;
     }
+
+
+
 }

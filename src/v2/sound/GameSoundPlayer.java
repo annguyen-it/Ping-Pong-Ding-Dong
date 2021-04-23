@@ -12,23 +12,38 @@ import java.io.IOException;
 
 public class GameSoundPlayer {
 
-    private static final File ballCollideAudioFile = new File("resources/audio/ball-collide.wav");
-    Clip ballCollide;
+    public static final File ballCollideAudioFile = new File("resources/audio/ball-collide.wav");
+    public static final File wallCollideAudioFile = new File("resources/audio/Wallcollide.wav");
+    public static final File missFile = new File("resources/audio/miss.wav");
+    public static final File joinGameAudioFile = new File("resources/audio/JoinGame.mp3");
+    public static final File starCollideAudioFile = new File("resources/audio/starCollide.wav");
+
+
+
+    public static final Clip ballCollide = null;
+    public static final Clip wallCollide = null;
+    public static final Clip miss = null;
+    public static final Clip joinGame = null;
+    public static final Clip starCollide = null;
+
 
     public GameSoundPlayer() {
         preloadAll();
     }
 
     public void preloadAll() {
-        preloadBallCollide(ballCollideAudioFile);
+        preloadBallCollide(ballCollideAudioFile, ballCollide);
+        preloadBallCollide(wallCollideAudioFile,wallCollide);
+        preloadBallCollide(missFile,miss);
+
     }
 
-    public void preloadBallCollide(File file) {
+    public void preloadBallCollide(File file, Clip clip) {
         try {
             AudioInputStream stream = getStream(file);
             DataLine.Info info = getInfo(stream);
-            ballCollide = (Clip) AudioSystem.getLine(info);
-            ballCollide.open(stream);
+            clip = (Clip) AudioSystem.getLine(info);
+            clip.open(stream);
         } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
             e.printStackTrace();
         }
@@ -43,19 +58,30 @@ public class GameSoundPlayer {
         return new DataLine.Info(Clip.class, format);
     }
 
-    public void ballCollide() {
-        try {
-            AudioInputStream stream = getStream(ballCollideAudioFile);
-            DataLine.Info info = getInfo(stream);
-            ballCollide = (Clip) AudioSystem.getLine(info);
-            ballCollide.open(stream);
-        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
-            e.printStackTrace();
-        }
-
-        play(ballCollide);
+//    public void ballCollide() {
+//        try {
+//            AudioInputStream stream = getStream(ballCollideAudioFile);
+//            DataLine.Info info = getInfo(stream);
+//            ballCollide = (Clip) AudioSystem.getLine(info);
+//            ballCollide.open(stream);
+//        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+//            e.printStackTrace();
+//        }
+//
+//        play(ballCollide);
+//    }
+public void soundPlayer(File file, Clip clip) {
+    try {
+        AudioInputStream stream = getStream(file);
+        DataLine.Info info = getInfo(stream);
+        clip = (Clip) AudioSystem.getLine(info);
+        clip.open(stream);
+    } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+        e.printStackTrace();
     }
 
+    play(clip);
+}
     private void play(Clip clip) {
         clip.start();
     }

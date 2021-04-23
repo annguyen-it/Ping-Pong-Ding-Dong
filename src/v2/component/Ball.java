@@ -11,6 +11,12 @@ public class Ball extends GameObject {
 
     public static final int BALL_SIZE = 24;
 
+    private static int ballSize = BALL_SIZE;
+
+    public static int getBallSize() {
+        return ballSize;
+    }
+
     private final InitialDirection initialDirection;
 
     public enum InitialDirection {
@@ -45,7 +51,7 @@ public class Ball extends GameObject {
         int nextPosY = y + dy;
 
         x = nextPosX;
-        if (0 <= nextPosY && nextPosY + BALL_SIZE + 40 <= Game.HEIGHT) {
+        if (0 <= nextPosY && nextPosY + ballSize + 40 <= Game.HEIGHT) {
             y += dy;
         }
         else {
@@ -53,16 +59,27 @@ public class Ball extends GameObject {
         }
     }
 
-    public void wallCollide() { dy *= -1; }
+    public void wallCollide() {
+        soundPlayer.soundPlayer(GameSoundPlayer.wallCollideAudioFile,GameSoundPlayer.wallCollide);
+        dy *= -1; }
 
     public void paddleCollide() {
-        soundPlayer.ballCollide();
+        soundPlayer.soundPlayer(GameSoundPlayer.ballCollideAudioFile,GameSoundPlayer.ballCollide);
         dx *= -1;
     }
 
+    public void starCollide(){
+        soundPlayer.soundPlayer(GameSoundPlayer.starCollideAudioFile,GameSoundPlayer.starCollide);
+    }
+
     public Paddle isOutTheBoard(Paddle paddleLeft, Paddle paddleRight) {
-        if (x < 0) { return paddleLeft; }
-        if (x + BALL_SIZE > Game.WIDTH) { return paddleRight; }
+        if (x < 0) { soundPlayer.soundPlayer(GameSoundPlayer.missFile,GameSoundPlayer.miss); return paddleLeft; }
+        if (x + ballSize > Game.WIDTH) { soundPlayer.soundPlayer(GameSoundPlayer.missFile,GameSoundPlayer.miss); return paddleRight; }
+
         return null;
+    }
+
+    public void upsizeBall(){
+        ballSize += 10;
     }
 }

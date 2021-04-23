@@ -3,6 +3,7 @@ package v2.controller;
 import v2.model.EnterNameDialogModel;
 import v2.model.GameModel;
 import v2.model.MenuModel;
+import v2.sound.GameSoundPlayer;
 import v2.view.GameView;
 import v2.view.MenuView;
 
@@ -12,6 +13,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
     public static String playerName1;
     public static String playerName2;
+    public GameSoundPlayer soundPlayer;
 
     public MenuController(FlowController flowController) {
         super(flowController, new MenuView(), new MenuModel());
@@ -34,6 +36,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
             );
 
             if (result == JOptionPane.OK_OPTION) {
+
                 playerName1 = view.getPlayerNameTextField1().getText();
                 playerName2 = view.getPlayerNameTextField2().getText();
 
@@ -46,6 +49,9 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                 gameView.setController(gameController);
 
                 switchController(gameController);
+                soundPlayer.soundPlayer(GameSoundPlayer.joinGameAudioFile,GameSoundPlayer.joinGame);
+
+
             }
         });
     }

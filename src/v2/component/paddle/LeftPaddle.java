@@ -78,7 +78,7 @@ public class LeftPaddle extends Paddle {
         int ballDx = ball.getDx();
 
         return x <= ballX && ballX <= x + PADDLE_WIDTH &&
-                y <= ballY + Ball.BALL_SIZE && ballY <= y + PADDLE_HEIGHT &&
+                y <= ballY + Ball.getBallSize() && ballY <= y + PADDLE_HEIGHT &&
                 ballDx < 0;
 
     }
