@@ -59,19 +59,19 @@ public class GameController extends Controller<GameView, GameModel> implements A
                 break;
 
             case leftUp:
-                model.getLeftPaddle().willUp();
+                model.getLeftPaddle().willMoveUp();
                 break;
 
             case leftDown:
-                model.getLeftPaddle().willDown();
+                model.getLeftPaddle().willMoveDown();
                 break;
 
             case rightUp:
-                model.getRightPaddle().willUp();
+                model.getRightPaddle().willMoveUp();
                 break;
 
             case rightDown:
-                model.getRightPaddle().willDown();
+                model.getRightPaddle().willMoveDown();
                 break;
 
             case escape:
@@ -85,12 +85,12 @@ public class GameController extends Controller<GameView, GameModel> implements A
         switch (key) {
             case leftUp:
             case leftDown:
-                model.getLeftPaddle().willStop();
+                model.getLeftPaddle().stop();
                 break;
 
             case rightUp:
             case rightDown:
-                model.getRightPaddle().willStop();
+                model.getRightPaddle().stop();
                 break;
         }
     }

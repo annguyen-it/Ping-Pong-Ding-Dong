@@ -2,10 +2,10 @@ package v2.component.paddle;
 
 import v2.Game;
 import v2.board.Score;
-import v2.component.Ball;
 import v2.component.GameObject;
+import v2.mechanics.PaddleMechanics;
 
-public abstract class Paddle extends GameObject {
+public abstract class Paddle extends GameObject implements PaddleMechanics {
 
     public static final int PADDLE_WIDTH = 16;
     public static final int PADDLE_HEIGHT = 100;
@@ -20,32 +20,59 @@ public abstract class Paddle extends GameObject {
     }
 
     @Override
-    public void move() {
-        int nextPos = y + dy;
-        if (0 <= nextPos && nextPos + PADDLE_HEIGHT + 40 <= Game.HEIGHT) {
-            y += dy;
+    public void tryMove() {
+        if (!willWallCollide()) {
+            move();
         }
-        else if (nextPos < 0) {
-            y = 0;
+        else if (y + dy < 0) {
+            stopAtTopBorder();
         }
         else {
-            y = Game.HEIGHT - PADDLE_HEIGHT - 40;
+            stopAtBottomBorder();
         }
     }
 
-    public void willUp() {
-        dy = -PADDLE_SPEED;
+    @Override
+    public void move() {
+        y += dy;
     }
 
-    public void willDown() {
-        dy = PADDLE_SPEED;
-    }
-
-    public void willStop() {
+    @Override
+    public void stop() {
         dy = 0;
     }
 
-    public abstract boolean isTouched(Ball ball);
+    @Override
+    public void stopAtTopBorder() {
+        y = 0;
+    }
+
+    @Override
+    public void stopAtBottomBorder() {
+        y = Game.HEIGHT - PADDLE_HEIGHT - 40;
+    }
+
+    @Override
+    public boolean willWallCollide() {
+        int nextPos = y + dy;
+        return nextPos < 0 || nextPos + PADDLE_HEIGHT + 40 > Game.HEIGHT;
+    }
+
+    @Override
+    public void wallCollide() { }
+
+    @Override
+    public void changeSpeed(GameObject causeObject) { }
+
+    @Override
+    public void willMoveUp() {
+        dy = -PADDLE_SPEED;
+    }
+
+    @Override
+    public void willMoveDown() {
+        dy = PADDLE_SPEED;
+    }
 
     public void increaseScore() {
         score.increase();

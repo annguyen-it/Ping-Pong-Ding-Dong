@@ -14,8 +14,6 @@ public class GameModel implements Model {
 
     private final GameSoundPlayer soundPlayer = new GameSoundPlayer();
 
-    public static boolean pause = false;
-
     public GameModel() {
         initBoard();
     }
@@ -40,19 +38,19 @@ public class GameModel implements Model {
     }
 
     public void updatePaddles() {
-        leftPaddle.move();
-        rightPaddle.move();
+        leftPaddle.tryMove();
+        rightPaddle.tryMove();
 
-        if (leftPaddle.isTouched(ball)){
-            ball.paddleCollide(leftPaddle);
+        if (ball.willCollideLeftPaddle(leftPaddle)){
+            ball.collide(leftPaddle);
         }
-        else if (rightPaddle.isTouched(ball)) {
-            ball.paddleCollide(rightPaddle);
+        else if (ball.willCollideRightPaddle(rightPaddle)) {
+            ball.collide(rightPaddle);
         }
     }
 
     public void updateBall() {
-        ball.move();
+        ball.tryMove();
         Paddle losePaddle = ball.isOutTheBoard(leftPaddle, rightPaddle);
 
         if (losePaddle == leftPaddle) {

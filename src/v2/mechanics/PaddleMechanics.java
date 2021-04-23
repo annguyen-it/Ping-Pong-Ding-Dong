@@ -2,5 +2,8 @@ package v2.mechanics;
 
 import v2.component.GameObject;
 
-interface PaddleMechanics extends ChangeSpeedMechanic<GameObject> {
-}
+public interface PaddleMechanics extends
+        VerticalMoveOnly,
+        Stoppable,
+        WallCollide,
+        ChangeSpeed<GameObject> { }

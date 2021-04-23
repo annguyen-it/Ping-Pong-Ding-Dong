@@ -17,7 +17,6 @@ public class Ball extends GameObject implements BallMechanics {
 
     private final InitialDirection initialDirection;
 
-
     public enum InitialDirection {
         left,
         right
@@ -34,31 +33,20 @@ public class Ball extends GameObject implements BallMechanics {
     }
 
     @Override
-    public void move() {
-        int nextPosX = x + dx;
-        int nextPosY = y + dy;
+    public void tryMove() {
+        x += dx;
 
-        x = nextPosX;
-        if (0 <= nextPosY && nextPosY + BALL_SIZE + 40 <= Game.HEIGHT) {
-            y += dy;
-        }
-        else {
+        if (willWallCollide()) {
             wallCollide();
         }
+        else {
+            move();
+        }
     }
 
-    public void wallCollide() { dy *= -1; }
-
-    public void paddleCollide(Paddle paddle) {
-        changeSpeed(paddle);
-        dx *= -1;
-        soundPlayer.ballCollide();
-    }
-
-    public Paddle isOutTheBoard(Paddle paddleLeft, Paddle paddleRight) {
-        if (x < 0) { return paddleLeft; }
-        if (x + BALL_SIZE > Game.WIDTH) { return paddleRight; }
-        return null;
+    @Override
+    public void move() {
+        y += dy;
     }
 
     @Override
@@ -110,7 +98,6 @@ public class Ball extends GameObject implements BallMechanics {
         dx = dx/Math.abs(dx)*x;
     }
 
-
     @Override
     public void changeInitialDirection() {
         if (initialDirection == InitialDirection.left) {
@@ -121,5 +108,49 @@ public class Ball extends GameObject implements BallMechanics {
         }
 
         dy = INITIAL_SPEED;
+    }
+
+    @Override
+    public Paddle isOutTheBoard(Paddle paddleLeft, Paddle paddleRight) {
+        if (x < 0) { return paddleLeft; }
+        if (x + BALL_SIZE > Game.WIDTH) { return paddleRight; }
+        return null;
+    }
+
+    @Override
+    public boolean willWallCollide() {
+        int nextPosY = y + dy;
+        return nextPosY < 0 || nextPosY + BALL_SIZE + 40 > Game.HEIGHT;
+    }
+
+    @Override
+    public void wallCollide() { dy *= -1; }
+
+    @Override
+    public void collide(Paddle paddle) {
+        changeSpeed(paddle);
+        dx *= -1;
+        soundPlayer.ballCollide();
+    }
+
+    @Override
+    public boolean willCollideLeftPaddle(Paddle paddle) {
+        int paddleX = paddle.x;
+        int paddleY = paddle.y;
+
+        return dx < 0 &&
+                paddleX <= x && x <= paddleX + Paddle.PADDLE_WIDTH &&
+                paddleY <= y + Ball.BALL_SIZE && y <= paddleY + Paddle.PADDLE_HEIGHT;
+    }
+
+    @Override
+    public boolean willCollideRightPaddle(Paddle paddle) {
+        int paddleX = paddle.x;
+        int paddleY = paddle.y;
+
+
+        return dx > 0 &&
+                paddleX <= x + Ball.BALL_SIZE && x + Ball.BALL_SIZE < paddleX + Paddle.PADDLE_WIDTH &&
+                paddleY <= y + Ball.BALL_SIZE && y <= paddleY + Paddle.PADDLE_HEIGHT;
     }
 }

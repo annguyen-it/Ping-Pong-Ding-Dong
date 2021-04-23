@@ -1,7 +1,6 @@
 package v2.component.paddle;
 
 import v2.Game;
-import v2.component.Ball;
 
 public class RightPaddle extends Paddle {
 
@@ -9,16 +8,5 @@ public class RightPaddle extends Paddle {
 
     public RightPaddle() {
         super(INITIAL_RIGHT_PADDLE_X, INITIAL_PADDLE_Y);
-    }
-
-    @Override
-    public boolean isTouched(Ball ball) {
-        int ballX = ball.getX();
-        int ballY = ball.getY();
-        int ballDx = ball.getDx();
-
-        return ballDx > 0 &&
-                x <= ballX + Ball.BALL_SIZE && ballX + Ball.BALL_SIZE < x + PADDLE_WIDTH &&
-                y <= ballY + Ball.BALL_SIZE && ballY <= y + PADDLE_HEIGHT;
     }
 }

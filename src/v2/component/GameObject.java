@@ -1,8 +1,9 @@
 package v2.component;
 
+import v2.mechanics.Movable;
 import v2.sound.GameSoundPlayer;
 
-public abstract class GameObject {
+public abstract class GameObject implements Movable {
 
     protected int x;
     protected int y;
@@ -20,8 +21,6 @@ public abstract class GameObject {
         this.y = y;
         this.soundPlayer = soundPlayer;
     }
-
-    public abstract void move();
 
     public int getX() {
         return x;
