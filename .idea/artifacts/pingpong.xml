@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="pingpong">
+    <output-path>$PROJECT_DIR$/out/artifacts/game</output-path>
+    <root id="archive" name="pingpong.jar">
+      <element id="module-output" name="BTL_Java" />
+    </root>
+  </artifact>
+</component>
