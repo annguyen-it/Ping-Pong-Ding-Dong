@@ -61,7 +61,10 @@ public class GameView extends View {
         if (!controller.isStarted()) {
             paintStartGame(g);
         }
-        drawStar(g);
+
+        if (model.getStar() != null){
+            drawStar(g);
+        }
     }
 
     private void paintBackground(Graphics g) {
@@ -117,11 +120,10 @@ public class GameView extends View {
     }
 
     private void drawStar(Graphics g) {
-        if(Star.checkStar ) {
-            Star star = new Star();
-            Image image = getToolkit().getImage(star.getImagePath());
-            g.drawImage(image, star.getStarX(), star.getStarY(), null);
-        }
+        Star star = controller.getModel().getStar();
+
+        Image image = getToolkit().getImage(star.getImagePath());
+        g.drawImage(image, star.getX(), star.getY(), null);
     }
 
 

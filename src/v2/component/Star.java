@@ -1,13 +1,14 @@
 package v2.component;
 
+import v2.component.paddle.ImmovableGameObject;
+
 import java.awt.*;
+import java.util.Calendar;
 
-public class Star {
+public class Star extends ImmovableGameObject {
 
-    public static boolean checkStar = false;
-    private int starX;
-    private int starY;
-    private String imagePath;
+    private final String imagePath;
+    private final long appearTime;
 
     private static final String[] STAR_IMAGE = new String[]{
             "resources/img/starBlue.png",
@@ -18,39 +19,30 @@ public class Star {
     };
 
     public Star() {
-        generateStar();
+        super(0, 0);
+
+        x = (int) (Math.random()*800) + 200;
+        y = (int) (Math.random()*600) + 100;
+
+        appearTime = Calendar.getInstance().getTimeInMillis();
+
+        imagePath = STAR_IMAGE[(int) (Math.random()*STAR_IMAGE.length)];
     }
 
-    public int getStarX() {
-        return starX;
-    }
-
-    public int getStarY() {
-        return starY;
+    public long getAppearTime() {
+        return appearTime;
     }
 
     public String getImagePath() {
         return imagePath;
     }
 
-    private void generateStar() {
-        if (!checkStar) {
-            String imageStar = STAR_IMAGE[(int) (Math.random()*STAR_IMAGE.length)];
-            int stX = (int) (Math.random()*800) + 200;
-            int stY = (int) (Math.random()*600) + 100;
-            checkStar = true;
-            imagePath = imageStar;
-            starX = stX;
-            starY = stY;
-        }
-    }
-
     private Rectangle getBallBound(Ball ball) {
-        return new Rectangle(ball.getX(), ball.getY(), Ball.getBallSize(), Ball.getBallSize());
+        return new Rectangle(ball.getX(), ball.getY(), ball.getBallSize(), ball.getBallSize());
     }
 
     private Rectangle getStarBound() {
-        return new Rectangle(starX, starY, 50, 50);
+        return new Rectangle(x, y, 50, 50);
     }
 
     public boolean isCollision(Ball ball) {

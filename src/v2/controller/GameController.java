@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
 
 public class GameController extends Controller<GameView, GameModel> implements ActionListener {
 
-    private static final int DELAY = 1;
+    private static final int GAME_DELAY = 1;
 
     private static final int leftUp = KeyEvent.VK_W;
     private static final int leftDown = KeyEvent.VK_S;
@@ -21,7 +21,8 @@ public class GameController extends Controller<GameView, GameModel> implements A
     private static final int escape = KeyEvent.VK_ESCAPE;
     private static final int space = KeyEvent.VK_SPACE;
 
-    private Timer timer;
+    private Timer gameTimer;
+
     private boolean isStarted = false;
 
     public GameController(FlowController flowController, GameView view, GameModel model) {
@@ -35,12 +36,12 @@ public class GameController extends Controller<GameView, GameModel> implements A
     @Override
     public void initEvent() {
         view.addKeyListener(new GameAdapter(this));
+        gameTimer = new Timer(GAME_DELAY, this);
     }
 
     @Override
     protected void drawUI() {
         super.drawUI();
-        timer = new Timer(DELAY, this);
     }
 
     @Override
@@ -98,18 +99,18 @@ public class GameController extends Controller<GameView, GameModel> implements A
 
     private void start() {
         if (!isStarted) {
-            timer.start();
+            gameTimer.start();
             isStarted = true;
         }
     }
 
     private void pause() {
-        timer.stop();
+        gameTimer.stop();
         addPauseEvent();
     }
 
     private void resume() {
-        timer.restart();
+        gameTimer.restart();
     }
 
     private void addPauseEvent() {
@@ -145,5 +146,4 @@ public class GameController extends Controller<GameView, GameModel> implements A
             resume();
         }
     }
-
 }

@@ -2,6 +2,7 @@ package v2.model;
 
 import v2.component.Ball;
 import v2.component.Star;
+import v2.component.StarFactory;
 import v2.component.paddle.LeftPaddle;
 import v2.component.paddle.Paddle;
 import v2.component.paddle.RightPaddle;
@@ -15,8 +16,7 @@ public class GameModel implements Model {
     private Paddle rightPaddle;
     private Paddle leftPaddle;
     private List<Ball> balls;
-    private Ball ball;
-    private Star star;
+    private StarFactory starFactory;
 
     private final GameSoundPlayer soundPlayer = new GameSoundPlayer();
 
@@ -37,14 +37,18 @@ public class GameModel implements Model {
         return balls;
     }
 
+    public Star getStar() {
+        return starFactory.getStar();
+    }
+
     public void initBoard() {
         leftPaddle = new LeftPaddle();
         rightPaddle = new RightPaddle();
 
         balls = new ArrayList<>();
         balls.add(new Ball(soundPlayer));
-        ball = new Ball(soundPlayer);
-        star = new Star();
+
+        starFactory = new StarFactory();
     }
 
     public void updatePaddles() {
@@ -78,33 +82,47 @@ public class GameModel implements Model {
         });
     }
 
-    public void tryAddNewBall(){
-        if (balls.size() == 1){
+    public void tryAddNewBall() {
+        if (balls.size() == 1) {
             balls.set(0, new Ball(soundPlayer));
         }
     }
 
-    public void updateStar(){
-        if(star.isCollision(ball)){
-            pickupStar();
-            Star.checkStar = false;
-            ball.starCollide();
-            star = new Star();
+    public void updateStar() {
+        starFactory.update();
+        Star star = starFactory.getStar();
+
+        if (star != null) {
+            balls.forEach(ball -> {
+                if (star.isCollision(ball)) {
+                    pickupStar(star);
+                    starFactory.deleteStar();
+                }
+            });
         }
+
+        //        if (star.isCollision(ball)) {
+        //            pickupStar();
+        //            Star.checkStar = false;
+        //            ball.starCollide();
+        //            star = new Star();
+        //        }
     }
 
-    public void pickupStar(){
-        switch (star.getImagePath()){
-            case "resources/img/starBlue.png":
-                ball.upsizeBall();
-            case "resources/img/starGreen.png":
-                ball.upsizeBall();
-            case "resources/img/starPink.png":
-                ball.upsizeBall();
-            case "resources/img/starRed.png":
-                ball.upsizeBall();
-            case "resources/img/starYellow.png":
-                ball.upsizeBall();
-        }
+    public void pickupStar(Star star) {
+        balls.forEach(ball -> {
+            switch (star.getImagePath()) {
+                case "resources/img/starBlue.png":
+                    ball.upsizeBall();
+                case "resources/img/starGreen.png":
+                    ball.upsizeBall();
+                case "resources/img/starPink.png":
+                    ball.upsizeBall();
+                case "resources/img/starRed.png":
+                    ball.upsizeBall();
+                case "resources/img/starYellow.png":
+                    ball.upsizeBall();
+            }
+        });
     }
 }
