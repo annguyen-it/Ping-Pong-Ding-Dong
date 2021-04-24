@@ -3,9 +3,10 @@ package v2.component.paddle;
 import v2.Game;
 import v2.board.Score;
 import v2.component.GameObject;
+import v2.component.MovableGameObject;
 import v2.mechanics.PaddleMechanics;
 
-public abstract class Paddle extends GameObject implements PaddleMechanics {
+public abstract class Paddle extends MovableGameObject implements PaddleMechanics {
 
     public static final int PADDLE_WIDTH = 16;
     public static final int PADDLE_HEIGHT = 100;
@@ -81,7 +82,4 @@ public abstract class Paddle extends GameObject implements PaddleMechanics {
     public Score getScoreObject() {
         return score;
     }
-
-
-
 }

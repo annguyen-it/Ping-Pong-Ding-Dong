@@ -5,7 +5,7 @@ import v2.component.paddle.Paddle;
 import v2.mechanics.BallMechanics;
 import v2.sound.GameSoundPlayer;
 
-public class Ball extends GameObject implements BallMechanics {
+public class Ball extends MovableGameObject implements BallMechanics {
 
     private static final int INITIAL_BALL_X = 588;
     private static final int INITIAL_BALL_Y = 388;
@@ -15,9 +15,9 @@ public class Ball extends GameObject implements BallMechanics {
 
     public static final int BALL_SIZE = 24;
 
-    private static int ballSize = BALL_SIZE;
+    private int ballSize = BALL_SIZE;
 
-    public static int getBallSize() {
+    public int getBallSize() {
         return ballSize;
     }
 
