@@ -11,7 +11,7 @@ public class GameSoundPlayer {
     private static final File ballCollideAudioFile = new File("resources/audio/ball-collide.wav");
     private static final File wallCollideAudioFile = new File("resources/audio/Wallcollide.wav");
     private static final File missFile = new File("resources/audio/miss.wav");
-    private static final File joinGameAudioFile = new File("resources/audio/JoinGame.mp3");
+    private static final File joinGameAudioFile = new File("resources/audio/JoinGame.wav");
     private static final File starCollideAudioFile = new File("resources/audio/starCollide.wav");
 
     public GameSoundPlayer() {
@@ -22,7 +22,7 @@ public class GameSoundPlayer {
         audioSets.put("ballCollide", new AudioSet(ballCollideAudioFile));
         audioSets.put("wallCollide", new AudioSet(wallCollideAudioFile));
         audioSets.put("miss", new AudioSet(missFile));
-//        audioSets.put("joinGame", new AudioSet(joinGameAudioFile));
+        audioSets.put("joinGame", new AudioSet(joinGameAudioFile));
         audioSets.put("starCollide", new AudioSet(starCollideAudioFile));
     }
 
@@ -43,6 +43,6 @@ public class GameSoundPlayer {
     }
 
     public void joinGame() {
-//        audioSets.get("joinGame").play();
+        audioSets.get("joinGame").play();
     }
 }

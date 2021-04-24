@@ -10,13 +10,23 @@ public class Star extends ImmovableGameObject {
     private final String imagePath;
     private final long appearTime;
 
-    private static final String[] STAR_IMAGE = new String[]{
-            "resources/img/starBlue.png",
-            "resources/img/starGreen.png",
-            "resources/img/starPink.png",
-            "resources/img/starRed.png",
-            "resources/img/starYellow.png"
-    };
+    enum STARIMAGE{
+        BLUE("resources/img/starBlue.png") ,
+        GREEN("resources/img/starGreen.png"),
+        PINK("resources/img/starPink.png") ,
+        RED("resources/img/starRed.png") ,
+        YELLOW("resources/img/starYellow.png");
+
+        private String  starFile;
+
+        private STARIMAGE(String starFile){
+            this.starFile = starFile;
+        }
+
+        public String getStarFile() {
+            return starFile;
+        }
+    }
 
     public Star() {
         super(0, 0);
@@ -26,7 +36,8 @@ public class Star extends ImmovableGameObject {
 
         appearTime = Calendar.getInstance().getTimeInMillis();
 
-        imagePath = STAR_IMAGE[(int) (Math.random()*STAR_IMAGE.length)];
+        STARIMAGE[] starimage = STARIMAGE.values();
+        imagePath = starimage[(int) (Math.random()*starimage.length)].getStarFile();
     }
 
     public long getAppearTime() {

@@ -95,6 +95,7 @@ public class GameModel implements Model {
         if (star != null) {
             balls.forEach(ball -> {
                 if (star.isCollision(ball)) {
+                    ball.starCollide();
                     pickupStar(star);
                     starFactory.deleteStar();
                 }
