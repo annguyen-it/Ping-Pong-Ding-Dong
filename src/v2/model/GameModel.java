@@ -110,19 +110,23 @@ public class GameModel implements Model {
     }
 
     public void pickupStar(Star star) {
-        balls.forEach(ball -> {
-            switch (star.getImagePath()) {
-                case "resources/img/starBlue.png":
+        for (Ball ball : balls) {
+            switch (star.getType()) {
+                case bigBall:
                     ball.upsizeBall();
-                case "resources/img/starGreen.png":
-                    ball.upsizeBall();
-                case "resources/img/starPink.png":
-                    ball.upsizeBall();
-                case "resources/img/starRed.png":
-                    ball.upsizeBall();
-                case "resources/img/starYellow.png":
-                    ball.upsizeBall();
+                    break;
+
+                case multiBall:
+                    break;
+
+                case speedUp:
+                    break;
+
+                case speedDown:
+                    break;
+
+                default:
             }
-        });
+        }
     }
 }

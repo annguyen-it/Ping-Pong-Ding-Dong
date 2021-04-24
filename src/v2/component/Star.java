@@ -3,20 +3,30 @@ package v2.component;
 import v2.component.paddle.ImmovableGameObject;
 
 import java.awt.*;
+import java.util.Arrays;
 import java.util.Calendar;
 
 public class Star extends ImmovableGameObject {
 
-    private final String imagePath;
     private final long appearTime;
+    private final String imagePath;
+    private final StarType type;
 
     private static final String[] STAR_IMAGE = new String[]{
             "resources/img/starBlue.png",
             "resources/img/starGreen.png",
             "resources/img/starPink.png",
             "resources/img/starRed.png",
-            "resources/img/starYellow.png"
+//            "resources/img/starYellow.png"
     };
+
+    public enum StarType {
+        bigBall,
+        multiBall,
+        speedUp,
+        speedDown,
+//        bigBall,
+    }
 
     public Star() {
         super(0, 0);
@@ -26,7 +36,14 @@ public class Star extends ImmovableGameObject {
 
         appearTime = Calendar.getInstance().getTimeInMillis();
 
-        imagePath = STAR_IMAGE[(int) (Math.random()*STAR_IMAGE.length)];
+        int randomNumber = (int) (Math.random()*STAR_IMAGE.length);
+
+        imagePath = STAR_IMAGE[randomNumber];
+        type = Arrays.asList(StarType.values()).get(randomNumber);
+    }
+
+    public StarType getType() {
+        return type;
     }
 
     public long getAppearTime() {
@@ -38,7 +55,7 @@ public class Star extends ImmovableGameObject {
     }
 
     private Rectangle getBallBound(Ball ball) {
-        return new Rectangle(ball.getX(), ball.getY(), ball.getBallSize(), ball.getBallSize());
+        return new Rectangle(ball.getX(), ball.getY(), ball.getSize(), ball.getSize());
     }
 
     private Rectangle getStarBound() {
