@@ -2,11 +2,14 @@ package v2.view;
 
 import v2.board.Score;
 import v2.component.Ball;
+
+import v2.component.Star;
 import v2.controller.GameController;
 import v2.model.GameModel;
 import v2.component.paddle.Paddle;
 import v2.model.EnterNameDialogModel;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
@@ -59,6 +62,7 @@ public class GameView extends View {
         if (!controller.isStarted()) {
             paintStartGame(g);
         }
+        drawStar(g);
     }
 
     private void paintBackground(Graphics g) {
@@ -112,6 +116,15 @@ public class GameView extends View {
         g.drawString(displayScore1, (v2.Game.WIDTH/2 - 75 - g.getFontMetrics().stringWidth(displayScore1)), 60);
         g.drawString(displayScore2, v2.Game.WIDTH/2 + 75, 60);
     }
+
+    private void drawStar(Graphics g) {
+        if(Star.checkStar ) {
+            Star star = new Star();
+            Image image = getToolkit().getImage(star.getImage());
+            g.drawImage(image, star.getstarX(), star.getStarY(), null);
+        }
+    }
+
 
     //endregion
 }

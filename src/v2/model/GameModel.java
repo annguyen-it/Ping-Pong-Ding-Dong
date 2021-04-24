@@ -14,6 +14,8 @@ public class GameModel implements Model {
     private Paddle rightPaddle;
     private Paddle leftPaddle;
     private List<Ball> balls;
+    private Ball ball;
+    private Star star;
 
     private final GameSoundPlayer soundPlayer = new GameSoundPlayer();
 
@@ -39,6 +41,8 @@ public class GameModel implements Model {
 
         balls = new ArrayList<>();
         balls.add(new Ball(soundPlayer));
+        ball = new Ball(soundPlayer);
+        star = new Star();
     }
 
     public void updatePaddles() {
@@ -75,6 +79,30 @@ public class GameModel implements Model {
     public void tryAddNewBall(){
         if (balls.size() == 1){
             balls.set(1, new Ball(soundPlayer));
+        }
+    }
+
+    public void updateStar(){
+        if(star.isCollision(ball)){
+            pickupStar();
+            star.checkStar = false;
+            ball.starCollide();
+            star = new Star();
+        }
+    }
+
+    public void pickupStar(){
+        switch (star.getImage()){
+            case "resources/img/starBlue.png":
+                ball.upsizeBall();
+            case "resources/img/starGreen.png":
+                ball.upsizeBall();
+            case "resources/img/starPink.png":
+                ball.upsizeBall();
+            case "resources/img/starRed.png":
+                ball.upsizeBall();
+            case "resources/img/starYellow.png":
+                ball.upsizeBall();
         }
     }
 }

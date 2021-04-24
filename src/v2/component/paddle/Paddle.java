@@ -81,4 +81,7 @@ public abstract class Paddle extends GameObject implements PaddleMechanics {
     public Score getScoreObject() {
         return score;
     }
+
+
+
 }

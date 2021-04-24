@@ -15,6 +15,12 @@ public class Ball extends GameObject implements BallMechanics {
 
     public static final int BALL_SIZE = 24;
 
+    private static int ballSize = BALL_SIZE;
+
+    public static int getBallSize() {
+        return ballSize;
+    }
+
     private final InitialDirection initialDirection;
 
     public enum InitialDirection {
@@ -106,15 +112,33 @@ public class Ball extends GameObject implements BallMechanics {
         else {
             dx = INITIAL_SPEED;
         }
-
         dy = INITIAL_SPEED;
     }
 
-    @Override
+    public void wallCollide() {
+        soundPlayer.soundPlayer(GameSoundPlayer.wallCollideAudioFile, GameSoundPlayer.wallCollide);
+        dy *= -1;
+    }
+
+    public void starCollide() {
+        soundPlayer.soundPlayer(GameSoundPlayer.starCollideAudioFile, GameSoundPlayer.starCollide);
+    }
+
     public Paddle isOutTheBoard(Paddle paddleLeft, Paddle paddleRight) {
-        if (x < 0) { return paddleLeft; }
-        if (x + BALL_SIZE > Game.WIDTH) { return paddleRight; }
+        if (x < 0) {
+            soundPlayer.soundPlayer(GameSoundPlayer.missFile, GameSoundPlayer.miss);
+            return paddleLeft;
+        }
+        else if (x + ballSize > Game.WIDTH) {
+            soundPlayer.soundPlayer(GameSoundPlayer.missFile, GameSoundPlayer.miss);
+            return paddleRight;
+        }
+
         return null;
+    }
+
+    public void upsizeBall() {
+        ballSize += 10;
     }
 
     @Override
