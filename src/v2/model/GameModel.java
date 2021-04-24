@@ -1,6 +1,7 @@
 package v2.model;
 
 import v2.component.Ball;
+import v2.component.Star;
 import v2.component.paddle.LeftPaddle;
 import v2.component.paddle.Paddle;
 import v2.component.paddle.RightPaddle;
@@ -20,6 +21,7 @@ public class GameModel implements Model {
     private final GameSoundPlayer soundPlayer = new GameSoundPlayer();
 
     public GameModel() {
+        soundPlayer.joinGame();
         initBoard();
     }
 
@@ -78,21 +80,21 @@ public class GameModel implements Model {
 
     public void tryAddNewBall(){
         if (balls.size() == 1){
-            balls.set(1, new Ball(soundPlayer));
+            balls.set(0, new Ball(soundPlayer));
         }
     }
 
     public void updateStar(){
         if(star.isCollision(ball)){
             pickupStar();
-            star.checkStar = false;
+            Star.checkStar = false;
             ball.starCollide();
             star = new Star();
         }
     }
 
     public void pickupStar(){
-        switch (star.getImage()){
+        switch (star.getImagePath()){
             case "resources/img/starBlue.png":
                 ball.upsizeBall();
             case "resources/img/starGreen.png":

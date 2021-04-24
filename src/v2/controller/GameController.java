@@ -1,7 +1,6 @@
 package v2.controller;
 
 import v2.board.GameAdapter;
-import v2.component.Star;
 import v2.model.EnterNameDialogModel;
 import v2.model.GameModel;
 import v2.view.GameView;

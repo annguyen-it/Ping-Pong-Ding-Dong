@@ -115,22 +115,23 @@ public class Ball extends GameObject implements BallMechanics {
         dy = INITIAL_SPEED;
     }
 
+    @Override
     public void wallCollide() {
-        soundPlayer.soundPlayer(GameSoundPlayer.wallCollideAudioFile, GameSoundPlayer.wallCollide);
+        soundPlayer.wallCollide();
         dy *= -1;
     }
 
     public void starCollide() {
-        soundPlayer.soundPlayer(GameSoundPlayer.starCollideAudioFile, GameSoundPlayer.starCollide);
+        soundPlayer.starCollide();
     }
 
     public Paddle isOutTheBoard(Paddle paddleLeft, Paddle paddleRight) {
         if (x < 0) {
-            soundPlayer.soundPlayer(GameSoundPlayer.missFile, GameSoundPlayer.miss);
+            soundPlayer.miss();
             return paddleLeft;
         }
         else if (x + ballSize > Game.WIDTH) {
-            soundPlayer.soundPlayer(GameSoundPlayer.missFile, GameSoundPlayer.miss);
+            soundPlayer.miss();
             return paddleRight;
         }
 
@@ -146,9 +147,6 @@ public class Ball extends GameObject implements BallMechanics {
         int nextPosY = y + dy;
         return nextPosY < 0 || nextPosY + BALL_SIZE + 40 > Game.HEIGHT;
     }
-
-    @Override
-    public void wallCollide() { dy *= -1; }
 
     @Override
     public void collide(Paddle paddle) {

@@ -9,7 +9,6 @@ import v2.model.GameModel;
 import v2.component.paddle.Paddle;
 import v2.model.EnterNameDialogModel;
 
-import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
@@ -120,8 +119,8 @@ public class GameView extends View {
     private void drawStar(Graphics g) {
         if(Star.checkStar ) {
             Star star = new Star();
-            Image image = getToolkit().getImage(star.getImage());
-            g.drawImage(image, star.getstarX(), star.getStarY(), null);
+            Image image = getToolkit().getImage(star.getImagePath());
+            g.drawImage(image, star.getStarX(), star.getStarY(), null);
         }
     }
 

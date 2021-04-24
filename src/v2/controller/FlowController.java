@@ -16,10 +16,6 @@ public class FlowController {
         controller = new MenuController(this);
     }
 
-    public JLayeredPane getLayer() {
-        return layer;
-    }
-
     public void init(){
         setup();
     }
