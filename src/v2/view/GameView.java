@@ -8,8 +8,10 @@ import v2.component.paddle.Paddle;
 import v2.model.EnterNameDialogModel;
 
 import java.awt.*;
+import java.util.List;
 
 public class GameView extends View {
+
     private GameController controller;
 
     private final String leftPlayerName;
@@ -22,7 +24,7 @@ public class GameView extends View {
         rightPlayerName = enterNameDialogModel.getPlayerName2();
     }
 
-    public void setController(GameController controller){
+    public void setController(GameController controller) {
         this.controller = controller;
     }
 
@@ -54,7 +56,7 @@ public class GameView extends View {
 
         paintName(g);
 
-        if (!controller.isStarted()){
+        if (!controller.isStarted()) {
             paintStartGame(g);
         }
     }
@@ -73,7 +75,11 @@ public class GameView extends View {
         GameModel model = controller.getModel();
 
         g.setColor(Color.white);
-        g.fillOval(model.getBall().getX(), model.getBall().getY(), Ball.BALL_SIZE, Ball.BALL_SIZE);
+
+        List<Ball> ballList = model.getBalls();
+        for (Ball ball : ballList) {
+            g.fillOval(ball.getX(), ball.getY(), Ball.BALL_SIZE, Ball.BALL_SIZE);
+        }
     }
 
     private void paintStartGame(Graphics g) {
