@@ -2,7 +2,7 @@ package v2.component.gameObject.movable.ball;
 
 import v2.Game;
 import v2.board.Side;
-import v2.component.gameObject.immovable.Star;
+import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.AllDirectionMovableGameObject;
 import v2.component.gameObject.movable.paddle.LeftPaddle;
 import v2.component.gameObject.movable.paddle.Paddle;
@@ -11,6 +11,8 @@ import v2.mechanics.ball.BallMechanics;
 import v2.utils.sound.GameSoundPlayer;
 import v2.utils.sound.HasSound;
 import v2.component.helper.model.Vector;
+
+import java.awt.*;
 
 /**
  * Class Ball
@@ -237,7 +239,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     }
 
     @Override
-    public boolean willCollideLeftPaddle(LeftPaddle paddle) {
+    public boolean willCollide(LeftPaddle paddle) {
         int paddleX = paddle.getX();
         int paddleY = paddle.getY();
 
@@ -247,7 +249,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     }
 
     @Override
-    public boolean willCollideRightPaddle(RightPaddle paddle) {
+    public boolean willCollide(RightPaddle paddle) {
         int paddleX = paddle.getX();
         int paddleY = paddle.getY();
 
@@ -256,10 +258,13 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
                 paddleY <= y + size && y <= paddleY + Paddle.INITIAL_PADDLE_HEIGHT;
     }
 
+    private Rectangle getBallBound() {
+        return new Rectangle(x, y, size, size);
+    }
+
     @Override
-    public boolean willCollideStar(Star star) {
-        // Todo
-        return false;
+    public boolean willCollide(Star star) {
+        return getBallBound().intersects(star.getBound());
     }
 
     @Override
@@ -272,7 +277,23 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     @Override
     public void collide(Star star) {
         soundPlayer.starCollide();
-        // Todo
+
+        switch (star.getType()) {
+            case bigBall:
+                sizeUp();
+                break;
+
+            case multiBall:
+                break;
+
+            case speedUp:
+                break;
+
+            case speedDown:
+                break;
+
+            default:
+        }
     }
     //#endregion
 

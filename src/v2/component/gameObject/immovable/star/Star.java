@@ -1,6 +1,6 @@
-package v2.component.gameObject.immovable;
+package v2.component.gameObject.immovable.star;
 
-import v2.component.gameObject.movable.ball.Ball;
+import v2.component.gameObject.immovable.ImmovableGameObject;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -29,10 +29,7 @@ public class Star extends ImmovableGameObject {
     }
 
     public Star() {
-        super(0, 0);
-
-        x = (int) (Math.random()*800) + 200;
-        y = (int) (Math.random()*600) + 100;
+        super(randomX(), randomY());
 
         appearTime = Calendar.getInstance().getTimeInMillis();
 
@@ -54,15 +51,15 @@ public class Star extends ImmovableGameObject {
         return imagePath;
     }
 
-    private Rectangle getBallBound(Ball ball) {
-        return new Rectangle(ball.getX(), ball.getY(), ball.getSize(), ball.getSize());
-    }
-
-    private Rectangle getStarBound() {
+    public Rectangle getBound() {
         return new Rectangle(x, y, 50, 50);
     }
 
-    public boolean isCollision(Ball ball) {
-        return getBallBound(ball).intersects(getStarBound());
+    private static int randomX(){
+        return (int) (Math.random()*800) + 200;
+    }
+
+    private static int randomY(){
+        return (int) (Math.random()*800) + 200;
     }
 }

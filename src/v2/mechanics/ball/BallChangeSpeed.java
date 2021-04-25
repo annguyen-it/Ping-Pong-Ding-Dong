@@ -1,7 +1,7 @@
 package v2.mechanics.ball;
 
 import v2.component.gameObject.GameObject;
-import v2.component.gameObject.immovable.Star;
+import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.paddle.Paddle;
 import v2.mechanics.common.move.ChangeSpeed;
 
@@ -18,7 +18,7 @@ interface BallChangeSpeed extends ChangeSpeed<GameObject> {
      *
      * @param causeObject Object which makes ball change its speed
      * @see v2.component.gameObject.movable.paddle.Paddle
-     * @see v2.component.gameObject.immovable.Star
+     * @see v2.component.gameObject.immovable.star.Star
      */
     @Override
     default void changeSpeed(GameObject causeObject) {

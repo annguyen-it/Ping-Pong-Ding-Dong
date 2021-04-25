@@ -1,12 +1,10 @@
 package v2.model;
 
 import v2.board.Side;
+import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
-import v2.component.gameObject.immovable.Star;
+import v2.component.gameObject.movable.paddle.*;
 import v2.component.helper.factory.StarFactory;
-import v2.component.gameObject.movable.paddle.LeftPaddle;
-import v2.component.gameObject.movable.paddle.Paddle;
-import v2.component.gameObject.movable.paddle.RightPaddle;
 import v2.utils.sound.GameSoundPlayer;
 
 import java.util.ArrayList;
@@ -57,17 +55,17 @@ public class GameModel implements Model {
         rightPaddle.tryMove();
 
         for (Ball ball : balls) {
-            if (ball.willCollideLeftPaddle(leftPaddle)) {
+            if (ball.willCollide(leftPaddle)) {
                 ball.collide(leftPaddle);
             }
-            else if (ball.willCollideRightPaddle(rightPaddle)) {
+            else if (ball.willCollide(rightPaddle)) {
                 ball.collide(rightPaddle);
             }
         }
     }
 
     public void updateBall() {
-        for (Ball ball : balls){
+        for (Ball ball : balls) {
             ball.tryMove();
 
             Side loseSide = ball.isOutTheBoard();
@@ -95,38 +93,10 @@ public class GameModel implements Model {
 
         if (star != null) {
             for (Ball ball : balls) {
-                if (star.isCollision(ball)) {
-                    pickupStar(star);
+                if (ball.willCollide(star)) {
+                    ball.collide(star);
                     starFactory.deleteStar();
                 }
-            }
-        }
-
-        //        if (star.isCollision(ball)) {
-        //            pickupStar();
-        //            Star.checkStar = false;
-        //            ball.starCollide();
-        //            star = new Star();
-        //        }
-    }
-
-    public void pickupStar(Star star) {
-        for (Ball ball : balls) {
-            switch (star.getType()) {
-                case bigBall:
-                    ball.sizeUp();
-                    break;
-
-                case multiBall:
-                    break;
-
-                case speedUp:
-                    break;
-
-                case speedDown:
-                    break;
-
-                default:
             }
         }
     }

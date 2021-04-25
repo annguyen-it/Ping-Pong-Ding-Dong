@@ -1,6 +1,6 @@
 package v2.component.helper.factory;
 
-import v2.component.gameObject.immovable.Star;
+import v2.component.gameObject.immovable.star.Star;
 
 import java.util.Calendar;
 

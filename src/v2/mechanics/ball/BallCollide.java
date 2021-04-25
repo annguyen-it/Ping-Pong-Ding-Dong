@@ -1,7 +1,7 @@
 package v2.mechanics.ball;
 
 import v2.component.gameObject.GameObject;
-import v2.component.gameObject.immovable.Star;
+import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.paddle.LeftPaddle;
 import v2.component.gameObject.movable.paddle.Paddle;
 import v2.component.gameObject.movable.paddle.RightPaddle;
@@ -34,7 +34,7 @@ public interface BallCollide extends GameObjectCollide {
      * @param paddle LeftPaddle
      * @return Ball and paddle collide or not
      */
-    boolean willCollideLeftPaddle(LeftPaddle paddle);
+    boolean willCollide(LeftPaddle paddle);
 
     /**
      * Check whether if ball collides RightPaddle
@@ -42,7 +42,7 @@ public interface BallCollide extends GameObjectCollide {
      * @param paddle RightPaddle
      * @return Ball and paddle collide or not
      */
-    boolean willCollideRightPaddle(RightPaddle paddle);
+    boolean willCollide(RightPaddle paddle);
 
     /**
      * Check whether if ball collides LeftPaddle
@@ -50,14 +50,14 @@ public interface BallCollide extends GameObjectCollide {
      * @param star Star
      * @return Ball and star collide or not
      */
-    boolean willCollideStar(Star star);
+    boolean willCollide(Star star);
 
     /**
      * Receives a colliding object, then call to specific method to perform the collision.
      *
      * @param objectCollide Object which collides
      * @see v2.component.gameObject.movable.paddle.Paddle
-     * @see v2.component.gameObject.immovable.Star
+     * @see v2.component.gameObject.immovable.star.Star
      */
     @Override
     default void collide(GameObject objectCollide) {
@@ -75,18 +75,18 @@ public interface BallCollide extends GameObjectCollide {
      * @param object Object which needs to check
      * @see v2.component.gameObject.movable.paddle.LeftPaddle
      * @see v2.component.gameObject.movable.paddle.RightPaddle
-     * @see v2.component.gameObject.immovable.Star
+     * @see v2.component.gameObject.immovable.star.Star
      */
     @Override
     default boolean willCollide(GameObject object) {
         if (object instanceof LeftPaddle) {
-            willCollideLeftPaddle((LeftPaddle) object);
+            willCollide((LeftPaddle) object);
         }
         else if (object instanceof RightPaddle) {
-            willCollideRightPaddle((RightPaddle) object);
+            willCollide((RightPaddle) object);
         }
         else if (object instanceof Star) {
-            willCollideStar((Star) object);
+            willCollide((Star) object);
         }
 
         return false;
