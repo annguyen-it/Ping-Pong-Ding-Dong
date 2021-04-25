@@ -95,7 +95,7 @@ public class GameModel implements Model {
             for (Ball ball : balls) {
                 if (ball.willCollide(star)) {
                     ball.collide(star);
-                    starFactory.deleteStar();
+                    starFactory.createStar();
                 }
             }
         }
