@@ -1,12 +1,12 @@
 package v2.view;
 
 import v2.board.Score;
-import v2.component.Ball;
+import v2.component.gameObject.movable.ball.Ball;
 
-import v2.component.Star;
+import v2.component.gameObject.immovable.Star;
 import v2.controller.GameController;
 import v2.model.GameModel;
-import v2.component.paddle.Paddle;
+import v2.component.gameObject.movable.paddle.Paddle;
 import v2.model.EnterNameDialogModel;
 
 import java.awt.*;
@@ -74,7 +74,7 @@ public class GameView extends View {
 
     private void paintPaddle(Graphics g, Paddle paddle) {
         g.setColor(Color.cyan);
-        g.fillRect(paddle.getX(), paddle.getY(), Paddle.PADDLE_WIDTH, Paddle.PADDLE_HEIGHT);
+        g.fillRect(paddle.getX(), paddle.getY(), Paddle.INITIAL_PADDLE_WIDTH, Paddle.INITIAL_PADDLE_HEIGHT);
     }
 
     private void paintBall(Graphics g) {
@@ -84,7 +84,7 @@ public class GameView extends View {
 
         List<Ball> ballList = model.getBalls();
         for (Ball ball : ballList) {
-            g.fillOval(ball.getX(), ball.getY(), Ball.BALL_SIZE, Ball.BALL_SIZE);
+            g.fillOval(ball.getX(), ball.getY(), ball.getSize(), ball.getSize());
         }
     }
 

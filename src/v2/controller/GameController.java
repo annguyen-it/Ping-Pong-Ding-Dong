@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
 
 public class GameController extends Controller<GameView, GameModel> implements ActionListener {
 
-    private static final int GAME_DELAY = 1;
+    private static final int GAME_DELAY = 5;
 
     private static final int leftUp = KeyEvent.VK_W;
     private static final int leftDown = KeyEvent.VK_S;
@@ -140,7 +140,6 @@ public class GameController extends Controller<GameView, GameModel> implements A
             gameView.setController(gameController);
 
             switchController(gameController);
-
         }
         else {
             resume();
