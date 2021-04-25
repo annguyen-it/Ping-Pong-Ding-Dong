@@ -24,7 +24,18 @@ public class StarFactory {
         }
     }
 
-    private void createStar() {
-        star = new Star();
+    public void createStar() {
+
+        if (star != null) {
+            int x, y;
+            do {
+                x = star.getX();
+                y = star.getY();
+                star = new Star();
+            } while (Math.sqrt(Math.pow(x - star.getX(), 2) + Math.pow(y - star.getY(), 2)) > 100);
+        }
+        else {
+            star = new Star();
+        }
     }
 }

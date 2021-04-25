@@ -1,5 +1,6 @@
 package v2.component.gameObject.immovable.star;
 
+import v2.Game;
 import v2.component.gameObject.immovable.ImmovableGameObject;
 
 import java.awt.*;
@@ -17,7 +18,7 @@ public class Star extends ImmovableGameObject {
             "resources/img/starGreen.png",
             "resources/img/starPink.png",
             "resources/img/starRed.png",
-//            "resources/img/starYellow.png"
+            //            "resources/img/starYellow.png"
     };
 
     public enum StarType {
@@ -25,7 +26,7 @@ public class Star extends ImmovableGameObject {
         multiBall,
         speedUp,
         speedDown,
-//        bigBall,
+        //        bigBall,
     }
 
     public Star() {
@@ -55,11 +56,13 @@ public class Star extends ImmovableGameObject {
         return new Rectangle(x, y, 50, 50);
     }
 
-    private static int randomX(){
-        return (int) (Math.random()*800) + 200;
+    private static int randomX() {
+        int width = 600;
+        return (int) (Math.random()*width) + (Game.WIDTH - width)/2;
     }
 
-    private static int randomY(){
-        return (int) (Math.random()*800) + 200;
+    private static int randomY() {
+        int height = 600;
+        return (int) (Math.random()*height) + (Game.HEIGHT - height)/2;
     }
 }
