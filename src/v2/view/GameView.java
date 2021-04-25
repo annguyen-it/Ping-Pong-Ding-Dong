@@ -1,23 +1,25 @@
 package v2.view;
 
 import v2.board.Score;
-import v2.component.Ball;
-
-import v2.component.Star;
+import v2.component.gameObject.immovable.star.Star;
+import v2.component.gameObject.movable.ball.Ball;
+import v2.component.gameObject.movable.paddle.Paddle;
 import v2.controller.GameController;
-import v2.model.GameModel;
-import v2.component.paddle.Paddle;
 import v2.model.EnterNameDialogModel;
+import v2.model.GameModel;
 
 import java.awt.*;
 import java.util.List;
 
 public class GameView extends View {
 
-    private GameController controller;
-
     private final String leftPlayerName;
     private final String rightPlayerName;
+    private final Font infoFont = new Font("Serif", Font.PLAIN, 20);
+    private final Font nameFont = new Font("Serif", Font.PLAIN, 50);
+    private final Font scoreFont = new Font("Serif", Font.PLAIN, 50);
+
+    private GameController controller;
 
     public GameView(EnterNameDialogModel enterNameDialogModel) {
         super();
@@ -62,7 +64,7 @@ public class GameView extends View {
             paintStartGame(g);
         }
 
-        if (model.getStar() != null){
+        if (model.getStar() != null) {
             drawStar(g);
         }
     }
@@ -74,7 +76,7 @@ public class GameView extends View {
 
     private void paintPaddle(Graphics g, Paddle paddle) {
         g.setColor(Color.cyan);
-        g.fillRect(paddle.getX(), paddle.getY(), Paddle.PADDLE_WIDTH, Paddle.PADDLE_HEIGHT);
+        g.fillRect(paddle.getX(), paddle.getY(), Paddle.INITIAL_PADDLE_WIDTH, Paddle.INITIAL_PADDLE_HEIGHT);
     }
 
     private void paintBall(Graphics g) {
@@ -84,15 +86,15 @@ public class GameView extends View {
 
         List<Ball> ballList = model.getBalls();
         for (Ball ball : ballList) {
-            g.fillOval(ball.getX(), ball.getY(), Ball.BALL_SIZE, Ball.BALL_SIZE);
+            g.fillOval(ball.getX(), ball.getY(), ball.getSize(), ball.getSize());
         }
     }
 
     private void paintStartGame(Graphics g) {
         g.setColor(Color.gray);
-        g.setFont(new Font("Serif", Font.PLAIN, 20));
-        String stop = "Press Space To Start Game";
-        g.drawString(stop, (v2.Game.WIDTH - g.getFontMetrics().stringWidth(stop))/2, 200);
+        g.setFont(infoFont);
+        String info = "Press Space To Start Game";
+        g.drawString(info, (v2.Game.WIDTH - g.getFontMetrics().stringWidth(info))/2, 200);
     }
 
     private void paintName(Graphics g) {
@@ -100,7 +102,7 @@ public class GameView extends View {
         int widthName2 = g.getFontMetrics().stringWidth(rightPlayerName);
 
         g.setColor(Color.gray);
-        g.setFont(new Font("Serif", Font.PLAIN, 50));
+        g.setFont(nameFont);
         g.drawString(leftPlayerName, (v2.Game.WIDTH/2 - widthName1)/2, 60);
         g.drawString(rightPlayerName, 600 + (v2.Game.WIDTH/2 - widthName2)/2, 60);
     }
@@ -113,7 +115,7 @@ public class GameView extends View {
         String displayScore1 = Integer.toString(scoreObj1.getScore());
         String displayScore2 = Integer.toString(scoreObj2.getScore());
 
-        g.setFont(new Font("Serif", Font.PLAIN, 50));
+        g.setFont(scoreFont);
         g.setColor(Color.gray);
         g.drawString(displayScore1, (v2.Game.WIDTH/2 - 75 - g.getFontMetrics().stringWidth(displayScore1)), 60);
         g.drawString(displayScore2, v2.Game.WIDTH/2 + 75, 60);
@@ -125,7 +127,6 @@ public class GameView extends View {
         Image image = getToolkit().getImage(star.getImagePath());
         g.drawImage(image, star.getX(), star.getY(), null);
     }
-
 
     //endregion
 }

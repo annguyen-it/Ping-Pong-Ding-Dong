@@ -1,20 +1,19 @@
 package v2.model;
 
-import v2.component.Ball;
-import v2.component.Star;
-import v2.component.StarFactory;
-import v2.component.paddle.LeftPaddle;
-import v2.component.paddle.Paddle;
-import v2.component.paddle.RightPaddle;
-import v2.sound.GameSoundPlayer;
+import v2.board.Side;
+import v2.component.gameObject.immovable.star.Star;
+import v2.component.gameObject.movable.ball.Ball;
+import v2.component.gameObject.movable.paddle.*;
+import v2.component.helper.factory.StarFactory;
+import v2.utils.sound.GameSoundPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameModel implements Model {
 
-    private Paddle rightPaddle;
-    private Paddle leftPaddle;
+    private RightPaddle rightPaddle;
+    private LeftPaddle leftPaddle;
     private List<Ball> balls;
     private StarFactory starFactory;
 
@@ -55,36 +54,36 @@ public class GameModel implements Model {
         leftPaddle.tryMove();
         rightPaddle.tryMove();
 
-        balls.forEach(ball -> {
-            if (ball.willCollideLeftPaddle(leftPaddle)) {
+        for (Ball ball : balls) {
+            if (ball.willCollide(leftPaddle)) {
                 ball.collide(leftPaddle);
             }
-            else if (ball.willCollideRightPaddle(rightPaddle)) {
+            else if (ball.willCollide(rightPaddle)) {
                 ball.collide(rightPaddle);
             }
-        });
+        }
     }
 
     public void updateBall() {
-        balls.forEach(ball -> {
+        for (Ball ball : balls) {
             ball.tryMove();
 
-            Paddle losePaddle = ball.isOutTheBoard(leftPaddle, rightPaddle);
+            Side loseSide = ball.isOutTheBoard();
 
-            if (losePaddle == leftPaddle) {
+            if (loseSide == Side.left) {
                 rightPaddle.increaseScore();
-                tryAddNewBall();
+                tryAddNewBall(Ball.HorizontalDirection.right);
             }
-            else if (losePaddle == rightPaddle) {
+            else if (loseSide == Side.right) {
                 leftPaddle.increaseScore();
-                tryAddNewBall();
+                tryAddNewBall(Ball.HorizontalDirection.left);
             }
-        });
+        }
     }
 
-    public void tryAddNewBall() {
+    public void tryAddNewBall(Ball.HorizontalDirection ballDirection) {
         if (balls.size() == 1) {
-            balls.set(0, new Ball(soundPlayer));
+            balls.set(0, new Ball(soundPlayer, ballDirection));
         }
     }
 
@@ -93,36 +92,12 @@ public class GameModel implements Model {
         Star star = starFactory.getStar();
 
         if (star != null) {
-            balls.forEach(ball -> {
-                if (star.isCollision(ball)) {
-                    pickupStar(star);
-                    starFactory.deleteStar();
+            for (Ball ball : balls) {
+                if (ball.willCollide(star)) {
+                    ball.collide(star);
+                    starFactory.createStar();
                 }
-            });
-        }
-
-        //        if (star.isCollision(ball)) {
-        //            pickupStar();
-        //            Star.checkStar = false;
-        //            ball.starCollide();
-        //            star = new Star();
-        //        }
-    }
-
-    public void pickupStar(Star star) {
-        balls.forEach(ball -> {
-            switch (star.getImagePath()) {
-                case "resources/img/starBlue.png":
-                    ball.upsizeBall();
-                case "resources/img/starGreen.png":
-                    ball.upsizeBall();
-                case "resources/img/starPink.png":
-                    ball.upsizeBall();
-                case "resources/img/starRed.png":
-                    ball.upsizeBall();
-                case "resources/img/starYellow.png":
-                    ball.upsizeBall();
             }
-        });
+        }
     }
 }
