@@ -139,7 +139,7 @@ public class Ball extends MovableGameObject implements BallMechanics {
     }
 
     public void upsizeBall() {
-        ballSize += 10;
+        ballSize += 20;
     }
 
     @Override

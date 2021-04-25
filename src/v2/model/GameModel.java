@@ -112,8 +112,9 @@ public class GameModel implements Model {
 
     public void pickupStar(Star star) {
         balls.forEach(ball -> {
+            Star.STARIMAGE starimages = Star.STARIMAGE.BLUE;
             switch (star.getImagePath()) {
-                case "resources/img/starBlue.png":
+                case starimages.getStarFile():
                     ball.upsizeBall();
                 case "resources/img/starGreen.png":
                     ball.upsizeBall();

@@ -10,7 +10,7 @@ public class Star extends ImmovableGameObject {
     private final String imagePath;
     private final long appearTime;
 
-    enum STARIMAGE{
+    public enum STARIMAGE{
         BLUE("resources/img/starBlue.png") ,
         GREEN("resources/img/starGreen.png"),
         PINK("resources/img/starPink.png") ,
@@ -59,4 +59,6 @@ public class Star extends ImmovableGameObject {
     public boolean isCollision(Ball ball) {
         return getBallBound(ball).intersects(getStarBound());
     }
+
+
 }
