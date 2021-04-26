@@ -15,9 +15,10 @@ public class MenuView extends View {
     JLabel background;
     JLabel buttonsWrapper = new JLabel();
 
-    private final JButton helpButton = new JButton("HELP");
-    private final JButton exitButton = new JButton("EXIT");
     private final JButton playButton = new JButton("PLAY");
+    private final JButton helpButton = new JButton("HELP");
+    private final JButton rankingButton = new JButton("Ranking");
+    private final JButton exitButton = new JButton("EXIT");
 
     private final JPanel playDialog = new JPanel();
     private final JTextField playerNameTextField1 = new JTextField(new PlayerNameTextFieldLimit(10), "Player 1", 10);
@@ -34,6 +35,8 @@ public class MenuView extends View {
     public JButton getExitButton() { return exitButton; }
 
     public JButton getPlayButton() { return playButton; }
+
+    public JButton getRankingButton() { return rankingButton; }
 
     public JPanel getPlayDialog() { return playDialog; }
 
@@ -75,13 +78,14 @@ public class MenuView extends View {
 
 
     private void setupButtons() {
+        buttonsWrapper.setBounds(450, 370, 300, 300);
         setupButton(playButton, 0);
-        setupButton(helpButton, 100);
-        setupButton(exitButton, 200);
+        setupButton(helpButton, 75);
+        setupButton(rankingButton, 150);
+        setupButton(exitButton, 225);
     }
 
     private void setupButton(JButton button, int yb) {
-        buttonsWrapper.setBounds(450, 370, 300, 300);
         buttonsWrapper.add(button);
 
         button.setBounds(0, yb, 300, 50);
@@ -113,9 +117,11 @@ public class MenuView extends View {
         helpDialog.setPreferredSize(new Dimension(400, 75));
         helpDialog.setHorizontalAlignment(CENTER);
     }
+
     //endregion
 
     public static class PlayerNameTextFieldLimit extends PlainDocument {
+
         private final int limit;
 
         public PlayerNameTextFieldLimit(int limit) {
@@ -125,9 +131,11 @@ public class MenuView extends View {
 
         public void insertString(int offset, String str, AttributeSet set) throws BadLocationException {
             if (str == null) {}
-            else if((getLength() + str.length())<=limit){
-                str = str.toUpperCase(Locale.ROOT);
-                super.insertString(offset,str,set);
+            else {
+                if ((getLength() + str.length()) <= limit) {
+                    str = str.toUpperCase(Locale.ROOT);
+                    super.insertString(offset, str, set);
+                }
             }
         }
     }

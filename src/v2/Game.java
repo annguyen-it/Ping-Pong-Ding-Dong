@@ -1,9 +1,11 @@
 package v2;
 
 import v2.controller.FlowController;
+import v2.utils.database.Database;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class Game extends JFrame {
     JLayeredPane layer = new JLayeredPane();
@@ -15,6 +17,13 @@ public class Game extends JFrame {
 
     public Game() {
         setupGame();
+
+        try {
+            Database.connect();
+        }
+        catch (SQLException e) {
+            System.out.println("Cannot connect to database");
+        }
 
         FlowController controller = new FlowController(layer);
         controller.init();

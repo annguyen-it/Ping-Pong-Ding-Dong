@@ -25,7 +25,6 @@ public class StarFactory {
     }
 
     public void createStar() {
-
         if (star != null) {
             int x, y;
             do {
