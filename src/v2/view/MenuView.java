@@ -51,9 +51,9 @@ public class MenuView extends View {
     public void initUI() {
         setLayout(null);
         setupUI();
-        setupBackground();
         setupButtons();
         setupDialogs();
+        setupBackground();
     }
 
 
