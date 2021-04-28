@@ -114,7 +114,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
     }
 
     private void addPauseEvent() {
-        String[] play = { "Home", "Continue", "New Game" };
+        String[] options = { "Home", "Continue", "New Game" };
         int output = JOptionPane.showOptionDialog(
                 null,
                 "Do you want exit this game? ",
@@ -122,27 +122,29 @@ public class GameController extends Controller<GameView, GameModel> implements A
                 JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE,
                 null,
-                play,
-                play[1]);
+                options,
+                options[1]
+        );
 
-        if (output == 0) {
-            MenuController menuController = new MenuController(flowController);
-            switchController(menuController);
-        }
-        else if (output == 1) {resume(); }
-        else if (output == 2) {
-            EnterNameDialogModel model = new EnterNameDialogModel(MenuController.playerName1, MenuController.playerName2);
-            GameView gameView = new GameView(model);
-            GameModel gameModel = new GameModel();
+        switch (output){
+            case 0:
+                switchController(new MenuController(flowController));
+                break;
 
-            GameController gameController = new GameController(flowController, gameView, gameModel);
+            case 2:
+                EnterNameDialogModel model = new EnterNameDialogModel(MenuController.playerName1, MenuController.playerName2);
+                GameView gameView = new GameView(model);
+                GameModel gameModel = new GameModel();
 
-            gameView.setController(gameController);
+                GameController gameController = new GameController(flowController, gameView, gameModel);
 
-            switchController(gameController);
-        }
-        else {
-            resume();
+                gameView.setController(gameController);
+
+                switchController(gameController);
+                break;
+
+            default:
+                resume();
         }
     }
 }

@@ -1,6 +1,7 @@
 package v2.model;
 
-import v2.board.Side;
+import v2.board.GameSide;
+import v2.board.GameSide.Side;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.*;
@@ -69,22 +70,39 @@ public class GameModel implements Model {
             ball.tryMove();
 
             Side loseSide = ball.isOutTheBoard();
+            lostBall(loseSide);
+        }
+    }
 
-            if (loseSide == Side.left) {
+    public void lostBall(Side loseSide){
+        if (loseSide != Side.unknown){
+            if (loseSide == Side.left){
                 rightPaddle.increaseScore();
-                tryAddNewBall(Ball.HorizontalDirection.right);
             }
-            else if (loseSide == Side.right) {
+            else {
                 leftPaddle.increaseScore();
-                tryAddNewBall(Ball.HorizontalDirection.left);
+            }
+
+            tryAddNewBall(GameSide.opposite(loseSide));
+        }
+    }
+
+    public void tryAddNewBall(Side ballDirection) {
+        if (balls.size() == 1) {
+            if (willContinueGame()){
+                balls.set(0, new Ball(soundPlayer, ballDirection));
+            }
+            else {
+                System.out.println("Stop now");
             }
         }
     }
 
-    public void tryAddNewBall(Ball.HorizontalDirection ballDirection) {
-        if (balls.size() == 1) {
-            balls.set(0, new Ball(soundPlayer, ballDirection));
-        }
+    public boolean willContinueGame(){
+        int leftScore = leftPaddle.getScore();
+        int rightScore = rightPaddle.getScore();
+
+        return leftScore == rightScore || Math.max(leftScore, rightScore) < 5;
     }
 
     public void updateStar() {

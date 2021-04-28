@@ -1,7 +1,7 @@
 package v2.component.gameObject.movable.ball;
 
 import v2.Game;
-import v2.board.Side;
+import v2.board.GameSide.Side;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.AllDirectionMovableGameObject;
 import v2.component.gameObject.movable.paddle.LeftPaddle;
@@ -39,13 +39,6 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     private GameSoundPlayer soundPlayer;
     //#endregion
 
-    //#region Enums
-    public enum HorizontalDirection {
-        left,
-        right
-    }
-    //#endregion
-
     //#region Constructors
     /**
      * Constructor with random initial direction of ball, call only one time when game start.
@@ -64,7 +57,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      * @param initialDirection Initial direction of ball
      * @see #setSoundPlayer(v2.utils.sound.GameSoundPlayer)
      */
-    public Ball(GameSoundPlayer soundPlayer, HorizontalDirection initialDirection) {
+    public Ball(GameSoundPlayer soundPlayer, Side initialDirection) {
         super(INITIAL_BALL_X, INITIAL_BALL_Y, getInitialVector(initialDirection), INITIAL_SPEED);
         setSoundPlayer(soundPlayer);
     }
@@ -76,10 +69,10 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      * 1-argument-constructor
      *
      * @return random direction
-     * @see Ball.HorizontalDirection
+     * @see v2.board.GameSide.Side
      */
-    private static HorizontalDirection randomInitialSide() {
-        return (int) (Math.random()*2) == 0 ? HorizontalDirection.left : HorizontalDirection.right;
+    private static Side randomInitialSide() {
+        return (int) (Math.random()*2) == 0 ? Side.left : Side.right;
     }
 
     /**
@@ -87,12 +80,12 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      *
      * @param initialDirection HorizontalDirection needs to convert
      * @return converted vector
-     * @see Ball.HorizontalDirection
+     * @see Side
      * @see #INITIAL_TO_LEFT_VECTOR
      * @see #INITIAL_TO_RIGHT_VECTOR
      */
-    private static Vector getInitialVector(HorizontalDirection initialDirection) {
-        return initialDirection == HorizontalDirection.left ? INITIAL_TO_LEFT_VECTOR : INITIAL_TO_RIGHT_VECTOR;
+    private static Vector getInitialVector(Side initialDirection) {
+        return initialDirection == Side.left ? INITIAL_TO_LEFT_VECTOR : INITIAL_TO_RIGHT_VECTOR;
     }
 
     /**
@@ -199,11 +192,11 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
 
     @Override
     public Side isOutTheBoard() {
-        if (x < 0) {
+        if (x < -SIZE) {
             soundPlayer.miss();
             return Side.left;
         }
-        else if (x + size > Game.WIDTH) {
+        else if (x > Game.WIDTH) {
             soundPlayer.miss();
             return Side.right;
         }
