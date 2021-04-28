@@ -2,6 +2,7 @@ package v2;
 
 import v2.controller.FlowController;
 import v2.utils.database.Database;
+import v2.thread.DatabaseThread;
 
 import javax.swing.*;
 import java.awt.*;
@@ -18,15 +19,18 @@ public class Game extends JFrame {
     public Game() {
         setupGame();
 
-        try {
-            Database.connect();
-        }
-        catch (SQLException e) {
-            System.out.println("Cannot connect to database");
-        }
+        DatabaseThread dbThread = new DatabaseThread();
+        dbThread.start();
 
         FlowController controller = new FlowController(layer);
         controller.init();
+
+        try {
+            Database.disconnect();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setupGame() {

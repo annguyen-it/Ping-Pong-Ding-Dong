@@ -31,6 +31,10 @@ public class Database {
         }
     }
 
+    public static boolean connected() {
+        return connector != null && connector.connected();
+    }
+
     public static void createPlayer(PlayerInfo playerInfo) {
         connector.createPlayer(playerInfo);
     }
@@ -58,6 +62,16 @@ public class Database {
         private void disconnect() throws SQLException {
             if (connection != null) {
                 connection.close();
+            }
+        }
+
+        private boolean connected() {
+            try {
+                return !connection.isClosed();
+            }
+            catch (SQLException throwables) {
+                throwables.printStackTrace();
+                return true;
             }
         }
 
