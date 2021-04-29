@@ -25,7 +25,7 @@ public class BonusFactory {
             GameView.listTimeLeft.add(bonus.getTimeLeft());
         }
         else {
-            listBonus.get(exist).setTimeLeft(4400);
+            listBonus.get(exist).setTimeLeft(8800);
         }
     }
 
