@@ -57,7 +57,7 @@ public class GameModel implements Model {
         starFactory = new StarFactory();
         bonusFactory = new BonusFactory();
 
-        listBonus = bonusFactory.getlistBonus();
+        listBonus = bonusFactory.getListBonus();
     }
 
     public void updatePaddles() {

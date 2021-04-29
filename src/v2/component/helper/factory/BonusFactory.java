@@ -8,54 +8,59 @@ import java.util.List;
 
 public class BonusFactory {
 
-    private List<Bonus> listBonus = new ArrayList<>();;
-    private int exist ;
+    private final List<Bonus> listBonus = new ArrayList<>();
+
+    private int exist;
     private Bonus bonus;
 
-    public BonusFactory(){
+    public BonusFactory() {
         //removeBonus();
     }
 
-    public void tryRemoveBonus(){
-
-        if(listBonus!=null)
-            for (int i=0;i<listBonus.size();i++){
-                if(listBonus.get(i).getTimeLeft() <=0)
-                    listBonus.remove(i);
+    public void tryRemoveBonus() {
+        for (int i = 0; i < listBonus.size(); ) {
+            if (listBonus.get(i).getTimeLeft() <= 0) {
+                listBonus.remove(i);
             }
+            else {
+                i++;
+            }
+        }
     }
 
-    public void update()  {
-
+    public void update() {
         bonus = new Bonus(4400);
 
-            if (!checkList(bonus)) {
-                listBonus.add(bonus);
-                GameView.listTimeLeft.add( bonus.getTimeLeft());
-            } else {
-                listBonus.get(exist).setTimeLeft(4400);
-            }
+        if (!isDuplicate(bonus)) {
+            listBonus.add(bonus);
+            GameView.listTimeLeft.add(bonus.getTimeLeft());
+        }
+        else {
+            listBonus.get(exist).setTimeLeft(4400);
+        }
         tryRemoveBonus();
     }
 
-    public List<Bonus> getlistBonus(){
+    public List<Bonus> getListBonus() {
         return listBonus;
     }
 
-    public Bonus getBonus(int i){
+    public Bonus getBonus(int i) {
         return listBonus.get(i);
     }
-    private boolean checkList(Bonus bonus){
-        if(listBonus.size()==0) return true;
-        else {
-        for(int i=0;i<listBonus.size();i++) {
+
+    private boolean isDuplicate(Bonus bonus) {
+        if (listBonus.size() == 0) {
+            return false;
+        }
+
+        for (int i = 0; i < listBonus.size(); i++) {
             if (listBonus.get(i).getColor() == bonus.getColor()) {
-                exist=i;
+                exist = i;
                 return true;
             }
         }
-                return false;
-    }
-    }
 
+        return false;
+    }
 }
