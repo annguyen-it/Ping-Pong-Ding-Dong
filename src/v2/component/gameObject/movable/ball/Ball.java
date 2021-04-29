@@ -2,15 +2,12 @@ package v2.component.gameObject.movable.ball;
 
 import v2.Game;
 import v2.board.Side;
-import v2.component.gameObject.immovable.bonus.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.AllDirectionMovableGameObject;
 import v2.component.gameObject.movable.paddle.LeftPaddle;
 import v2.component.gameObject.movable.paddle.Paddle;
 import v2.component.gameObject.movable.paddle.RightPaddle;
-import v2.component.helper.factory.BonusFactory;
 import v2.mechanics.ball.BallMechanics;
-import v2.model.GameModel;
 import v2.utils.sound.GameSoundPlayer;
 import v2.utils.sound.HasSound;
 import v2.component.helper.model.Vector;

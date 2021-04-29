@@ -1,6 +1,7 @@
 package v2.component.helper.factory;
 
 import v2.component.gameObject.immovable.bonus.Bonus;
+import v2.component.gameObject.immovable.star.StarType;
 import v2.view.GameView;
 
 import java.util.ArrayList;
@@ -11,25 +12,13 @@ public class BonusFactory {
     private final List<Bonus> listBonus = new ArrayList<>();
 
     private int exist;
-    private Bonus bonus;
 
     public BonusFactory() {
         //removeBonus();
     }
 
-    public void tryRemoveBonus() {
-        for (int i = 0; i < listBonus.size(); ) {
-            if (listBonus.get(i).getTimeLeft() <= 0) {
-                listBonus.remove(i);
-            }
-            else {
-                i++;
-            }
-        }
-    }
-
-    public void update() {
-        bonus = new Bonus(4400);
+    public void createBonus(StarType starType) {
+        Bonus bonus = new Bonus(starType);
 
         if (!isDuplicate(bonus)) {
             listBonus.add(bonus);
@@ -38,10 +27,9 @@ public class BonusFactory {
         else {
             listBonus.get(exist).setTimeLeft(4400);
         }
-        tryRemoveBonus();
     }
 
-    public List<Bonus> getListBonus() {
+    public List<Bonus> getBonusList() {
         return listBonus;
     }
 
@@ -62,5 +50,18 @@ public class BonusFactory {
         }
 
         return false;
+    }
+
+    public void update(){
+        for (int i = 0; i < listBonus.size(); ) {
+            listBonus.get(i).decreaseTimeLeft();
+
+            if (listBonus.get(i).getTimeLeft() <= 0) {
+                listBonus.remove(i);
+            }
+            else {
+                i++;
+            }
+        }
     }
 }

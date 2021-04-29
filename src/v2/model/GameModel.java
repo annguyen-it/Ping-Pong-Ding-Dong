@@ -19,9 +19,7 @@ public class GameModel implements Model {
     private List<Ball> balls;
     private StarFactory starFactory;
     private BonusFactory bonusFactory;
-    private List<Bonus> listBonus;
-//    public static int checkCollideStar=0;
-//
+
     private final GameSoundPlayer soundPlayer = new GameSoundPlayer();
 
     public GameModel() {
@@ -45,7 +43,9 @@ public class GameModel implements Model {
         return starFactory.getStar();
     }
 
-    public List<Bonus> getListBonus(){return listBonus;}
+    public List<Bonus> getBonus() {
+        return bonusFactory.getBonusList();
+    }
 
     public void initBoard() {
         leftPaddle = new LeftPaddle();
@@ -56,8 +56,6 @@ public class GameModel implements Model {
 
         starFactory = new StarFactory();
         bonusFactory = new BonusFactory();
-
-        listBonus = bonusFactory.getListBonus();
     }
 
     public void updatePaddles() {
@@ -97,7 +95,7 @@ public class GameModel implements Model {
         }
     }
 
-    public void updateStar() throws InterruptedException {
+    public void updateStar() {
         starFactory.update();
         Star star = starFactory.getStar();
 
@@ -107,12 +105,13 @@ public class GameModel implements Model {
 
                     ball.collide(star);
                     starFactory.createStar();
-                    bonusFactory.update();
-
+                    bonusFactory.createBonus(star.getType());
                 }
             }
         }
     }
 
-
+    public void updateBonus(){
+        bonusFactory.update();
+    }
 }

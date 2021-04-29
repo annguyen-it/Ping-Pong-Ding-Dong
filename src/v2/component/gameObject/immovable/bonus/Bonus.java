@@ -1,21 +1,25 @@
 package v2.component.gameObject.immovable.bonus;
 
 
-import v2.component.gameObject.movable.ball.Ball;
+import v2.component.gameObject.immovable.star.StarType;
+import v2.controller.GameController;
+
 import java.awt.*;
+import java.util.AbstractMap;
+import java.util.Map;
 
 
 public class Bonus {
 
+    private static final Map<StarType, Color> colorMap = Map.ofEntries(
+            new AbstractMap.SimpleEntry<>(StarType.bigBall, Color.red)
+    );
 
-    private int timeLeft;
-    private Color color;
+    private final StarType starType;
+    private int timeLeft = 4400;
 
-
-    public Bonus(int timeLeft) {
-        this.timeLeft = timeLeft;
-        setColor();
-        //countdownTimeLeft();
+    public Bonus(StarType starType) {
+        this.starType = starType;
     }
 
     public void setTimeLeft(int timeLeft) {
@@ -27,41 +31,32 @@ public class Bonus {
     }
 
     public Color getColor() {
-        return color;
+        return colorMap.get(starType);
     }
 
-    public void setColor() {
-        switch (Ball.checkStarType){
-            case 1:
-                this.color = Color.BLUE;
-            case 2:
-                this.color = Color.green;
-            case 3:
-                this.color = Color.pink;
-            case 4:
-                this.color =Color.red;
-        }
+    public void decreaseTimeLeft() {
+        timeLeft -= GameController.GAME_DELAY;
     }
 
-//    public void countdownTimeLeft(){
-//            t = new Timer(4400, e -> {
-//                this.timeLeft -=1;
-//        });
-//    }
+    //    public void countdownTimeLeft(){
+    //            t = new Timer(4400, e -> {
+    //                this.timeLeft -=1;
+    //        });
+    //    }
 
-//    public Timer getTimer(){
-//        return this.t;
-//    }
+    //    public Timer getTimer(){
+    //        return this.t;
+    //    }
 
-//    public void countdownTimeLeft() throws InterruptedException {
-//        while (timeLeft>0){
-//            this.timeLeft-=1;
-//            Thread.sleep(2000);
-//        }
-//    }
-//    public long getTimeLeft(){
-//        long currentTime = Calendar.getInstance().getTimeInMillis();
-//        timeLeft = timeExist - currentTime;
-//    }
+    //    public void countdownTimeLeft() throws InterruptedException {
+    //        while (timeLeft>0){
+    //            this.timeLeft-=1;
+    //            Thread.sleep(2000);
+    //        }
+    //    }
+    //    public long getTimeLeft(){
+    //        long currentTime = Calendar.getInstance().getTimeInMillis();
+    //        timeLeft = timeExist - currentTime;
+    //    }
 
 }
