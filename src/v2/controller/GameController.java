@@ -113,6 +113,10 @@ public class GameController extends Controller<GameView, GameModel> implements A
         gameTimer.restart();
     }
 
+    public void over(){
+        gameTimer.stop();
+    }
+
     private void addPauseEvent() {
         String[] options = { "Home", "Continue", "New Game" };
         int output = JOptionPane.showOptionDialog(
@@ -137,6 +141,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
                 GameModel gameModel = new GameModel();
 
                 GameController gameController = new GameController(flowController, gameView, gameModel);
+                gameModel.setController(gameController);
 
                 gameView.setController(gameController);
 

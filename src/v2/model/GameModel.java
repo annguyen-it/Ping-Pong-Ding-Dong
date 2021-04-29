@@ -6,12 +6,14 @@ import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.*;
 import v2.component.helper.factory.StarFactory;
+import v2.controller.GameController;
 import v2.utils.sound.GameSoundPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameModel implements Model {
+    GameController controller;
 
     private RightPaddle rightPaddle;
     private LeftPaddle leftPaddle;
@@ -23,6 +25,10 @@ public class GameModel implements Model {
     public GameModel() {
         soundPlayer.joinGame();
         initBoard();
+    }
+
+    public void setController(GameController controller) {
+        this.controller = controller;
     }
 
     public Paddle getLeftPaddle() {
@@ -93,7 +99,7 @@ public class GameModel implements Model {
                 balls.set(0, new Ball(soundPlayer, ballDirection));
             }
             else {
-                System.out.println("Stop now");
+                controller.over();
             }
         }
     }
