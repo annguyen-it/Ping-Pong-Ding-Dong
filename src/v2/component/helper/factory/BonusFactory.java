@@ -4,7 +4,6 @@ import v2.component.gameObject.immovable.bonus.Bonus;
 import v2.view.GameView;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 public class BonusFactory {
@@ -30,18 +29,12 @@ public class BonusFactory {
 
         bonus = new Bonus(4400);
 
-        if(listBonus.size()==0) {
-            listBonus.add(bonus);
-            GameView.listTimeLeft.add(bonus.getTimeLeft());
-        }
-        else {
             if (!checkList(bonus)) {
                 listBonus.add(bonus);
                 GameView.listTimeLeft.add( bonus.getTimeLeft());
             } else {
                 listBonus.get(exist).setTimeLeft(4400);
             }
-        }
         tryRemoveBonus();
     }
 
