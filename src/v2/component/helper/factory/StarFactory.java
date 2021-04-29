@@ -24,6 +24,10 @@ public class StarFactory {
         }
     }
 
+    public static int getStarExistingTime() {
+        return STAR_EXISTING_TIME;
+    }
+
     public void createStar() {
 
         if (star != null) {

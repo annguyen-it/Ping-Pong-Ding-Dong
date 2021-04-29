@@ -48,7 +48,11 @@ public class GameController extends Controller<GameView, GameModel> implements A
     public void actionPerformed(ActionEvent e) {
         model.updatePaddles();
         model.updateBall();
-        model.updateStar();
+        try {
+            model.updateStar();
+        } catch (InterruptedException interruptedException) {
+            interruptedException.printStackTrace();
+        }
 
         view.repaint();
     }

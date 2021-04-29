@@ -1,15 +1,23 @@
 package v2.view;
 
 import v2.board.Score;
+
+import v2.component.gameObject.immovable.bonus.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.Paddle;
+
 import v2.controller.GameController;
 import v2.model.EnterNameDialogModel;
 import v2.model.GameModel;
 
+
+import javax.swing.*;
 import java.awt.*;
+
+import java.util.ArrayList;
 import java.util.List;
+
 
 public class GameView extends View {
 
@@ -19,7 +27,12 @@ public class GameView extends View {
     private final Font nameFont = new Font("Serif", Font.PLAIN, 50);
     private final Font scoreFont = new Font("Serif", Font.PLAIN, 50);
 
+    public static int timeLong = 4400;
+    public static List<Integer> listTimeLeft = new ArrayList<>();
+    private Timer t;
+
     private GameController controller;
+
 
     public GameView(EnterNameDialogModel enterNameDialogModel) {
         super();
@@ -67,6 +80,17 @@ public class GameView extends View {
         if (model.getStar() != null) {
             drawStar(g);
         }
+
+
+        if (model.getListBonus()!=null) {
+            for (int i = 0; i < model.getListBonus().size(); i++) {
+                System.out.println(i);
+                paintTimerStar(g,i);
+//
+           }
+        }
+//        paintTimerStar(g);
+
     }
 
     private void paintBackground(Graphics g) {
@@ -94,7 +118,7 @@ public class GameView extends View {
         g.setColor(Color.gray);
         g.setFont(infoFont);
         String info = "Press Space To Start Game";
-        g.drawString(info, (v2.Game.WIDTH - g.getFontMetrics().stringWidth(info))/2, 200);
+        g.drawString(info, (v2.Game.WIDTH - g.getFontMetrics().stringWidth(info)) / 2, 200);
     }
 
     private void paintName(Graphics g) {
@@ -103,8 +127,8 @@ public class GameView extends View {
 
         g.setColor(Color.gray);
         g.setFont(nameFont);
-        g.drawString(leftPlayerName, (v2.Game.WIDTH/2 - widthName1)/2, 60);
-        g.drawString(rightPlayerName, 600 + (v2.Game.WIDTH/2 - widthName2)/2, 60);
+        g.drawString(leftPlayerName, (v2.Game.WIDTH / 2 - widthName1) / 2, 60);
+        g.drawString(rightPlayerName, 600 + (v2.Game.WIDTH / 2 - widthName2) / 2, 60);
     }
 
     private void paintScore(Graphics g) {
@@ -117,8 +141,8 @@ public class GameView extends View {
 
         g.setFont(scoreFont);
         g.setColor(Color.gray);
-        g.drawString(displayScore1, (v2.Game.WIDTH/2 - 75 - g.getFontMetrics().stringWidth(displayScore1)), 60);
-        g.drawString(displayScore2, v2.Game.WIDTH/2 + 75, 60);
+        g.drawString(displayScore1, (v2.Game.WIDTH / 2 - 75 - g.getFontMetrics().stringWidth(displayScore1)), 60);
+        g.drawString(displayScore2, v2.Game.WIDTH / 2 + 75, 60);
     }
 
     private void drawStar(Graphics g) {
@@ -128,5 +152,48 @@ public class GameView extends View {
         g.drawImage(image, star.getX(), star.getY(), null);
     }
 
-    //endregion
+
+    private void paintTimerStar(Graphics g, int i) {
+//        GameModel model = controller.getModel();
+//        if (model.getListBonus().size() > 0) {
+//            for (int i = 0; i < model.getListBonus().size(); i++) {
+                int x = 50 + 50 * i + 220 * i;
+                g.setColor(Color.white);
+                g.fillRect(x-3, 700 - 3, 226, 26);
+                g.setColor(Color.black);
+                g.fillRect(50, 700, 220, 20);
+                g.setColor(Color.RED);
+                g.fillRect(50, 700, timeLong / 20, 20);
+                 t = new Timer(1000, e -> {
+                     timeLong-=1;
+                     repaint();
+                 });
+                 t.start();
+////                 if (model.getBonusFactory().getBonus(finalI).getTimeLeft() > 0) {
+////                     model.getBonusFactory().getBonus(finalI).getTimeLeft()  -= 1;
+////                     repaint();
+////                 }else {
+////                     GameModel.checkCollideStar =0;
+////                     t.stop();
+////                     checkHaveTime--;
+////                 }
+//                //     model.getBonusFactory().getBonus(i).setTimeLeft();
+//            });
+
+    }
 }
+
+//    }
+//}
+
+
+
+
+//    private void paintCoutdownTime(Graphics g){
+//
+//        if (GameModel.checkCollideStar==1){
+//            paintTimerStar(g,50);
+//        }
+//    }
+    //endregion
+

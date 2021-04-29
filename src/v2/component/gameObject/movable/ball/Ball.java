@@ -2,15 +2,19 @@ package v2.component.gameObject.movable.ball;
 
 import v2.Game;
 import v2.board.Side;
+import v2.component.gameObject.immovable.bonus.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.AllDirectionMovableGameObject;
 import v2.component.gameObject.movable.paddle.LeftPaddle;
 import v2.component.gameObject.movable.paddle.Paddle;
 import v2.component.gameObject.movable.paddle.RightPaddle;
+import v2.component.helper.factory.BonusFactory;
 import v2.mechanics.ball.BallMechanics;
+import v2.model.GameModel;
 import v2.utils.sound.GameSoundPlayer;
 import v2.utils.sound.HasSound;
 import v2.component.helper.model.Vector;
+import v2.view.GameView;
 
 import java.awt.*;
 
@@ -30,13 +34,18 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     private static final int MIN_SPEED = 6;
     private static final double INITIAL_SPEED = 8;
 
+
     private static final Vector INITIAL_TO_LEFT_VECTOR = new Vector(180);
     private static final Vector INITIAL_TO_RIGHT_VECTOR = new Vector(0);
 
     public static final int SIZE = 24;
+    public static int checkStarType = 0;
 
     private int size = SIZE;
     private GameSoundPlayer soundPlayer;
+    public static int timeLongBigBall , timeLongMultiBall, timeLongSpeedUp, timeLongSpeedDown;
+    public static boolean checkStarBigBall, checkStarMultiBall, checkStarSpeedUp, checkStarSpeedDown;
+
     //#endregion
 
     //#region Enums
@@ -276,20 +285,26 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
 
     @Override
     public void collide(Star star) {
+        GameView.timeLong = 4400;
         soundPlayer.starCollide();
 
         switch (star.getType()) {
             case bigBall:
+                checkStarType =1;
                 sizeUp();
                 break;
 
             case multiBall:
+
+                checkStarType =2;
                 break;
 
             case speedUp:
+                checkStarType =3;
                 break;
 
             case speedDown:
+                checkStarType = 4;
                 break;
 
             default:

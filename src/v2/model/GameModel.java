@@ -1,9 +1,11 @@
 package v2.model;
 
 import v2.board.Side;
+import v2.component.gameObject.immovable.bonus.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.*;
+import v2.component.helper.factory.BonusFactory;
 import v2.component.helper.factory.StarFactory;
 import v2.utils.sound.GameSoundPlayer;
 
@@ -16,7 +18,10 @@ public class GameModel implements Model {
     private LeftPaddle leftPaddle;
     private List<Ball> balls;
     private StarFactory starFactory;
-
+    private BonusFactory bonusFactory;
+    private List<Bonus> listBonus;
+//    public static int checkCollideStar=0;
+//
     private final GameSoundPlayer soundPlayer = new GameSoundPlayer();
 
     public GameModel() {
@@ -40,6 +45,8 @@ public class GameModel implements Model {
         return starFactory.getStar();
     }
 
+    public List<Bonus> getListBonus(){return listBonus;}
+
     public void initBoard() {
         leftPaddle = new LeftPaddle();
         rightPaddle = new RightPaddle();
@@ -48,6 +55,9 @@ public class GameModel implements Model {
         balls.add(new Ball(soundPlayer));
 
         starFactory = new StarFactory();
+        bonusFactory = new BonusFactory();
+
+        listBonus = bonusFactory.getlistBonus();
     }
 
     public void updatePaddles() {
@@ -87,17 +97,22 @@ public class GameModel implements Model {
         }
     }
 
-    public void updateStar() {
+    public void updateStar() throws InterruptedException {
         starFactory.update();
         Star star = starFactory.getStar();
 
         if (star != null) {
             for (Ball ball : balls) {
                 if (ball.willCollide(star)) {
+
                     ball.collide(star);
                     starFactory.createStar();
+                    bonusFactory.update();
+
                 }
             }
         }
     }
+
+
 }
