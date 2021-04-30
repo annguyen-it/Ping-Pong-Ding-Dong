@@ -61,22 +61,13 @@ public class GameView extends View {
         paintPaddle(g, model.getRightPaddle());
 
         paintBall(g);
-
         paintScore(g);
 
         paintName(g);
-
-        if (!controller.isStarted()) {
-            paintStartGame(g);
-        }
-
+        paintStartGame(g);
 
         drawStar(g);
-
         drawBonus(g);
-
-        //        paintTimerStar(g);
-
     }
 
     private void paintBackground(Graphics g) {
@@ -101,10 +92,12 @@ public class GameView extends View {
     }
 
     private void paintStartGame(Graphics g) {
-        g.setColor(Color.gray);
-        g.setFont(infoFont);
-        String info = "Press Space To Start Game";
-        g.drawString(info, (v2.Game.WIDTH - g.getFontMetrics().stringWidth(info))/2, 200);
+        if (!controller.isStarted()){
+            g.setColor(Color.gray);
+            g.setFont(infoFont);
+            String info = "Press Space To Start Game";
+            g.drawString(info, (v2.Game.WIDTH - g.getFontMetrics().stringWidth(info))/2, 200);
+        }
     }
 
     private void paintName(Graphics g) {

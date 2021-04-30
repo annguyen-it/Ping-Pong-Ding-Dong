@@ -64,6 +64,6 @@ public class BonusFactory {
     }
 
     private void extendBonus(int bonusIndex){
-        listBonus.get(bonusIndex).setTimeLeft(4400);
+        listBonus.get(bonusIndex).setTimeLeft(Bonus.EXIST_TIME);
     }
 }
