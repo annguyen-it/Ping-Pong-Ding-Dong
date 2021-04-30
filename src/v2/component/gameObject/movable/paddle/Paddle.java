@@ -84,6 +84,10 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
         score.increase();
     }
 
+    public int getScore() {
+        return score.getScore();
+    }
+
     public Score getScoreObject() {
         return score;
     }

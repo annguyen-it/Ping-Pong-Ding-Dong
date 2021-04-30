@@ -1,9 +1,12 @@
 package v2;
 
 import v2.controller.FlowController;
+import v2.utils.database.Database;
+import v2.thread.DatabaseThread;
 
 import javax.swing.*;
 import java.awt.*;
+import java.sql.SQLException;
 
 public class Game extends JFrame {
     JLayeredPane layer = new JLayeredPane();
@@ -16,8 +19,18 @@ public class Game extends JFrame {
     public Game() {
         setupGame();
 
+        DatabaseThread dbThread = new DatabaseThread();
+        dbThread.start();
+
         FlowController controller = new FlowController(layer);
         controller.init();
+
+        try {
+            Database.disconnect();
+        }
+        catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     private void setupGame() {

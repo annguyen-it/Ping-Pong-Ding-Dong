@@ -1,5 +1,7 @@
 package v2;
 
+
+
 import java.awt.*;
 
 public class Main {
@@ -8,5 +10,6 @@ public class Main {
         EventQueue.invokeLater(() -> {
             Game app = new Game();
         });
+
     }
 }

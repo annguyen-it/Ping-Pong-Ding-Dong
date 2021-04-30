@@ -1,14 +1,18 @@
 package v2.view;
 
 import v2.board.Score;
+
+import v2.component.gameObject.immovable.bonus.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.Paddle;
+
 import v2.controller.GameController;
 import v2.model.EnterNameDialogModel;
 import v2.model.GameModel;
 
 import java.awt.*;
+
 import java.util.List;
 
 public class GameView extends View {
@@ -20,6 +24,8 @@ public class GameView extends View {
     private final Font scoreFont = new Font("Serif", Font.PLAIN, 50);
 
     private GameController controller;
+
+    public static int timeLong = 4400;
 
     public GameView(EnterNameDialogModel enterNameDialogModel) {
         super();
@@ -55,18 +61,13 @@ public class GameView extends View {
         paintPaddle(g, model.getRightPaddle());
 
         paintBall(g);
-
         paintScore(g);
 
         paintName(g);
+        paintStartGame(g);
 
-        if (!controller.isStarted()) {
-            paintStartGame(g);
-        }
-
-        if (model.getStar() != null) {
-            drawStar(g);
-        }
+        drawStar(g);
+        drawBonus(g);
     }
 
     private void paintBackground(Graphics g) {
@@ -91,10 +92,12 @@ public class GameView extends View {
     }
 
     private void paintStartGame(Graphics g) {
-        g.setColor(Color.gray);
-        g.setFont(infoFont);
-        String info = "Press Space To Start Game";
-        g.drawString(info, (v2.Game.WIDTH - g.getFontMetrics().stringWidth(info))/2, 200);
+        if (!controller.isStarted()){
+            g.setColor(Color.gray);
+            g.setFont(infoFont);
+            String info = "Press Space To Start Game";
+            g.drawString(info, (v2.Game.WIDTH - g.getFontMetrics().stringWidth(info))/2, 200);
+        }
     }
 
     private void paintName(Graphics g) {
@@ -124,9 +127,31 @@ public class GameView extends View {
     private void drawStar(Graphics g) {
         Star star = controller.getModel().getStar();
 
-        Image image = getToolkit().getImage(star.getImagePath());
-        g.drawImage(image, star.getX(), star.getY(), null);
+        if (star != null) {
+            Image image = getToolkit().getImage(star.getImagePath());
+            g.drawImage(image, star.getX(), star.getY(), null);
+        }
     }
 
-    //endregion
+    private void drawBonus(Graphics g) {
+        List<Bonus> bonusList = controller.getModel().getBonus();
+
+        for (int i = 0; i < bonusList.size(); i++) {
+            paintTimerStar(g, i, bonusList.get(i));
+        }
+    }
+
+
+    private void paintTimerStar(Graphics g, int bonusIndex, Bonus bonus) {
+        int x = 50 + 50*bonusIndex + 220*bonusIndex;
+
+        g.setColor(Color.white);
+        g.fillRect(x - 1, 700 - 1, 222, 12);
+
+        g.setColor(Color.black);
+        g.fillRect(x, 700, 220, 10);
+
+        g.setColor(bonus.getColor());
+        g.fillRect(x, 700, bonus.getTimeLeft()/40, 10);
+    }
 }

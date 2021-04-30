@@ -12,7 +12,7 @@ import java.awt.event.KeyEvent;
 
 public class GameController extends Controller<GameView, GameModel> implements ActionListener {
 
-    private static final int GAME_DELAY = 5;
+    public static final int GAME_DELAY = 5;
 
     private static final int leftUp = KeyEvent.VK_W;
     private static final int leftDown = KeyEvent.VK_S;
@@ -49,6 +49,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
         model.updatePaddles();
         model.updateBall();
         model.updateStar();
+        model.updateBonus();
 
         view.repaint();
     }
@@ -97,6 +98,27 @@ public class GameController extends Controller<GameView, GameModel> implements A
         }
     }
 
+    public void over(){
+        gameTimer.stop();
+    }
+
+    private void addPauseEvent() {
+        int output = showPauseDialog();
+
+        switch (output){
+            case 0:
+                switchToMenuController();
+                break;
+
+            case 2:
+                restart();
+                break;
+
+            default:
+                resume();
+        }
+    }
+
     private void start() {
         if (!isStarted) {
             gameTimer.start();
@@ -113,36 +135,33 @@ public class GameController extends Controller<GameView, GameModel> implements A
         gameTimer.restart();
     }
 
-    private void addPauseEvent() {
-        String[] play = { "Home", "Continue", "New Game" };
-        int output = JOptionPane.showOptionDialog(
+    private void restart(){
+        EnterNameDialogModel model = new EnterNameDialogModel(MenuController.playerName1, MenuController.playerName2);
+        GameView gameView = new GameView(model);
+        GameModel gameModel = new GameModel();
+
+        GameController gameController = new GameController(flowController, gameView, gameModel);
+        gameModel.setController(gameController);
+        gameView.setController(gameController);
+
+        switchController(gameController);
+    }
+
+    private void switchToMenuController(){
+        switchController(new MenuController(flowController));
+    }
+
+    private int showPauseDialog(){
+        String[] options = { "Home", "Continue", "New Game" };
+        return JOptionPane.showOptionDialog(
                 null,
                 "Do you want exit this game? ",
                 "",
                 JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE,
                 null,
-                play,
-                play[1]);
-
-        if (output == 0) {
-            MenuController menuController = new MenuController(flowController);
-            switchController(menuController);
-        }
-        else if (output == 1) {resume(); }
-        else if (output == 2) {
-            EnterNameDialogModel model = new EnterNameDialogModel(MenuController.playerName1, MenuController.playerName2);
-            GameView gameView = new GameView(model);
-            GameModel gameModel = new GameModel();
-
-            GameController gameController = new GameController(flowController, gameView, gameModel);
-
-            gameView.setController(gameController);
-
-            switchController(gameController);
-        }
-        else {
-            resume();
-        }
+                options,
+                options[1]
+        );
     }
 }
