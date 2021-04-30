@@ -10,11 +10,16 @@ import java.util.Map;
 public class Bonus {
 
     private static final Map<StarType, Color> colorMap = Map.ofEntries(
-            new AbstractMap.SimpleEntry<>(StarType.bigBall, Color.red)
+            new AbstractMap.SimpleEntry<>(StarType.bigBall, Color.blue),
+            new AbstractMap.SimpleEntry<>(StarType.multiBall, Color.green),
+            new AbstractMap.SimpleEntry<>(StarType.speedUp, Color.pink),
+            new AbstractMap.SimpleEntry<>(StarType.speedDown, Color.red)
     );
 
+
+
     private final StarType starType;
-    private int timeLeft = 4400;
+    private int timeLeft = 8800;
 
     public Bonus(StarType starType) {
         this.starType = starType;

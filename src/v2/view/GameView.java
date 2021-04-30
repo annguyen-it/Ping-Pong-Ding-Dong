@@ -153,12 +153,12 @@ public class GameView extends View {
         int x = 50 + 50*bonusIndex + 220*bonusIndex;
 
         g.setColor(Color.white);
-        g.fillRect(x - 3, 700 - 3, 226, 26);
+        g.fillRect(x - 1, 700 - 1, 222, 12);
 
         g.setColor(Color.black);
-        g.fillRect(50, 700, 220, 20);
+        g.fillRect(x, 700, 220, 10);
 
         g.setColor(bonus.getColor());
-        g.fillRect(50, 700, bonus.getTimeLeft()/20, 20);
+        g.fillRect(x, 700, bonus.getTimeLeft()/40, 10);
     }
 }
