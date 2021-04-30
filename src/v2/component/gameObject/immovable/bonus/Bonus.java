@@ -1,13 +1,11 @@
 package v2.component.gameObject.immovable.bonus;
 
-
 import v2.component.gameObject.immovable.star.StarType;
 import v2.controller.GameController;
 
 import java.awt.*;
 import java.util.AbstractMap;
 import java.util.Map;
-
 
 public class Bonus {
 
@@ -34,29 +32,11 @@ public class Bonus {
         return colorMap.get(starType);
     }
 
+    public StarType getStarType() {
+        return starType;
+    }
+
     public void decreaseTimeLeft() {
         timeLeft -= GameController.GAME_DELAY;
     }
-
-    //    public void countdownTimeLeft(){
-    //            t = new Timer(4400, e -> {
-    //                this.timeLeft -=1;
-    //        });
-    //    }
-
-    //    public Timer getTimer(){
-    //        return this.t;
-    //    }
-
-    //    public void countdownTimeLeft() throws InterruptedException {
-    //        while (timeLeft>0){
-    //            this.timeLeft-=1;
-    //            Thread.sleep(2000);
-    //        }
-    //    }
-    //    public long getTimeLeft(){
-    //        long currentTime = Calendar.getInstance().getTimeInMillis();
-    //        timeLeft = timeExist - currentTime;
-    //    }
-
 }

@@ -13,9 +13,7 @@ import v2.model.GameModel;
 
 import java.awt.*;
 
-import java.util.ArrayList;
 import java.util.List;
-
 
 public class GameView extends View {
 
@@ -25,11 +23,9 @@ public class GameView extends View {
     private final Font nameFont = new Font("Serif", Font.PLAIN, 50);
     private final Font scoreFont = new Font("Serif", Font.PLAIN, 50);
 
-    public static int timeLong = 4400;
-    public static List<Integer> listTimeLeft = new ArrayList<>();
-
     private GameController controller;
 
+    public static int timeLong = 4400;
 
     public GameView(EnterNameDialogModel enterNameDialogModel) {
         super();
@@ -153,11 +149,8 @@ public class GameView extends View {
     }
 
 
-    private void paintTimerStar(Graphics g, int i, Bonus bonus) {
-        //        GameModel model = controller.getModel();
-        //        if (model.getListBonus().size() > 0) {
-        //            for (int i = 0; i < model.getListBonus().size(); i++) {
-        int x = 50 + 50*i + 220*i;
+    private void paintTimerStar(Graphics g, int bonusIndex, Bonus bonus) {
+        int x = 50 + 50*bonusIndex + 220*bonusIndex;
 
         g.setColor(Color.white);
         g.fillRect(x - 3, 700 - 3, 226, 26);
@@ -167,30 +160,5 @@ public class GameView extends View {
 
         g.setColor(bonus.getColor());
         g.fillRect(50, 700, bonus.getTimeLeft()/20, 20);
-
-        ////                 if (model.getBonusFactory().getBonus(finalI).getTimeLeft() > 0) {
-        ////                     model.getBonusFactory().getBonus(finalI).getTimeLeft()  -= 1;
-        ////                     repaint();
-        ////                 }else {
-        ////                     GameModel.checkCollideStar =0;
-        ////                     t.stop();
-        ////                     checkHaveTime--;
-        ////                 }
-        //                //     model.getBonusFactory().getBonus(i).setTimeLeft();
-        //            });
-
     }
 }
-
-//    }
-//}
-
-
-//    private void paintCoutdownTime(Graphics g){
-//
-//        if (GameModel.checkCollideStar==1){
-//            paintTimerStar(g,50);
-//        }
-//    }
-//endregion
-

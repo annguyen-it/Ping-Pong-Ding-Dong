@@ -2,7 +2,6 @@ package v2.model;
 
 import v2.board.GameSide;
 import v2.board.GameSide.Side;
-import v2.board.Side;
 import v2.component.gameObject.immovable.bonus.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;

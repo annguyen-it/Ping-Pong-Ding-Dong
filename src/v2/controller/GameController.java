@@ -98,6 +98,27 @@ public class GameController extends Controller<GameView, GameModel> implements A
         }
     }
 
+    public void over(){
+        gameTimer.stop();
+    }
+
+    private void addPauseEvent() {
+        int output = showPauseDialog();
+
+        switch (output){
+            case 0:
+                switchToMenuController();
+                break;
+
+            case 2:
+                restart();
+                break;
+
+            default:
+                resume();
+        }
+    }
+
     private void start() {
         if (!isStarted) {
             gameTimer.start();
@@ -114,13 +135,25 @@ public class GameController extends Controller<GameView, GameModel> implements A
         gameTimer.restart();
     }
 
-    public void over(){
-        gameTimer.stop();
+    private void restart(){
+        EnterNameDialogModel model = new EnterNameDialogModel(MenuController.playerName1, MenuController.playerName2);
+        GameView gameView = new GameView(model);
+        GameModel gameModel = new GameModel();
+
+        GameController gameController = new GameController(flowController, gameView, gameModel);
+        gameModel.setController(gameController);
+        gameView.setController(gameController);
+
+        switchController(gameController);
     }
 
-    private void addPauseEvent() {
+    private void switchToMenuController(){
+        switchController(new MenuController(flowController));
+    }
+
+    private int showPauseDialog(){
         String[] options = { "Home", "Continue", "New Game" };
-        int output = JOptionPane.showOptionDialog(
+        return JOptionPane.showOptionDialog(
                 null,
                 "Do you want exit this game? ",
                 "",
@@ -130,27 +163,5 @@ public class GameController extends Controller<GameView, GameModel> implements A
                 options,
                 options[1]
         );
-
-        switch (output){
-            case 0:
-                switchController(new MenuController(flowController));
-                break;
-
-            case 2:
-                EnterNameDialogModel model = new EnterNameDialogModel(MenuController.playerName1, MenuController.playerName2);
-                GameView gameView = new GameView(model);
-                GameModel gameModel = new GameModel();
-
-                GameController gameController = new GameController(flowController, gameView, gameModel);
-                gameModel.setController(gameController);
-
-                gameView.setController(gameController);
-
-                switchController(gameController);
-                break;
-
-            default:
-                resume();
-        }
     }
 }

@@ -10,27 +10,13 @@ import java.util.List;
 
 public class RankingBtnThread extends Thread {
 
+    private static final String[] dialogOptions = { "OK" };
+    private static final String[] topScoreColumns = { "Rank", "Name", "Total points", "Join date" };
+    private static final String[] topWinColumns = { "Rank", "Name", "Wins", "Played", "Percentage", "Join date" };
+    private final DefaultTableCellRenderer align = new DefaultTableCellRenderer();
+
     @Override
     public void run() {
-        String[] topScoreColumns = { "Rank", "Name", "Total points", "Join date" };
-        String[] topWinColumns = { "Rank", "Name", "Wins", "Played", "Percentage", "Join date" };
-
-        DefaultTableCellRenderer align = new DefaultTableCellRenderer();
-        align.setHorizontalAlignment(JLabel.CENTER);
-
-        String[] str = { "OK" };
-        //        String[] emp = {};
-
-        //        JOptionPane.showOptionDialog(
-        //                null,
-        //                new JLabel("Connecting..."),
-        //                "Info",
-        //                JOptionPane.OK_CANCEL_OPTION,
-        //                JOptionPane.PLAIN_MESSAGE,
-        //                null,
-        //                emp,
-        //                null);
-
         if (!Database.connected()) {
             try {
                 Database.connect();
@@ -38,24 +24,47 @@ public class RankingBtnThread extends Thread {
             catch (SQLException ignored) { }
         }
 
-        //        JOptionPane.getRootFrame().dispose();
-
         if (!Database.connected()) {
-            JOptionPane.showOptionDialog(
-                    null,
-                    new JLabel("Cannot connect to database"),
-                    "Info",
-                    JOptionPane.OK_CANCEL_OPTION,
-                    JOptionPane.PLAIN_MESSAGE,
-                    null,
-                    str,
-                    null);
-
+            showErrorDialog();
             return;
         }
 
+        align.setHorizontalAlignment(JLabel.CENTER);
 
-        //  Top Score
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        tabbedPane.add("Top Score", getTopScoreTab());
+        tabbedPane.add("Top Wins", getTopWinTab());
+
+        showExhibition(tabbedPane);
+    }
+
+    private void showErrorDialog() {
+        JOptionPane.showOptionDialog(
+                null,
+                new JLabel("Cannot connect to database"),
+                "Info",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                dialogOptions,
+                null);
+    }
+
+    private void showExhibition(JTabbedPane tabbedPane){
+        JOptionPane.showOptionDialog(
+                null,
+                tabbedPane,
+                "Help",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                dialogOptions,
+                null
+        );
+    }
+
+    private JScrollPane getTopScoreTab() {
         DefaultTableModel topScoreTableModel = new DefaultTableModel(topScoreColumns, 0);
         List<String[]> topScoreData = Database.getTopScore();
 
@@ -71,10 +80,10 @@ public class RankingBtnThread extends Thread {
         topScoreTable.getColumnModel().getColumn(2).setMaxWidth(110);
         topScoreTable.getColumnModel().getColumn(3).setMaxWidth(110);
 
-        JScrollPane topScoreScrollPane = new JScrollPane(topScoreTable);
+        return new JScrollPane(topScoreTable);
+    }
 
-
-        //  Top Win
+    private JScrollPane getTopWinTab(){
         DefaultTableModel topWinTableModel = new DefaultTableModel(topWinColumns, 0);
         List<String[]> topWinData = Database.getTopWin();
 
@@ -90,22 +99,6 @@ public class RankingBtnThread extends Thread {
 
         topWinTable.getColumnModel().getColumn(0).setMaxWidth(50);
 
-        JScrollPane topWinScrollPane = new JScrollPane(topWinTable);
-
-
-        //  Add to tabbed pane
-        JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.add("Top Score", topScoreScrollPane);
-        tabbedPane.add("Top Wins", topWinScrollPane);
-
-        JOptionPane.showOptionDialog(
-                null,
-                tabbedPane,
-                "Help",
-                JOptionPane.OK_CANCEL_OPTION,
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                str,
-                null);
+        return new JScrollPane(topWinTable);
     }
 }
