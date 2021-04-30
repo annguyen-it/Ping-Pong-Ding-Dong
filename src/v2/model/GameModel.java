@@ -2,9 +2,12 @@ package v2.model;
 
 import v2.board.GameSide;
 import v2.board.GameSide.Side;
+import v2.board.Side;
+import v2.component.gameObject.immovable.bonus.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.*;
+import v2.component.helper.factory.BonusFactory;
 import v2.component.helper.factory.StarFactory;
 import v2.controller.GameController;
 import v2.utils.sound.GameSoundPlayer;
@@ -19,6 +22,7 @@ public class GameModel implements Model {
     private LeftPaddle leftPaddle;
     private List<Ball> balls;
     private StarFactory starFactory;
+    private BonusFactory bonusFactory;
 
     private final GameSoundPlayer soundPlayer = new GameSoundPlayer();
 
@@ -47,6 +51,10 @@ public class GameModel implements Model {
         return starFactory.getStar();
     }
 
+    public List<Bonus> getBonus() {
+        return bonusFactory.getBonusList();
+    }
+
     public void initBoard() {
         leftPaddle = new LeftPaddle();
         rightPaddle = new RightPaddle();
@@ -55,6 +63,7 @@ public class GameModel implements Model {
         balls.add(new Ball(soundPlayer));
 
         starFactory = new StarFactory();
+        bonusFactory = new BonusFactory();
     }
 
     public void updatePaddles() {
@@ -120,8 +129,13 @@ public class GameModel implements Model {
                 if (ball.willCollide(star)) {
                     ball.collide(star);
                     starFactory.createStar();
+                    bonusFactory.createBonus(star.getType());
                 }
             }
         }
+    }
+
+    public void updateBonus(){
+        bonusFactory.update();
     }
 }

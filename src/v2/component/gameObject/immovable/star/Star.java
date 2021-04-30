@@ -21,14 +21,6 @@ public class Star extends ImmovableGameObject {
             //            "resources/img/starYellow.png"
     };
 
-    public enum StarType {
-        bigBall,
-        multiBall,
-        speedUp,
-        speedDown,
-        //        bigBall,
-    }
-
     public Star() {
         super(randomX(), randomY());
 
