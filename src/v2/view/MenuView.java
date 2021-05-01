@@ -17,7 +17,7 @@ public class MenuView extends View {
 
     private final JButton playButton = new JButton("PLAY");
     private final JButton helpButton = new JButton("HELP");
-    private final JButton rankingButton = new JButton("Ranking");
+    private final JButton rankingButton = new JButton();
     private final JButton exitButton = new JButton("EXIT");
 
     private final JPanel playDialog = new JPanel();

@@ -20,7 +20,7 @@ public class Database {
     private static Connector connector;
 
     public static void connect() throws SQLException {
-        if (connector == null) {
+        if (connector == null || connector.notConnected()) {
             connector = new Connector();
         }
     }
@@ -31,8 +31,8 @@ public class Database {
         }
     }
 
-    public static boolean connected() {
-        return connector != null && connector.connected();
+    public static boolean notConnected() {
+        return connector == null || connector.notConnected();
     }
 
     public static void createPlayer(PlayerInfo playerInfo) {
@@ -65,13 +65,13 @@ public class Database {
             }
         }
 
-        private boolean connected() {
+        private boolean notConnected() {
             try {
-                return !connection.isClosed();
+                return connection.isClosed();
             }
             catch (SQLException throwables) {
                 throwables.printStackTrace();
-                return true;
+                return false;
             }
         }
 
@@ -107,7 +107,7 @@ public class Database {
                 statement = connection.createStatement();
                 String sql = "INSERT INTO history" + " VALUES ()";
                 statement.executeUpdate(sql);
-                historyIndex = getLastRow("history");
+                historyIndex = getLastRow();
             }
             catch (SQLException e) {
                 e.printStackTrace();
@@ -249,11 +249,11 @@ public class Database {
             }
         }
 
-        private int getLastRow(String table) {
+        private int getLastRow() {
             Statement statement;
             try {
                 statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT id FROM " + table + " ORDER BY id DESC LIMIT 1");
+                ResultSet resultSet = statement.executeQuery("SELECT id FROM " + "history" + " ORDER BY id DESC LIMIT 1");
 
                 if (resultSet.next()) {
                     return resultSet.getInt(1);
