@@ -132,7 +132,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
             @Override
             protected Void doInBackground() {
-                if (Database.notConnected()) {
+                if (!Database.connected()) {
                     try {
                         Database.connect();
                     }
@@ -163,7 +163,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                     if (evt.getNewValue() == SwingWorker.StateValue.DONE) {
                         dialog.dispose();
 
-                        if (Database.notConnected()) {
+                        if (!Database.connected()) {
                             showErrorDialog();
                             return;
                         }

@@ -28,7 +28,7 @@ public class Game extends JFrame {
         controller.init();
     }
 
-    public void end(){
+    public void over(){
         try {
             Database.disconnect();
         }

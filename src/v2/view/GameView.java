@@ -19,6 +19,7 @@ public class GameView extends View {
 
     private final String leftPlayerName;
     private final String rightPlayerName;
+
     private final Font infoFont = new Font("Serif", Font.PLAIN, 20);
     private final Font nameFont = new Font("Serif", Font.PLAIN, 50);
     private final Font scoreFont = new Font("Serif", Font.PLAIN, 50);
@@ -36,6 +37,14 @@ public class GameView extends View {
 
     public void setController(GameController controller) {
         this.controller = controller;
+    }
+
+    public String getLeftPlayerName() {
+        return leftPlayerName;
+    }
+
+    public String getRightPlayerName() {
+        return rightPlayerName;
     }
 
     @Override

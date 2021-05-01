@@ -40,8 +40,6 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
 
     private int size = SIZE;
     private GameSoundPlayer soundPlayer;
-    public static int timeLongBigBall , timeLongMultiBall, timeLongSpeedUp, timeLongSpeedDown;
-    public static boolean checkStarBigBall, checkStarMultiBall, checkStarSpeedUp, checkStarSpeedDown;
 
     //#endregion
 

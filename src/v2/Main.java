@@ -1,7 +1,5 @@
 package v2;
 
-
-
 import java.awt.*;
 
 public class Main {
@@ -10,8 +8,7 @@ public class Main {
         EventQueue.invokeLater(() -> {
             Game game = new Game();
             game.start();
-            game.end();
+            game.over();
         });
-
     }
 }

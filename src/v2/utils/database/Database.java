@@ -20,7 +20,7 @@ public class Database {
     private static Connector connector;
 
     public static void connect() throws SQLException {
-        if (connector == null || connector.notConnected()) {
+        if (connector == null || connector.connected()) {
             connector = new Connector();
         }
     }
@@ -31,8 +31,8 @@ public class Database {
         }
     }
 
-    public static boolean notConnected() {
-        return connector == null || connector.notConnected();
+    public static boolean connected() {
+        return connector != null && connector.connected();
     }
 
     public static void createPlayer(PlayerInfo playerInfo) {
@@ -65,9 +65,9 @@ public class Database {
             }
         }
 
-        private boolean notConnected() {
+        private boolean connected() {
             try {
-                return connection.isClosed();
+                return !connection.isClosed();
             }
             catch (SQLException throwables) {
                 throwables.printStackTrace();
