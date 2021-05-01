@@ -21,10 +21,14 @@ public class Game extends JFrame {
 
         DatabaseThread dbThread = new DatabaseThread();
         dbThread.start();
+    }
 
+    public void start(){
         FlowController controller = new FlowController(layer);
         controller.init();
+    }
 
+    public void end(){
         try {
             Database.disconnect();
         }
@@ -32,6 +36,7 @@ public class Game extends JFrame {
             e.printStackTrace();
         }
     }
+
 
     private void setupGame() {
         add(layer);
