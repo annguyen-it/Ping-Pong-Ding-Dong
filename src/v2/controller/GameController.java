@@ -3,6 +3,8 @@ package v2.controller;
 import v2.board.GameAdapter;
 import v2.model.EnterNameDialogModel;
 import v2.model.GameModel;
+import v2.utils.database.Database;
+import v2.utils.database.dto.PlayerInfo;
 import v2.view.GameView;
 
 import javax.swing.*;
@@ -98,14 +100,32 @@ public class GameController extends Controller<GameView, GameModel> implements A
         }
     }
 
-    public void over(){
+    public void over() {
         gameTimer.stop();
+        saveResultToDatabase();
+    }
+
+    public void saveResultToDatabase() {
+        if (Database.connected()) {
+            int leftPaddleScore = model.getLeftPaddle().getScore();
+            int rightPaddleScore = model.getRightPaddle().getScore();
+
+            boolean leftIsWinner = leftPaddleScore > rightPaddleScore;
+
+            PlayerInfo leftPlayer = new PlayerInfo(getView().getLeftPlayerName(), leftPaddleScore, leftIsWinner);
+            PlayerInfo rightPlayer = new PlayerInfo(getView().getRightPlayerName(), rightPaddleScore, !leftIsWinner);
+
+            Database.createPlayer(leftPlayer);
+            Database.createPlayer(rightPlayer);
+
+            Database.createHistory(leftPlayer, rightPlayer);
+        }
     }
 
     private void addPauseEvent() {
         int output = showPauseDialog();
 
-        switch (output){
+        switch (output) {
             case 0:
                 switchToMenuController();
                 break;
@@ -135,7 +155,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
         gameTimer.restart();
     }
 
-    private void restart(){
+    private void restart() {
         EnterNameDialogModel model = new EnterNameDialogModel(MenuController.playerName1, MenuController.playerName2);
         GameView gameView = new GameView(model);
         GameModel gameModel = new GameModel();
@@ -147,11 +167,11 @@ public class GameController extends Controller<GameView, GameModel> implements A
         switchController(gameController);
     }
 
-    private void switchToMenuController(){
+    private void switchToMenuController() {
         switchController(new MenuController(flowController));
     }
 
-    private int showPauseDialog(){
+    private int showPauseDialog() {
         String[] options = { "Home", "Continue", "New Game" };
         return JOptionPane.showOptionDialog(
                 null,

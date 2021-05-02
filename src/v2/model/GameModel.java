@@ -34,11 +34,11 @@ public class GameModel implements Model {
         this.controller = controller;
     }
 
-    public Paddle getLeftPaddle() {
+    public LeftPaddle getLeftPaddle() {
         return leftPaddle;
     }
 
-    public Paddle getRightPaddle() {
+    public RightPaddle getRightPaddle() {
         return rightPaddle;
     }
 

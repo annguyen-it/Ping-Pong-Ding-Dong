@@ -20,7 +20,7 @@ public class Database {
     private static Connector connector;
 
     public static void connect() throws SQLException {
-        if (connector == null) {
+        if (connector == null || connector.connected()) {
             connector = new Connector();
         }
     }
@@ -71,7 +71,7 @@ public class Database {
             }
             catch (SQLException throwables) {
                 throwables.printStackTrace();
-                return true;
+                return false;
             }
         }
 
@@ -107,7 +107,7 @@ public class Database {
                 statement = connection.createStatement();
                 String sql = "INSERT INTO history" + " VALUES ()";
                 statement.executeUpdate(sql);
-                historyIndex = getLastRow("history");
+                historyIndex = getLastRow();
             }
             catch (SQLException e) {
                 e.printStackTrace();
@@ -249,11 +249,11 @@ public class Database {
             }
         }
 
-        private int getLastRow(String table) {
+        private int getLastRow() {
             Statement statement;
             try {
                 statement = connection.createStatement();
-                ResultSet resultSet = statement.executeQuery("SELECT id FROM " + table + " ORDER BY id DESC LIMIT 1");
+                ResultSet resultSet = statement.executeQuery("SELECT id FROM " + "history" + " ORDER BY id DESC LIMIT 1");
 
                 if (resultSet.next()) {
                     return resultSet.getInt(1);
