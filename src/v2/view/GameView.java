@@ -25,6 +25,7 @@ public class GameView extends View {
     private final Font nameFont = new Font("Serif", Font.PLAIN, 50);
     private final Font scoreFont = new Font("Serif", Font.PLAIN, 50);
 
+    public static int timeLong = 4400;
     public static List<Integer> listTimeLeft = new ArrayList<>();
 
     private GameController controller;

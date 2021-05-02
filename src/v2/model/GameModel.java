@@ -1,18 +1,21 @@
 package v2.model;
 
-import v2.board.Side;
+import v2.board.GameSide;
+import v2.board.GameSide.Side;
 import v2.component.gameObject.immovable.bonus.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.*;
 import v2.component.helper.factory.BonusFactory;
 import v2.component.helper.factory.StarFactory;
+import v2.controller.GameController;
 import v2.utils.sound.GameSoundPlayer;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameModel implements Model {
+    GameController controller;
 
     private RightPaddle rightPaddle;
     private LeftPaddle leftPaddle;
@@ -25,6 +28,10 @@ public class GameModel implements Model {
     public GameModel() {
         soundPlayer.joinGame();
         initBoard();
+    }
+
+    public void setController(GameController controller) {
+        this.controller = controller;
     }
 
     public Paddle getLeftPaddle() {
@@ -77,22 +84,39 @@ public class GameModel implements Model {
             ball.tryMove();
 
             Side loseSide = ball.isOutTheBoard();
+            lostBall(loseSide);
+        }
+    }
 
-            if (loseSide == Side.left) {
+    public void lostBall(Side loseSide){
+        if (loseSide != Side.unknown){
+            if (loseSide == Side.left){
                 rightPaddle.increaseScore();
-                tryAddNewBall(Ball.HorizontalDirection.right);
             }
-            else if (loseSide == Side.right) {
+            else {
                 leftPaddle.increaseScore();
-                tryAddNewBall(Ball.HorizontalDirection.left);
+            }
+
+            tryAddNewBall(GameSide.opposite(loseSide));
+        }
+    }
+
+    public void tryAddNewBall(Side ballDirection) {
+        if (balls.size() == 1) {
+            if (willContinueGame()){
+                balls.set(0, new Ball(soundPlayer, ballDirection));
+            }
+            else {
+                controller.over();
             }
         }
     }
 
-    public void tryAddNewBall(Ball.HorizontalDirection ballDirection) {
-        if (balls.size() == 1) {
-            balls.set(0, new Ball(soundPlayer, ballDirection));
-        }
+    public boolean willContinueGame(){
+        int leftScore = leftPaddle.getScore();
+        int rightScore = rightPaddle.getScore();
+
+        return leftScore == rightScore || Math.max(leftScore, rightScore) < 5;
     }
 
     public void updateStar() {
@@ -102,7 +126,6 @@ public class GameModel implements Model {
         if (star != null) {
             for (Ball ball : balls) {
                 if (ball.willCollide(star)) {
-
                     ball.collide(star);
                     starFactory.createStar();
                     bonusFactory.createBonus(star.getType());

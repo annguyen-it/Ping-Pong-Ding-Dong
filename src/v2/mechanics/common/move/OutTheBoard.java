@@ -1,6 +1,6 @@
 package v2.mechanics.common.move;
 
-import v2.board.Side;
+import v2.board.GameSide.Side;
 import v2.mechanics.Mechanic;
 
 /**
@@ -16,7 +16,7 @@ public interface OutTheBoard extends Mechanic {
      * Determine the side of implementation out of the board
      *
      * @return The side of implementation out of the board. If it isn't out of the board, return unknown
-     * @see v2.board.Side
+     * @see v2.board.GameSide.Side
      */
     Side isOutTheBoard();
 }
