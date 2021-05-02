@@ -152,7 +152,9 @@ public class GameController extends Controller<GameView, GameModel> implements A
     }
 
     private void resume() {
-        gameTimer.restart();
+        if (isStarted){
+            gameTimer.restart();
+        }
     }
 
     private void restart() {
