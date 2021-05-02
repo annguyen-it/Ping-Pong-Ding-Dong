@@ -98,20 +98,21 @@ public class MenuController extends Controller<MenuView, MenuModel> {
     //#region Ranking button
 
     private void addRankingButtonEvent() {
-        view.getRankingButton().setAction(new RankingBtnAction("Ranking"));
+        view.getRankingButton().setAction(new RankingBtnAction());
     }
 
     static class RankingBtnAction extends AbstractAction {
-        private final RankingButtonWorker worker = new RankingButtonWorker();
+
         private final JProgressBar progressBar = new JProgressBar();
         private final JPanel panel = new JPanel(new BorderLayout());
 
-        public RankingBtnAction(String name) {
-            super(name);
+        public RankingBtnAction() {
+            super("RANKING");
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            RankingButtonWorker worker = new RankingButtonWorker();
             Window window = SwingUtilities.getWindowAncestor((AbstractButton) e.getSource());
             final JDialog dialog = new JDialog(window, "Information", Dialog.ModalityType.APPLICATION_MODAL);
 
