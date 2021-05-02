@@ -20,7 +20,7 @@ public class Database {
     private static Connector connector;
 
     public static void connect() throws SQLException {
-        if (connector == null || connector.connected()) {
+        if (connector == null || !connector.connected()) {
             connector = new Connector();
         }
     }
