@@ -36,12 +36,10 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     private static final Vector INITIAL_TO_RIGHT_VECTOR = new Vector(0);
 
     public static final int SIZE = 24;
-    public static int checkStarType = 0;
 
     private int size = SIZE;
+    private static double speed = INITIAL_SPEED;
     private GameSoundPlayer soundPlayer;
-    public static int timeLongBigBall , timeLongMultiBall, timeLongSpeedUp, timeLongSpeedDown;
-    public static boolean checkStarBigBall, checkStarMultiBall, checkStarSpeedUp, checkStarSpeedDown;
 
     //#endregion
 
@@ -221,13 +219,14 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     //#region Transforms
     @Override
     public void sizeUp() {
-        size += 10;
+        size =34;
     }
 
     @Override
     public void sizeDown() {
-        // Todo
+        size =19;
     }
+
     //#endregion
 
     //#region Collide
@@ -282,26 +281,21 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
 
     @Override
     public void collide(Star star) {
-        GameView.timeLong = 4400;
         soundPlayer.starCollide();
 
         switch (star.getType()) {
             case bigBall:
-                checkStarType =1;
                 sizeUp();
                 break;
 
             case multiBall:
-
-                checkStarType =2;
+                sizeDown();
                 break;
 
             case speedUp:
-                checkStarType =3;
                 break;
 
             case speedDown:
-                checkStarType = 4;
                 break;
 
             default:
