@@ -173,10 +173,11 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
                         align.setHorizontalAlignment(JLabel.CENTER);
 
-
                         tabbedPane.add("Top Score", getTopScoreTab());
                         tabbedPane.add("Top Wins", getTopWinTab());
+
                         tabbedPane.setBackground(Color.yellow);
+                        tabbedPane.setPreferredSize(new Dimension(500,255));
 
                         showExhibition(tabbedPane);
                     }
@@ -224,10 +225,11 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                 topScoreTable.getColumnModel().getColumn(3).setCellRenderer(align);
 
                 topScoreTable.getColumnModel().getColumn(0).setMaxWidth(50);
+                topScoreTable.getColumnModel().getColumn(2).setMinWidth(90);
                 topScoreTable.getColumnModel().getColumn(2).setMaxWidth(110);
                 topScoreTable.getColumnModel().getColumn(3).setMaxWidth(110);
 
-                decorTable(topScoreTable);
+                decorateTable(topScoreTable);
 
                 return new JScrollPane(topScoreTable);
             }
@@ -248,22 +250,22 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
                 topWinTable.getColumnModel().getColumn(0).setMaxWidth(50);
 
-                decorTable(topWinTable);
+                decorateTable(topWinTable);
 
                 return new JScrollPane(topWinTable);
             }
-            private void decorTable(JTable table){
+            private void decorateTable(JTable table){
                 //topScoreTable.set(BorderFactory.createLineBorder(Color.orange, 1));
                 table.setGridColor(Game.orangeColor);
+                table.setBackground(Color.YELLOW);
+                table.setSelectionBackground(Color.orange);
+                table.setSelectionForeground(Color.blue);
+
                 JTableHeader tableHeader = table.getTableHeader();
                 tableHeader.setBackground(Color.orange);
                 tableHeader.setBorder(BorderFactory.createLineBorder(Game.orangeColor, 2));
-                tableHeader.setFont(new Font("Serif", Font.PLAIN, 16));
+                tableHeader.setFont(new Font("Sans Serif", Font.TRUETYPE_FONT, 15));
                 tableHeader.setForeground(Color.blue);
-                table.setBackground(Color.YELLOW);
-
-                table.setSelectionBackground(Color.orange);
-                table.setSelectionForeground(Color.blue);
             }
         }
     }
