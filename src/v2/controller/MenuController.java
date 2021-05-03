@@ -1,5 +1,6 @@
 package v2.controller;
 
+import v2.Game;
 import v2.model.EnterNameDialogModel;
 import v2.model.GameModel;
 import v2.model.MenuModel;
@@ -10,6 +11,7 @@ import v2.view.MenuView;
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.beans.PropertyChangeEvent;
@@ -171,8 +173,10 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
                         align.setHorizontalAlignment(JLabel.CENTER);
 
+
                         tabbedPane.add("Top Score", getTopScoreTab());
                         tabbedPane.add("Top Wins", getTopWinTab());
+                        tabbedPane.setBackground(Color.yellow);
 
                         showExhibition(tabbedPane);
                     }
@@ -197,7 +201,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                 JOptionPane.showOptionDialog(
                         null,
                         tabbedPane,
-                        "Help",
+                        "Ranking",
                         JOptionPane.OK_CANCEL_OPTION,
                         JOptionPane.PLAIN_MESSAGE,
                         null,
@@ -212,6 +216,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
                 topScoreData.forEach(topScoreTableModel::addRow);
 
+
                 JTable topScoreTable = new JTable(topScoreTableModel);
                 topScoreTable.setRowHeight(20);
                 topScoreTable.getColumnModel().getColumn(0).setCellRenderer(align);
@@ -221,6 +226,8 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                 topScoreTable.getColumnModel().getColumn(0).setMaxWidth(50);
                 topScoreTable.getColumnModel().getColumn(2).setMaxWidth(110);
                 topScoreTable.getColumnModel().getColumn(3).setMaxWidth(110);
+
+                decorTable(topScoreTable);
 
                 return new JScrollPane(topScoreTable);
             }
@@ -241,7 +248,22 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
                 topWinTable.getColumnModel().getColumn(0).setMaxWidth(50);
 
+                decorTable(topWinTable);
+
                 return new JScrollPane(topWinTable);
+            }
+            private void decorTable(JTable table){
+                //topScoreTable.set(BorderFactory.createLineBorder(Color.orange, 1));
+                table.setGridColor(Game.orangeColor);
+                JTableHeader tableHeader = table.getTableHeader();
+                tableHeader.setBackground(Color.orange);
+                tableHeader.setBorder(BorderFactory.createLineBorder(Game.orangeColor, 2));
+                tableHeader.setFont(new Font("Serif", Font.PLAIN, 16));
+                tableHeader.setForeground(Color.blue);
+                table.setBackground(Color.YELLOW);
+
+                table.setSelectionBackground(Color.orange);
+                table.setSelectionForeground(Color.blue);
             }
         }
     }
