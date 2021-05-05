@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 public class Database {
 
@@ -21,6 +22,13 @@ public class Database {
 
     public static void connect() throws SQLException {
         if (connector == null || !connector.connected()) {
+            try {
+                if (connector != null) {
+                    connector.disconnect();
+                }
+            }
+            catch (Exception ignored) { }
+
             connector = new Connector();
         }
     }
@@ -56,7 +64,11 @@ public class Database {
         private final Connection connection;
 
         private Connector() throws SQLException {
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ping-pong-db", "root", "");
+            Properties props = new Properties();
+            props.setProperty("user", "root");
+            props.setProperty("password", "");
+
+            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ping-pong-db", props);
         }
 
         private void disconnect() throws SQLException {

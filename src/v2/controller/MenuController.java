@@ -178,6 +178,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
                         tabbedPane.setBackground(Color.yellow);
                         tabbedPane.setPreferredSize(new Dimension(500,255));
+                        tabbedPane.setFocusable(false);
 
                         showExhibition(tabbedPane);
                     }
@@ -213,13 +214,14 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
             private JScrollPane getTopScoreTab() {
                 DefaultTableModel topScoreTableModel = new DefaultTableModel(topScoreColumns, 0);
-                java.util.List<String[]> topScoreData = Database.getTopScore();
+                List<String[]> topScoreData = Database.getTopScore();
 
                 topScoreData.forEach(topScoreTableModel::addRow);
 
 
                 JTable topScoreTable = new JTable(topScoreTableModel);
                 topScoreTable.setRowHeight(20);
+
                 topScoreTable.getColumnModel().getColumn(0).setCellRenderer(align);
                 topScoreTable.getColumnModel().getColumn(2).setCellRenderer(align);
                 topScoreTable.getColumnModel().getColumn(3).setCellRenderer(align);
@@ -230,6 +232,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                 topScoreTable.getColumnModel().getColumn(3).setMaxWidth(110);
 
                 decorateTable(topScoreTable);
+                setupTable(topScoreTable);
 
                 return new JScrollPane(topScoreTable);
             }
@@ -242,6 +245,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
                 JTable topWinTable = new JTable(topWinTableModel);
                 topWinTable.setRowHeight(20);
+
                 topWinTable.getColumnModel().getColumn(0).setCellRenderer(align);
                 topWinTable.getColumnModel().getColumn(2).setCellRenderer(align);
                 topWinTable.getColumnModel().getColumn(3).setCellRenderer(align);
@@ -251,11 +255,17 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                 topWinTable.getColumnModel().getColumn(0).setMaxWidth(50);
 
                 decorateTable(topWinTable);
+                setupTable(topWinTable);
 
                 return new JScrollPane(topWinTable);
             }
+
+            private void setupTable(JTable table){
+                table.setDefaultEditor(Object.class, null);
+                table.setFocusable(false);
+            }
+
             private void decorateTable(JTable table){
-                //topScoreTable.set(BorderFactory.createLineBorder(Color.orange, 1));
                 table.setGridColor(Game.orangeColor);
                 table.setBackground(Color.YELLOW);
                 table.setSelectionBackground(Color.orange);
@@ -264,7 +274,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                 JTableHeader tableHeader = table.getTableHeader();
                 tableHeader.setBackground(Color.orange);
                 tableHeader.setBorder(BorderFactory.createLineBorder(Game.orangeColor, 2));
-                tableHeader.setFont(new Font("Sans Serif", Font.TRUETYPE_FONT, 15));
+                tableHeader.setFont(new Font("Sans Serif", Font.PLAIN, 15));
                 tableHeader.setForeground(Color.blue);
             }
         }
