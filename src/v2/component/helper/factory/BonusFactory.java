@@ -1,7 +1,7 @@
 package v2.component.helper.factory;
 
 import v2.component.gameObject.immovable.bonus.Bonus;
-import v2.component.gameObject.immovable.star.StarType;
+import v2.component.gameObject.immovable.star.BonusType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public class BonusFactory {
 
     public BonusFactory() { }
 
-    public void createBonus(StarType starType) {
+    public void createBonus(BonusType starType) {
         Bonus bonus = new Bonus(starType);
         int duplicateIndex = indexOf(bonus);
 

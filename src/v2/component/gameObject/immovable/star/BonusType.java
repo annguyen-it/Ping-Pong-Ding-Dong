@@ -1,6 +1,6 @@
 package v2.component.gameObject.immovable.star;
 
-public enum StarType {
+public enum BonusType {
     bigBall,
     multiBall,
     speedUp,
