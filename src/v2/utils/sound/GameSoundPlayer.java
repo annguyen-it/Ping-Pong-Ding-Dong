@@ -7,6 +7,7 @@ import java.util.Map;
 public class GameSoundPlayer {
 
     private final Map<String, AudioSet> audioSets = new HashMap<>();
+    private boolean isMute = false;
 
     private static final File ballCollideAudioFile = new File("resources/audio/ball-collide.wav");
     private static final File wallCollideAudioFile = new File("resources/audio/Wallcollide.wav");
@@ -24,6 +25,10 @@ public class GameSoundPlayer {
         audioSets.put("miss", new AudioSet(missFile));
         audioSets.put("joinGame", new AudioSet(joinGameAudioFile));
         audioSets.put("starCollide", new AudioSet(starCollideAudioFile));
+    }
+
+    public void toggle(){
+        isMute = !isMute;
     }
 
     public void ballCollide() {

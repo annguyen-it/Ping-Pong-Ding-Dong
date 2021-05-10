@@ -6,28 +6,32 @@ import v2.component.gameObject.immovable.bonus.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.*;
+import v2.component.helper.BallFactory;
 import v2.component.helper.factory.BonusFactory;
 import v2.component.helper.factory.StarFactory;
 import v2.controller.GameController;
 import v2.utils.sound.GameSoundPlayer;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameModel implements Model {
     GameController controller;
 
-    private RightPaddle rightPaddle;
-    private LeftPaddle leftPaddle;
-    private List<Ball> balls;
-    private StarFactory starFactory;
-    private BonusFactory bonusFactory;
-
     private final GameSoundPlayer soundPlayer = new GameSoundPlayer();
+
+    private final LeftPaddle leftPaddle = new LeftPaddle();
+    private final RightPaddle rightPaddle = new RightPaddle();
+
+    private final BallFactory ballFactory = new BallFactory(soundPlayer);
+    private final StarFactory starFactory = new StarFactory();
+    private final BonusFactory bonusFactory = new BonusFactory();
 
     public GameModel() {
         soundPlayer.joinGame();
-        initBoard();
+    }
+
+    public GameSoundPlayer getSoundPlayer() {
+        return soundPlayer;
     }
 
     public void setController(GameController controller) {
@@ -43,7 +47,7 @@ public class GameModel implements Model {
     }
 
     public List<Ball> getBalls() {
-        return balls;
+        return ballFactory.getBalls();
     }
 
     public Star getStar() {
@@ -54,22 +58,11 @@ public class GameModel implements Model {
         return bonusFactory.getBonusList();
     }
 
-    public void initBoard() {
-        leftPaddle = new LeftPaddle();
-        rightPaddle = new RightPaddle();
-
-        balls = new ArrayList<>();
-        balls.add(new Ball(soundPlayer));
-
-        starFactory = new StarFactory();
-        bonusFactory = new BonusFactory();
-    }
-
     public void updatePaddles() {
         leftPaddle.tryMove();
         rightPaddle.tryMove();
 
-        for (Ball ball : balls) {
+        for (Ball ball : ballFactory.getBalls()) {
             if (ball.willCollide(leftPaddle)) {
                 ball.collide(leftPaddle);
             }
@@ -80,7 +73,7 @@ public class GameModel implements Model {
     }
 
     public void updateBall() {
-        for (Ball ball : balls) {
+        for (Ball ball : ballFactory.getBalls()) {
             ball.tryMove();
 
             Side loseSide = ball.isOutTheBoard();
@@ -102,9 +95,9 @@ public class GameModel implements Model {
     }
 
     public void tryAddNewBall(Side ballDirection) {
-        if (balls.size() == 1) {
+        if (ballFactory.isSingleBall()) {
             if (willContinueGame()){
-                balls.set(0, new Ball(soundPlayer, ballDirection));
+                ballFactory.createBall(ballDirection);
             }
             else {
                 controller.over();
@@ -124,7 +117,7 @@ public class GameModel implements Model {
         Star star = starFactory.getStar();
 
         if (star != null) {
-            for (Ball ball : balls) {
+            for (Ball ball : ballFactory.getBalls()) {
                 if (ball.willCollide(star)) {
                     ball.collide(star);
                     starFactory.createStar();

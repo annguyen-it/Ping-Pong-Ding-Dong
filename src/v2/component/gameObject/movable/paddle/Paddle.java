@@ -44,7 +44,7 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
     }
 
     @Override
-    public void stop() {
+    public void stop() {    
         vector = new Vector();
     }
 

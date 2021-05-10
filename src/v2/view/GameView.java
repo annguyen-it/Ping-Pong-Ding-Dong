@@ -85,9 +85,6 @@ public class GameView extends View {
         drawStar(g);
 
         drawBonus(g);
-
-        //        paintTimerStar(g);
-
     }
 
     private void paintBackground(Graphics g) {

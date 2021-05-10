@@ -11,7 +11,6 @@ import v2.mechanics.ball.BallMechanics;
 import v2.utils.sound.GameSoundPlayer;
 import v2.utils.sound.HasSound;
 import v2.component.helper.model.Vector;
-import v2.view.GameView;
 
 import java.awt.*;
 
@@ -28,8 +27,8 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     private static final int INITIAL_BALL_X = 588;
     private static final int INITIAL_BALL_Y = 388;
     private static final int MAX_SPEED = 15;
-    private static final int MIN_SPEED = 6;
-    private static final double INITIAL_SPEED = 8;
+    private static final int MIN_SPEED = 9;
+    private static final double INITIAL_SPEED = 11;
 
 
     private static final Vector INITIAL_TO_LEFT_VECTOR = new Vector(180);
@@ -44,6 +43,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     //#endregion
 
     //#region Constructors
+
     /**
      * Constructor with random initial direction of ball, call only one time when game start.
      *
@@ -59,6 +59,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      *
      * @param soundPlayer      Sound player of ball
      * @param initialDirection Initial direction of ball
+     *
      * @see #setSoundPlayer(v2.utils.sound.GameSoundPlayer)
      */
     public Ball(GameSoundPlayer soundPlayer, Side initialDirection) {
@@ -68,11 +69,13 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     //#endregion
 
     //#region Own Method
+
     /**
      * Generate a random initial direction of ball. This method is called by only
      * 1-argument-constructor
      *
      * @return random direction
+     *
      * @see v2.board.GameSide.Side
      */
     private static Side randomInitialSide() {
@@ -83,7 +86,9 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      * Convert initial HorizontalDirection type to Vector
      *
      * @param initialDirection HorizontalDirection needs to convert
+     *
      * @return converted vector
+     *
      * @see Side
      * @see #INITIAL_TO_LEFT_VECTOR
      * @see #INITIAL_TO_RIGHT_VECTOR
@@ -105,6 +110,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      * Get ratio of collision of ball to paddle (0% at top of paddle to 100% at bottom).
      *
      * @param paddle Collided paddle
+     *
      * @return ratio of collision
      */
     private double getRatioCollision(Paddle paddle) {
@@ -212,12 +218,16 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     //#region Transforms
     @Override
     public void sizeUp() {
-        size =34;
+        if (size == SIZE) {
+            size += 10;
+        }
     }
 
     @Override
     public void sizeDown() {
-        size =19;
+        if (size > SIZE) {
+            size -= 10;
+        }
     }
 
     //#endregion
@@ -227,7 +237,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     public boolean willWallCollide() {
         double nextPosY = y + vector.getY();
         return (nextPosY < 0 && vector.getY() < 0) ||
-                (nextPosY + size + 40 > Game.HEIGHT && vector.getY() > 0);
+               (nextPosY + size + 40 > Game.HEIGHT && vector.getY() > 0);
     }
 
     @Override
@@ -242,8 +252,8 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
         int paddleY = paddle.getY();
 
         return vector.getX() < 0 &&
-                paddleX <= x && x <= paddleX + Paddle.INITIAL_PADDLE_WIDTH &&
-                paddleY <= y + size && y <= paddleY + Paddle.INITIAL_PADDLE_HEIGHT;
+               paddleX <= x && x <= paddleX + Paddle.INITIAL_PADDLE_WIDTH &&
+               paddleY <= y + size && y <= paddleY + Paddle.INITIAL_PADDLE_HEIGHT;
     }
 
     @Override
@@ -252,8 +262,8 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
         int paddleY = paddle.getY();
 
         return vector.getX() > 0 &&
-                paddleX <= x + size && x + size < paddleX + Paddle.INITIAL_PADDLE_WIDTH &&
-                paddleY <= y + size && y <= paddleY + Paddle.INITIAL_PADDLE_HEIGHT;
+               paddleX <= x + size && x + size < paddleX + Paddle.INITIAL_PADDLE_WIDTH &&
+               paddleY <= y + size && y <= paddleY + Paddle.INITIAL_PADDLE_HEIGHT;
     }
 
     private Rectangle getBallBound() {
