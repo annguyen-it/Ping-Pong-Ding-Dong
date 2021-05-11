@@ -10,7 +10,6 @@ public class MultiBall extends Bonus {
 
     @Override
     public void active() {
-
     }
 
     @Override

@@ -19,7 +19,7 @@ public class BigBall extends Bonus {
     @Override
     public void deactive() {
         for (Ball ball : gameModel.getBalls()){
-            ball.sizeDown();
+            ball.returnInitialSize();
         }
     }
 }

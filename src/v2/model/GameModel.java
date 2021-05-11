@@ -53,6 +53,18 @@ public class GameModel implements Model {
         return rightPaddle;
     }
 
+    public Paddle getPaddle(Side side){
+        if (side == Side.left){
+            return leftPaddle;
+        }
+
+        if (side == Side.right){
+            return rightPaddle;
+        }
+
+        return null;
+    }
+
     public List<Ball> getBalls() {
         return ballFactory.getBalls();
     }
@@ -162,7 +174,7 @@ public class GameModel implements Model {
                 if (ball.willCollide(star)) {
                     ball.collide(star);
                     starFactory.createStar();
-                    bonusController.receive(star.getType());
+                    bonusController.receive(star.getType(), ball.getLastTouch());
                 }
             }
         }

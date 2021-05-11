@@ -27,8 +27,8 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     private static final int INITIAL_BALL_X = 588;
     private static final int INITIAL_BALL_Y = 388;
     private static final int MAX_SPEED = 15;
-    private static final int MIN_SPEED = 9;
-    private static final double INITIAL_SPEED = 11;
+    private static final int MIN_SPEED = 8;
+    private static final double INITIAL_SPEED = 9;
 
     private static final Vector INITIAL_TO_LEFT_VECTOR = new Vector(180);
     private static final Vector INITIAL_TO_RIGHT_VECTOR = new Vector(0);
@@ -36,9 +36,8 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     public static final int SIZE = 24;
 
     private GameSide.Side lastTouch = GameSide.Side.unknown;
-    private double speed = INITIAL_SPEED;
-    private int size = SIZE;
     private GameSoundPlayer soundPlayer;
+    private int size = SIZE;
 
     //#endregion
 
@@ -65,6 +64,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     public Ball(GameSoundPlayer soundPlayer, GameSide.Side initialDirection) {
         super(INITIAL_BALL_X, INITIAL_BALL_Y, getInitialVector(initialDirection), INITIAL_SPEED);
         setSoundPlayer(soundPlayer);
+        speed = INITIAL_SPEED;
     }
     //#endregion
 
@@ -106,6 +106,10 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
         return size;
     }
 
+    public GameSide.Side getLastTouch() {
+        return lastTouch;
+    }
+
     /**
      * Get ratio of collision of ball to paddle (0% at top of paddle to 100% at bottom).
      *
@@ -144,12 +148,12 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
         switch ((y - topPaddleY)/paddleDiv) {
             case 1:
             case 9:
-                speed += 2;
+                speed += 1.5;
                 break;
 
             case 2:
             case 8:
-                speed += 1;
+                speed += 0.5;
                 break;
 
             case 3:
@@ -158,15 +162,15 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
 
             case 4:
             case 6:
-                speed -= 1;
+                speed -= 0.5;
                 break;
 
             case 5:
-                speed -= 2;
+                speed -= 1.5;
                 break;
 
             default:
-                speed += 3;
+                speed += 2.5;
                 break;
         }
 
@@ -176,7 +180,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
 
     @Override
     public void changeSpeed(Star star) {
-
+        // TODO
     }
 
     @Override
@@ -224,7 +228,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     }
 
     @Override
-    public void sizeDown() {
+    public void returnInitialSize() {
         if (size > SIZE) {
             size -= 10;
         }
@@ -266,13 +270,13 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
                paddleY <= y + size && y <= paddleY + Paddle.INITIAL_PADDLE_HEIGHT;
     }
 
-    private Rectangle getBallBound() {
-        return new Rectangle(x, y, size, size);
-    }
-
     @Override
     public boolean willCollide(Star star) {
         return getBallBound().intersects(star.getBound()) && lastTouch != GameSide.Side.unknown;
+    }
+
+    private Rectangle getBallBound() {
+        return new Rectangle(x, y, size, size);
     }
 
     @Override
