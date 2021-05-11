@@ -5,7 +5,7 @@ import v2.board.Score;
 import v2.component.gameObject.GameObject;
 import v2.component.gameObject.movable.VerticalOnlyMovableGameObject;
 import v2.mechanics.paddle.PaddleMechanics;
-import v2.component.helper.model.Vector;
+import v2.component.intangible.Vector;
 
 public abstract class Paddle extends VerticalOnlyMovableGameObject implements PaddleMechanics {
 

@@ -45,6 +45,10 @@ public class BonusFactory {
         }
     }
 
+    public void clear(){
+        listBonus.clear();
+    }
+
     private int indexOf(Bonus bonus) {
         if (listBonus.size() == 0) {
             return -1;

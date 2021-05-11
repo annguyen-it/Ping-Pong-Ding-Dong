@@ -10,7 +10,7 @@ import v2.component.gameObject.movable.paddle.RightPaddle;
 import v2.mechanics.ball.BallMechanics;
 import v2.utils.sound.GameSoundPlayer;
 import v2.utils.sound.HasSound;
-import v2.component.helper.model.Vector;
+import v2.component.intangible.Vector;
 
 import java.awt.*;
 

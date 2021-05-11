@@ -6,7 +6,7 @@ import v2.component.gameObject.immovable.bonus.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.*;
-import v2.component.helper.BallFactory;
+import v2.component.helper.factory.BallFactory;
 import v2.component.helper.factory.BonusFactory;
 import v2.component.helper.factory.StarFactory;
 import v2.controller.GameController;
@@ -15,6 +15,7 @@ import v2.utils.sound.GameSoundPlayer;
 import java.util.List;
 
 public class GameModel implements Model {
+
     GameController controller;
 
     private final GameSoundPlayer soundPlayer = new GameSoundPlayer();
@@ -77,35 +78,42 @@ public class GameModel implements Model {
             ball.tryMove();
 
             Side loseSide = ball.isOutTheBoard();
-            lostBall(loseSide);
-        }
-    }
 
-    public void lostBall(Side loseSide){
-        if (loseSide != Side.unknown){
-            if (loseSide == Side.left){
-                rightPaddle.increaseScore();
-            }
-            else {
-                leftPaddle.increaseScore();
-            }
+            if (loseSide != Side.unknown) {
+                lostBall(loseSide);
 
-            tryAddNewBall(GameSide.opposite(loseSide));
-        }
-    }
-
-    public void tryAddNewBall(Side ballDirection) {
-        if (ballFactory.isSingleBall()) {
-            if (willContinueGame()){
-                ballFactory.createBall(ballDirection);
-            }
-            else {
-                controller.over();
             }
         }
     }
 
-    public boolean willContinueGame(){
+    public void lostBall(Side loseSide) {
+        if (loseSide == Side.left) {
+            rightPaddle.increaseScore();
+        }
+        else {
+            leftPaddle.increaseScore();
+        }
+
+        if (ballFactory.hasOnlyOne()) {
+            removeAllBonus();
+            addNewBall(GameSide.opposite(loseSide));
+        }
+    }
+
+    public void removeAllBonus(){
+        bonusFactory.clear();
+    }
+
+    public void addNewBall(Side ballDirection) {
+        if (willContinueGame()) {
+            ballFactory.createBall(ballDirection);
+        }
+        else {
+            controller.over();
+        }
+    }
+
+    public boolean willContinueGame() {
         int leftScore = leftPaddle.getScore();
         int rightScore = rightPaddle.getScore();
 
@@ -127,7 +135,7 @@ public class GameModel implements Model {
         }
     }
 
-    public void updateBonus(){
+    public void updateBonus() {
         bonusFactory.update();
     }
 }

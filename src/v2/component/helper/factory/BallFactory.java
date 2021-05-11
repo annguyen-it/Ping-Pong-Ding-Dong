@@ -1,4 +1,4 @@
-package v2.component.helper;
+package v2.component.helper.factory;
 
 import v2.board.GameSide;
 import v2.component.gameObject.movable.ball.Ball;
@@ -30,7 +30,7 @@ public class BallFactory {
         return list;
     }
 
-    public boolean isSingleBall(){
+    public boolean hasOnlyOne(){
         return list.size() == 1;
     }
 }

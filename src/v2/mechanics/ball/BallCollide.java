@@ -55,17 +55,17 @@ public interface BallCollide extends GameObjectCollide {
     /**
      * Receives a colliding object, then call to specific method to perform the collision.
      *
-     * @param objectCollide Object which collides
+     * @param causeObject Object which cause collision
      * @see v2.component.gameObject.movable.paddle.Paddle
      * @see v2.component.gameObject.immovable.star.Star
      */
     @Override
-    default void collide(GameObject objectCollide) {
-        if (objectCollide instanceof Paddle) {
-            collide((Paddle) objectCollide);
+    default void collide(GameObject causeObject) {
+        if (causeObject instanceof Paddle) {
+            collide((Paddle) causeObject);
         }
-        else if (objectCollide instanceof Star) {
-            collide((Star) objectCollide);
+        else if (causeObject instanceof Star) {
+            collide((Star) causeObject);
         }
     }
 

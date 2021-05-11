@@ -1,4 +1,4 @@
-package v2.component.helper.model;
+package v2.component.intangible;
 
 public class Vector {
 
