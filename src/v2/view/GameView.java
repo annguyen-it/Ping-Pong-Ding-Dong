@@ -11,6 +11,7 @@ import v2.controller.GameController;
 import v2.model.EnterNameDialogModel;
 import v2.model.GameModel;
 
+import javax.swing.*;
 import java.awt.*;
 
 import java.util.ArrayList;
@@ -158,9 +159,6 @@ public class GameView extends View {
 
 
     private void paintTimerStar(Graphics g, int i, Bonus bonus) {
-        //        GameModel model = controller.getModel();
-        //        if (model.getListBonus().size() > 0) {
-        //            for (int i = 0; i < model.getListBonus().size(); i++) {
         int x = 50 + 50*i + 220*i;
 
         g.setColor(Color.white);
@@ -172,29 +170,14 @@ public class GameView extends View {
         g.setColor(bonus.getColor());
         g.fillRect(x, 700, bonus.getTimeLeft()/40, 10);
 
-        ////                 if (model.getBonusFactory().getBonus(finalI).getTimeLeft() > 0) {
-        ////                     model.getBonusFactory().getBonus(finalI).getTimeLeft()  -= 1;
-        ////                     repaint();
-        ////                 }else {
-        ////                     GameModel.checkCollideStar =0;
-        ////                     t.stop();
-        ////                     checkHaveTime--;
-        ////                 }
-        //                //     model.getBonusFactory().getBonus(i).setTimeLeft();
-        //            });
-
     }
+
+
 }
 
-//    }
-//}
 
 
-//    private void paintCoutdownTime(Graphics g){
-//
-//        if (GameModel.checkCollideStar==1){
-//            paintTimerStar(g,50);
-//        }
-//    }
+
+
 //endregion
 

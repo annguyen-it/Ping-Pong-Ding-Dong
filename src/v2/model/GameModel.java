@@ -11,6 +11,7 @@ import v2.component.helper.factory.BonusFactory;
 import v2.component.helper.factory.StarFactory;
 import v2.controller.GameController;
 import v2.utils.sound.GameSoundPlayer;
+import v2.view.GameView;
 
 import java.util.List;
 
@@ -112,6 +113,7 @@ public class GameModel implements Model {
         return leftScore == rightScore || Math.max(leftScore, rightScore) < 5;
     }
 
+
     public void updateStar() {
         starFactory.update();
         Star star = starFactory.getStar();
@@ -130,4 +132,7 @@ public class GameModel implements Model {
     public void updateBonus(){
         bonusFactory.update();
     }
+
+
+
 }

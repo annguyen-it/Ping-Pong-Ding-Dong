@@ -218,11 +218,10 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
                 topScoreData.forEach(topScoreTableModel::addRow);
 
-
                 JTable topScoreTable = new JTable(topScoreTableModel);
-                topScoreTable.setRowHeight(20);
 
                 topScoreTable.getColumnModel().getColumn(0).setCellRenderer(align);
+                topScoreTable.getColumnModel().getColumn(1).setCellRenderer(align);
                 topScoreTable.getColumnModel().getColumn(2).setCellRenderer(align);
                 topScoreTable.getColumnModel().getColumn(3).setCellRenderer(align);
 
@@ -244,9 +243,10 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                 topWinData.forEach(topWinTableModel::addRow);
 
                 JTable topWinTable = new JTable(topWinTableModel);
-                topWinTable.setRowHeight(20);
+
 
                 topWinTable.getColumnModel().getColumn(0).setCellRenderer(align);
+                topWinTable.getColumnModel().getColumn(1).setCellRenderer(align);
                 topWinTable.getColumnModel().getColumn(2).setCellRenderer(align);
                 topWinTable.getColumnModel().getColumn(3).setCellRenderer(align);
                 topWinTable.getColumnModel().getColumn(4).setCellRenderer(align);
@@ -266,16 +266,20 @@ public class MenuController extends Controller<MenuView, MenuModel> {
             }
 
             private void decorateTable(JTable table){
-                table.setGridColor(Game.orangeColor);
+
+                table.setGridColor(Color.YELLOW);
                 table.setBackground(Color.YELLOW);
                 table.setSelectionBackground(Color.orange);
                 table.setSelectionForeground(Color.blue);
+                table.setRowHeight(40);
 
                 JTableHeader tableHeader = table.getTableHeader();
                 tableHeader.setBackground(Color.orange);
                 tableHeader.setBorder(BorderFactory.createLineBorder(Game.orangeColor, 2));
                 tableHeader.setFont(new Font("Sans Serif", Font.PLAIN, 15));
                 tableHeader.setForeground(Color.blue);
+                tableHeader.setEnabled(false);
+
             }
         }
     }

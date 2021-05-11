@@ -103,6 +103,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
     public void over() {
         gameTimer.stop();
         saveResultToDatabase();
+        showOverDialog();
     }
 
     public void saveResultToDatabase() {
@@ -114,7 +115,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
 
             PlayerInfo leftPlayer = new PlayerInfo(getView().getLeftPlayerName(), leftPaddleScore, leftIsWinner);
             PlayerInfo rightPlayer = new PlayerInfo(getView().getRightPlayerName(), rightPaddleScore, !leftIsWinner);
-
+            
             Database.createPlayer(leftPlayer);
             Database.createPlayer(rightPlayer);
 
@@ -134,6 +135,9 @@ public class GameController extends Controller<GameView, GameModel> implements A
                 restart();
                 break;
 
+            case 3:
+                model.getSoundPlayer().toggle();
+
             default:
                 resume();
         }
@@ -152,7 +156,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
     }
 
     private void resume() {
-        if (isStarted){
+        if (isStarted) {
             gameTimer.restart();
         }
     }
@@ -174,7 +178,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
     }
 
     private int showPauseDialog() {
-        String[] options = { "Home", "Continue", "New Game" };
+        String[] options = {"Home", "Continue", "New Game", "Mute"};
         return JOptionPane.showOptionDialog(
                 null,
                 "Do you want exit this game? ",
@@ -185,5 +189,26 @@ public class GameController extends Controller<GameView, GameModel> implements A
                 options,
                 options[1]
         );
+    }
+
+    private void showOverDialog() {
+        String[] dialogOptions = {"NewGame", "Home"};
+        int result=JOptionPane.showOptionDialog(
+                null,
+                new JLabel("Congratulations "  + getNameWinner() + " !"),
+                "",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null, dialogOptions
+                ,null
+
+        );
+
+        if(result==0){restart();}
+        if(result==1){switchToMenuController(); }
+    }
+
+    public String getNameWinner(){
+        return model.getLeftPaddle().getScore()>model.getRightPaddle().getScore()?getView().getLeftPlayerName():getView().getRightPlayerName();
     }
 }
