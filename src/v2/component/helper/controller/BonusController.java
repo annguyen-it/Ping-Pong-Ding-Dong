@@ -1,46 +1,35 @@
 package v2.component.helper.controller;
 
-import v2.component.intangible.Bonus;
-import v2.component.gameObject.immovable.star.BonusType;
+import v2.component.intangible.bonus.Bonus;
+import v2.component.gameObject.immovable.star.StarType;
+import v2.model.GameModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BonusController {
 
+    private final GameModel gameModel;
     private final List<Bonus> listBonus = new ArrayList<>();
 
-    public void receive(BonusType starType) {
-        Bonus bonus = new Bonus(starType);
-        int duplicateIndex = indexOf(bonus);
-
-        if (duplicateIndex == -1) {
-            add(bonus);
-        }
-        else {
-            reset(duplicateIndex);
-        }
+    public BonusController(GameModel gameModel) {
+        this.gameModel = gameModel;
     }
 
     public List<Bonus> getBonusList() {
         return listBonus;
     }
 
-    public void update() {
-        for (int i = 0; i < listBonus.size(); ) {
-            listBonus.get(i).decreaseTimeLeft();
+    public void receive(StarType starType) {
+        Bonus bonus = Bonus.type(starType).with(gameModel);
+        int duplicateIndex = indexOf(bonus);
 
-            if (listBonus.get(i).getTimeLeft() <= 0) {
-                listBonus.remove(i);
-            }
-            else {
-                i++;
-            }
+        if (duplicateIndex == -1) {
+            activate(bonus);
         }
-    }
-
-    public void clear(){
-        listBonus.clear();
+        else {
+            reset(duplicateIndex);
+        }
     }
 
     private int indexOf(Bonus bonus) {
@@ -49,7 +38,7 @@ public class BonusController {
         }
 
         for (int i = 0; i < listBonus.size(); i++) {
-            if (listBonus.get(i).getStarType() == bonus.getStarType()) {
+            if (listBonus.get(i).sameTypeWith(bonus)) {
                 return i;
             }
         }
@@ -57,11 +46,38 @@ public class BonusController {
         return -1;
     }
 
-    private void add(Bonus bonus){
+    private void activate(Bonus bonus) {
         listBonus.add(bonus);
+        bonus.active();
     }
 
-    private void reset(int bonusIndex){
+    private void reset(int bonusIndex) {
         listBonus.get(bonusIndex).reset();
+    }
+
+    public void update() {
+        for (int i = 0; i < listBonus.size(); ) {
+            listBonus.get(i).decreaseTimeLeft();
+
+            if (listBonus.get(i).timeout()) {
+                removeBonusAt(i);
+            }
+            else {
+                i++;
+            }
+        }
+    }
+
+    private void removeBonusAt(int index){
+        listBonus.get(index).deactive();
+        listBonus.remove(index);
+    }
+
+    public void clear() {
+        for (Bonus bonus : listBonus){
+            bonus.deactive();
+        }
+
+        listBonus.clear();
     }
 }

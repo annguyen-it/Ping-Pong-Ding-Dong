@@ -48,11 +48,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        model.updatePaddles();
-        model.updateBall();
-        model.updateStar();
-        model.updateBonus();
-
+        model.update();
         view.repaint();
     }
 

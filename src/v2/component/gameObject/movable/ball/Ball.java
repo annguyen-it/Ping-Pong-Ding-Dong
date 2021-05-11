@@ -285,26 +285,8 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     }
 
     @Override
-    public void collide(Star star) {
+    public void collide(Star __) {
         soundPlayer.starCollide();
-
-        switch (star.getType()) {
-            case bigBall:
-                sizeUp();
-                break;
-
-            case multiBall:
-                sizeDown();
-                break;
-
-            case speedUp:
-                break;
-
-            case speedDown:
-                break;
-
-            default:
-        }
     }
     //#endregion
 

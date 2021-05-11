@@ -2,7 +2,7 @@ package v2.view;
 
 import v2.board.Score;
 
-import v2.component.intangible.Bonus;
+import v2.component.intangible.bonus.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.Paddle;

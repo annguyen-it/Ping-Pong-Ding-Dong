@@ -11,7 +11,7 @@ public class Star extends ImmovableGameObject {
 
     private final long appearTime;
     private final String imagePath;
-    private final BonusType type;
+    private final StarType type;
 
     private static final String[] BONUS_IMAGE = new String[]{
             "resources/img/starBlue.png",
@@ -29,10 +29,10 @@ public class Star extends ImmovableGameObject {
         int randomNumber = (int) (Math.random()*BONUS_IMAGE.length);
 
         imagePath = BONUS_IMAGE[randomNumber];
-        type = Arrays.asList(BonusType.values()).get(randomNumber);
+        type = Arrays.asList(StarType.values()).get(randomNumber);
     }
 
-    public BonusType getType() {
+    public StarType getType() {
         return type;
     }
 

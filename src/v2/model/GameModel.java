@@ -2,7 +2,7 @@ package v2.model;
 
 import v2.board.GameSide;
 import v2.board.GameSide.Side;
-import v2.component.intangible.Bonus;
+import v2.component.intangible.bonus.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.*;
@@ -16,6 +16,8 @@ import java.util.List;
 
 public class GameModel implements Model {
 
+    //#region Properties
+
     GameController controller;
 
     private final GameSoundPlayer soundPlayer = new GameSoundPlayer();
@@ -25,18 +27,22 @@ public class GameModel implements Model {
 
     private final BallFactory ballFactory = new BallFactory(soundPlayer);
     private final StarFactory starFactory = new StarFactory();
-    private final BonusController bonusController = new BonusController();
+    private final BonusController bonusController = new BonusController(this);
+
+    //#endregion
+
+    //#regionConstructor
 
     public GameModel() {
         soundPlayer.joinGame();
     }
 
+    //#endregion
+
+    //#region Getter
+
     public GameSoundPlayer getSoundPlayer() {
         return soundPlayer;
-    }
-
-    public void setController(GameController controller) {
-        this.controller = controller;
     }
 
     public LeftPaddle getLeftPaddle() {
@@ -59,7 +65,26 @@ public class GameModel implements Model {
         return bonusController.getBonusList();
     }
 
-    public void updatePaddles() {
+    //#endregion
+
+    //#region Setter
+
+    public void setController(GameController controller) {
+        this.controller = controller;
+    }
+
+    //#endregion
+
+    public void update(){
+        updatePaddles();
+        updateBall();
+        updateStar();
+        updateBonus();
+    }
+
+    //#region Paddle
+
+    private void updatePaddles() {
         leftPaddle.tryMove();
         rightPaddle.tryMove();
 
@@ -73,7 +98,11 @@ public class GameModel implements Model {
         }
     }
 
-    public void updateBall() {
+    //#endregion
+
+    //#region Ball
+
+    private void updateBall() {
         for (Ball ball : ballFactory.getBalls()) {
             ball.tryMove();
 
@@ -81,12 +110,11 @@ public class GameModel implements Model {
 
             if (loseSide != Side.unknown) {
                 lostBall(loseSide);
-
             }
         }
     }
 
-    public void lostBall(Side loseSide) {
+    private void lostBall(Side loseSide) {
         if (loseSide == Side.left) {
             rightPaddle.increaseScore();
         }
@@ -95,32 +123,37 @@ public class GameModel implements Model {
         }
 
         if (ballFactory.hasOnlyOne()) {
-            removeAllBonus();
-            addNewBall(GameSide.opposite(loseSide));
+            removeActivatedBonus();
+
+            if (shouldContinue()) {
+                addNewBall(GameSide.opposite(loseSide));
+            }
+            else {
+                controller.over();
+            }
         }
     }
 
-    public void removeAllBonus(){
-        bonusController.clear();
-    }
-
-    public void addNewBall(Side ballDirection) {
-        if (willContinueGame()) {
-            ballFactory.createBall(ballDirection);
-        }
-        else {
-            controller.over();
-        }
-    }
-
-    public boolean willContinueGame() {
+    private boolean shouldContinue() {
         int leftScore = leftPaddle.getScore();
         int rightScore = rightPaddle.getScore();
 
         return leftScore == rightScore || Math.max(leftScore, rightScore) < 5;
     }
 
-    public void updateStar() {
+    private void removeActivatedBonus() {
+        bonusController.clear();
+    }
+
+    private void addNewBall(Side ballDirection) {
+        ballFactory.createBall(ballDirection);
+    }
+
+    //#endregion
+
+    //#region Star
+
+    private void updateStar() {
         starFactory.update();
         Star star = starFactory.getStar();
 
@@ -135,7 +168,13 @@ public class GameModel implements Model {
         }
     }
 
-    public void updateBonus() {
+    //#endregion
+
+    //#region Bonus
+
+    private void updateBonus() {
         bonusController.update();
     }
+
+    //#endregion
 }
