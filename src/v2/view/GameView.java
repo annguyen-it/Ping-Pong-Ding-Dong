@@ -2,7 +2,7 @@ package v2.view;
 
 import v2.board.Score;
 
-import v2.component.gameObject.immovable.bonus.Bonus;
+import v2.component.intangible.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.Paddle;
@@ -13,7 +13,6 @@ import v2.model.GameModel;
 
 import java.awt.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -82,9 +81,9 @@ public class GameView extends View {
         }
 
 
-        drawStar(g);
+        paintStar(g);
 
-        drawBonus(g);
+        paintProcessBars(g);
     }
 
     private void paintBackground(Graphics g) {
@@ -119,10 +118,12 @@ public class GameView extends View {
         int widthName1 = g.getFontMetrics().stringWidth(leftPlayerName);
         int widthName2 = g.getFontMetrics().stringWidth(rightPlayerName);
 
+        final int marginTop = 60;
+
         g.setColor(Color.gray);
         g.setFont(nameFont);
-        g.drawString(leftPlayerName, (v2.Game.WIDTH/2 - widthName1)/2, 60);
-        g.drawString(rightPlayerName, 600 + (v2.Game.WIDTH/2 - widthName2)/2, 60);
+        g.drawString(leftPlayerName, (v2.Game.WIDTH/2 - widthName1)/2, marginTop);
+        g.drawString(rightPlayerName, 600 + (v2.Game.WIDTH/2 - widthName2)/2, marginTop);
     }
 
     private void paintScore(Graphics g) {
@@ -133,13 +134,17 @@ public class GameView extends View {
         String displayScore1 = Integer.toString(scoreObj1.getScore());
         String displayScore2 = Integer.toString(scoreObj2.getScore());
 
+        final int marginTop = 60;
+        final int distanceBetweenScores = 150;
+        final int leftPlayerScoreWidth = g.getFontMetrics().stringWidth(displayScore1);
+
         g.setFont(scoreFont);
         g.setColor(Color.gray);
-        g.drawString(displayScore1, (v2.Game.WIDTH/2 - 75 - g.getFontMetrics().stringWidth(displayScore1)), 60);
-        g.drawString(displayScore2, v2.Game.WIDTH/2 + 75, 60);
+        g.drawString(displayScore1, v2.Game.WIDTH/2 - distanceBetweenScores/2 - leftPlayerScoreWidth, marginTop);
+        g.drawString(displayScore2, v2.Game.WIDTH/2 + distanceBetweenScores/2, marginTop);
     }
 
-    private void drawStar(Graphics g) {
+    private void paintStar(Graphics g) {
         Star star = controller.getModel().getStar();
 
         if (star != null) {
@@ -148,53 +153,36 @@ public class GameView extends View {
         }
     }
 
-    private void drawBonus(Graphics g) {
+    private void paintProcessBars(Graphics g) {
         List<Bonus> bonusList = controller.getModel().getBonus();
 
         for (int i = 0; i < bonusList.size(); i++) {
-            paintTimerStar(g, i, bonusList.get(i));
+            paintProcessBar(g, i, bonusList.get(i));
         }
     }
 
+    private void paintProcessBar(Graphics g, int itemIndex, Bonus bonus) {
+        final int width = 222;
+        final int height = 12;
+        final int marginLeftOfFirstItem = 50;
+        final int marginBetweenItems = 50;
+        final int border = 1;
 
-    private void paintTimerStar(Graphics g, int i, Bonus bonus) {
-        //        GameModel model = controller.getModel();
-        //        if (model.getListBonus().size() > 0) {
-        //            for (int i = 0; i < model.getListBonus().size(); i++) {
-        int x = 50 + 50*i + 220*i;
+        int x = marginLeftOfFirstItem + marginBetweenItems*itemIndex + width*itemIndex;
+        final int y = 700;
 
+        //  Paint container
         g.setColor(Color.white);
-        g.fillRect(x - 1, 700 - 1, 222, 12);
+        g.fillRect(x, y, width, height);
 
+        //  Paint black box inside container, visible part of container becomes border
         g.setColor(Color.black);
-        g.fillRect(x, 700, 220, 10);
+        g.fillRect(x + border, y + border, width - 2*border, height - 2*border);
 
-        g.setColor(bonus.getColor());
-        g.fillRect(x, 700, bonus.getTimeLeft()/40, 10);
-
-        ////                 if (model.getBonusFactory().getBonus(finalI).getTimeLeft() > 0) {
-        ////                     model.getBonusFactory().getBonus(finalI).getTimeLeft()  -= 1;
-        ////                     repaint();
-        ////                 }else {
-        ////                     GameModel.checkCollideStar =0;
-        ////                     t.stop();
-        ////                     checkHaveTime--;
-        ////                 }
-        //                //     model.getBonusFactory().getBonus(i).setTimeLeft();
-        //            });
-
+        //  Paint duration part
+        g.setColor(bonus.getProcessBar().getColor());
+        g.fillRect(x + border, y + border, bonus.getProcessBar().getWidth(), height - 2*border);
     }
 }
-
-//    }
-//}
-
-
-//    private void paintCoutdownTime(Graphics g){
-//
-//        if (GameModel.checkCollideStar==1){
-//            paintTimerStar(g,50);
-//        }
-//    }
 //endregion
 

@@ -2,12 +2,12 @@ package v2.model;
 
 import v2.board.GameSide;
 import v2.board.GameSide.Side;
-import v2.component.gameObject.immovable.bonus.Bonus;
+import v2.component.intangible.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.*;
 import v2.component.helper.factory.BallFactory;
-import v2.component.helper.factory.BonusFactory;
+import v2.component.helper.factory.BonusController;
 import v2.component.helper.factory.StarFactory;
 import v2.controller.GameController;
 import v2.utils.sound.GameSoundPlayer;
@@ -25,7 +25,7 @@ public class GameModel implements Model {
 
     private final BallFactory ballFactory = new BallFactory(soundPlayer);
     private final StarFactory starFactory = new StarFactory();
-    private final BonusFactory bonusFactory = new BonusFactory();
+    private final BonusController bonusController = new BonusController();
 
     public GameModel() {
         soundPlayer.joinGame();
@@ -56,7 +56,7 @@ public class GameModel implements Model {
     }
 
     public List<Bonus> getBonus() {
-        return bonusFactory.getBonusList();
+        return bonusController.getBonusList();
     }
 
     public void updatePaddles() {
@@ -101,7 +101,7 @@ public class GameModel implements Model {
     }
 
     public void removeAllBonus(){
-        bonusFactory.clear();
+        bonusController.clear();
     }
 
     public void addNewBall(Side ballDirection) {
@@ -129,13 +129,13 @@ public class GameModel implements Model {
                 if (ball.willCollide(star)) {
                     ball.collide(star);
                     starFactory.createStar();
-                    bonusFactory.createBonus(star.getType());
+                    bonusController.receive(star.getType());
                 }
             }
         }
     }
 
     public void updateBonus() {
-        bonusFactory.update();
+        bonusController.update();
     }
 }

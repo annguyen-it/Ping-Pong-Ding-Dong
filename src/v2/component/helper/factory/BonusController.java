@@ -1,35 +1,29 @@
 package v2.component.helper.factory;
 
-import v2.component.gameObject.immovable.bonus.Bonus;
+import v2.component.intangible.Bonus;
 import v2.component.gameObject.immovable.star.BonusType;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BonusFactory {
+public class BonusController {
 
     private final List<Bonus> listBonus = new ArrayList<>();
 
-    public BonusFactory() { }
-
-    public void createBonus(BonusType starType) {
+    public void receive(BonusType starType) {
         Bonus bonus = new Bonus(starType);
         int duplicateIndex = indexOf(bonus);
 
         if (duplicateIndex == -1) {
-            addBonus(bonus);
+            add(bonus);
         }
         else {
-            extendBonus(duplicateIndex);
+            reset(duplicateIndex);
         }
     }
 
     public List<Bonus> getBonusList() {
         return listBonus;
-    }
-
-    public Bonus getBonus(int i) {
-        return listBonus.get(i);
     }
 
     public void update() {
@@ -63,11 +57,11 @@ public class BonusFactory {
         return -1;
     }
 
-    private void addBonus(Bonus bonus){
+    private void add(Bonus bonus){
         listBonus.add(bonus);
     }
 
-    private void extendBonus(int bonusIndex){
-        listBonus.get(bonusIndex).setTimeLeft(Bonus.EXIST_TIME);
+    private void reset(int bonusIndex){
+        listBonus.get(bonusIndex).reset();
     }
 }
