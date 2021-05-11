@@ -17,7 +17,7 @@ public interface GameObjectCollide extends Collide {
     /**
      * Performs a collision between the implementing object and objectCollide
      *
-     * @param objectCollide GameObject to collide
+     * @param causeObject GameObject to collide
      */
-    void collide(GameObject objectCollide);
+    void collide(GameObject causeObject);
 }

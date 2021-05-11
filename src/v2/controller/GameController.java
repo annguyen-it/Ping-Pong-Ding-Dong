@@ -3,6 +3,8 @@ package v2.controller;
 import v2.board.GameAdapter;
 import v2.model.EnterNameDialogModel;
 import v2.model.GameModel;
+import v2.utils.database.Database;
+import v2.utils.database.dto.PlayerInfo;
 import v2.view.GameView;
 
 import javax.swing.*;
@@ -46,11 +48,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        model.updatePaddles();
-        model.updateBall();
-        model.updateStar();
-        model.updateBonus();
-
+        model.update();
         view.repaint();
     }
 
@@ -98,14 +96,33 @@ public class GameController extends Controller<GameView, GameModel> implements A
         }
     }
 
-    public void over(){
+    public void over() {
         gameTimer.stop();
+        saveResultToDatabase();
+        showOverDialog();
+    }
+
+    public void saveResultToDatabase() {
+        if (Database.connected()) {
+            int leftPaddleScore = model.getLeftPaddle().getScore();
+            int rightPaddleScore = model.getRightPaddle().getScore();
+
+            boolean leftIsWinner = leftPaddleScore > rightPaddleScore;
+
+            PlayerInfo leftPlayer = new PlayerInfo(getView().getLeftPlayerName(), leftPaddleScore, leftIsWinner);
+            PlayerInfo rightPlayer = new PlayerInfo(getView().getRightPlayerName(), rightPaddleScore, !leftIsWinner);
+            
+            Database.createPlayer(leftPlayer);
+            Database.createPlayer(rightPlayer);
+
+            Database.createHistory(leftPlayer, rightPlayer);
+        }
     }
 
     private void addPauseEvent() {
         int output = showPauseDialog();
 
-        switch (output){
+        switch (output) {
             case 0:
                 switchToMenuController();
                 break;
@@ -113,6 +130,9 @@ public class GameController extends Controller<GameView, GameModel> implements A
             case 2:
                 restart();
                 break;
+
+            case 3:
+                model.getSoundPlayer().toggle();
 
             default:
                 resume();
@@ -132,10 +152,12 @@ public class GameController extends Controller<GameView, GameModel> implements A
     }
 
     private void resume() {
-        gameTimer.restart();
+        if (isStarted) {
+            gameTimer.restart();
+        }
     }
 
-    private void restart(){
+    private void restart() {
         EnterNameDialogModel model = new EnterNameDialogModel(MenuController.playerName1, MenuController.playerName2);
         GameView gameView = new GameView(model);
         GameModel gameModel = new GameModel();
@@ -147,12 +169,12 @@ public class GameController extends Controller<GameView, GameModel> implements A
         switchController(gameController);
     }
 
-    private void switchToMenuController(){
+    private void switchToMenuController() {
         switchController(new MenuController(flowController));
     }
 
-    private int showPauseDialog(){
-        String[] options = { "Home", "Continue", "New Game" };
+    private int showPauseDialog() {
+        String[] options = {"Home", "Continue", "New Game", "Mute"};
         return JOptionPane.showOptionDialog(
                 null,
                 "Do you want exit this game? ",
@@ -163,5 +185,26 @@ public class GameController extends Controller<GameView, GameModel> implements A
                 options,
                 options[1]
         );
+    }
+
+    private void showOverDialog() {
+        String[] dialogOptions = {"NewGame", "Home"};
+        int result=JOptionPane.showOptionDialog(
+                null,
+                new JLabel("Congratulations "  + getNameWinner() + " !"),
+                "",
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE,
+                null, dialogOptions
+                ,null
+
+        );
+
+        if(result==0){restart();}
+        if(result==1){switchToMenuController(); }
+    }
+
+    public String getNameWinner(){
+        return model.getLeftPaddle().getScore()>model.getRightPaddle().getScore()?getView().getLeftPlayerName():getView().getRightPlayerName();
     }
 }

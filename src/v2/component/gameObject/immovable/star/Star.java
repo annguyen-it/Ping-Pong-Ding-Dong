@@ -13,7 +13,7 @@ public class Star extends ImmovableGameObject {
     private final String imagePath;
     private final StarType type;
 
-    private static final String[] STAR_IMAGE = new String[]{
+    private static final String[] BONUS_IMAGE = new String[]{
             "resources/img/starBlue.png",
             "resources/img/starGreen.png",
             "resources/img/starPink.png",
@@ -26,9 +26,9 @@ public class Star extends ImmovableGameObject {
 
         appearTime = Calendar.getInstance().getTimeInMillis();
 
-        int randomNumber = (int) (Math.random()*STAR_IMAGE.length);
+        int randomNumber = (int) (Math.random()*BONUS_IMAGE.length);
 
-        imagePath = STAR_IMAGE[randomNumber];
+        imagePath = BONUS_IMAGE[randomNumber];
         type = Arrays.asList(StarType.values()).get(randomNumber);
     }
 

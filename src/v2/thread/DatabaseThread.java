@@ -10,10 +10,7 @@ public class DatabaseThread extends Thread {
     public void run() {
         try {
             Database.connect();
-            System.out.println("OK");
         }
-        catch (SQLException e) {
-            System.out.println("Connect to database failed!");
-        }
+        catch (SQLException ignored) { }
     }
 }

@@ -2,48 +2,72 @@ package v2.model;
 
 import v2.board.GameSide;
 import v2.board.GameSide.Side;
-import v2.component.gameObject.immovable.bonus.Bonus;
+import v2.component.intangible.bonus.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.*;
-import v2.component.helper.factory.BonusFactory;
+import v2.component.helper.factory.BallFactory;
+import v2.component.helper.controller.BonusController;
 import v2.component.helper.factory.StarFactory;
 import v2.controller.GameController;
 import v2.utils.sound.GameSoundPlayer;
+import v2.view.GameView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GameModel implements Model {
-    GameController controller;
 
-    private RightPaddle rightPaddle;
-    private LeftPaddle leftPaddle;
-    private List<Ball> balls;
-    private StarFactory starFactory;
-    private BonusFactory bonusFactory;
+    //#region Properties
+
+    GameController controller;
 
     private final GameSoundPlayer soundPlayer = new GameSoundPlayer();
 
+    private final LeftPaddle leftPaddle = new LeftPaddle();
+    private final RightPaddle rightPaddle = new RightPaddle();
+
+    private final BallFactory ballFactory = new BallFactory(soundPlayer);
+    private final StarFactory starFactory = new StarFactory();
+    private final BonusController bonusController = new BonusController(this);
+
+    //#endregion
+
+    //#regionConstructor
+
     public GameModel() {
         soundPlayer.joinGame();
-        initBoard();
     }
 
-    public void setController(GameController controller) {
-        this.controller = controller;
+    //#endregion
+
+    //#region Getter
+
+    public GameSoundPlayer getSoundPlayer() {
+        return soundPlayer;
     }
 
-    public Paddle getLeftPaddle() {
+    public LeftPaddle getLeftPaddle() {
         return leftPaddle;
     }
 
-    public Paddle getRightPaddle() {
+    public RightPaddle getRightPaddle() {
         return rightPaddle;
     }
 
+    public Paddle getPaddle(Side side){
+        if (side == Side.left){
+            return leftPaddle;
+        }
+
+        if (side == Side.right){
+            return rightPaddle;
+        }
+
+        return null;
+    }
+
     public List<Ball> getBalls() {
-        return balls;
+        return ballFactory.getBalls();
     }
 
     public Star getStar() {
@@ -51,25 +75,33 @@ public class GameModel implements Model {
     }
 
     public List<Bonus> getBonus() {
-        return bonusFactory.getBonusList();
+        return bonusController.getBonusList();
     }
 
-    public void initBoard() {
-        leftPaddle = new LeftPaddle();
-        rightPaddle = new RightPaddle();
+    //#endregion
 
-        balls = new ArrayList<>();
-        balls.add(new Ball(soundPlayer));
+    //#region Setter
 
-        starFactory = new StarFactory();
-        bonusFactory = new BonusFactory();
+    public void setController(GameController controller) {
+        this.controller = controller;
     }
 
-    public void updatePaddles() {
+    //#endregion
+
+    public void update(){
+        updatePaddles();
+        updateBall();
+        updateStar();
+        updateBonus();
+    }
+
+    //#region Paddle
+
+    private void updatePaddles() {
         leftPaddle.tryMove();
         rightPaddle.tryMove();
 
-        for (Ball ball : balls) {
+        for (Ball ball : ballFactory.getBalls()) {
             if (ball.willCollide(leftPaddle)) {
                 ball.collide(leftPaddle);
             }
@@ -79,32 +111,35 @@ public class GameModel implements Model {
         }
     }
 
-    public void updateBall() {
-        for (Ball ball : balls) {
+    //#endregion
+
+    //#region Ball
+
+    private void updateBall() {
+        for (Ball ball : ballFactory.getBalls()) {
             ball.tryMove();
 
             Side loseSide = ball.isOutTheBoard();
-            lostBall(loseSide);
+
+            if (loseSide != Side.unknown) {
+                lostBall(loseSide);
+            }
         }
     }
 
-    public void lostBall(Side loseSide){
-        if (loseSide != Side.unknown){
-            if (loseSide == Side.left){
-                rightPaddle.increaseScore();
-            }
-            else {
-                leftPaddle.increaseScore();
-            }
-
-            tryAddNewBall(GameSide.opposite(loseSide));
+    private void lostBall(Side loseSide) {
+        if (loseSide == Side.left) {
+            rightPaddle.increaseScore();
         }
-    }
+        else {
+            leftPaddle.increaseScore();
+        }
 
-    public void tryAddNewBall(Side ballDirection) {
-        if (balls.size() == 1) {
-            if (willContinueGame()){
-                balls.set(0, new Ball(soundPlayer, ballDirection));
+        if (ballFactory.hasOnlyOne()) {
+            removeActivatedBonus();
+
+            if (shouldContinue()) {
+                addNewBall(GameSide.opposite(loseSide));
             }
             else {
                 controller.over();
@@ -112,29 +147,47 @@ public class GameModel implements Model {
         }
     }
 
-    public boolean willContinueGame(){
+    private boolean shouldContinue() {
         int leftScore = leftPaddle.getScore();
         int rightScore = rightPaddle.getScore();
 
         return leftScore == rightScore || Math.max(leftScore, rightScore) < 5;
     }
 
-    public void updateStar() {
+    private void removeActivatedBonus() {
+        bonusController.clear();
+    }
+
+    private void addNewBall(Side ballDirection) {
+        ballFactory.createBall(ballDirection);
+    }
+
+    //#endregion
+
+    //#region Star
+
+    private void updateStar() {
         starFactory.update();
         Star star = starFactory.getStar();
 
         if (star != null) {
-            for (Ball ball : balls) {
+            for (Ball ball : ballFactory.getBalls()) {
                 if (ball.willCollide(star)) {
                     ball.collide(star);
                     starFactory.createStar();
-                    bonusFactory.createBonus(star.getType());
+                    bonusController.receive(star.getType(), ball.getLastTouch());
                 }
             }
         }
     }
 
-    public void updateBonus(){
-        bonusFactory.update();
+    //#endregion
+
+    //#region Bonus
+
+    private void updateBonus() {
+        bonusController.update();
     }
+
+    //#endregion
 }

@@ -2,7 +2,7 @@ package v2.component.gameObject.movable;
 
 import v2.component.gameObject.GameObject;
 import v2.mechanics.common.move.Movable;
-import v2.component.helper.model.Vector;
+import v2.component.intangible.Vector;
 
 public abstract class MovableGameObject extends GameObject implements Movable {
 

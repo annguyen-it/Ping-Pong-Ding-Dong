@@ -17,7 +17,7 @@ public class MenuView extends View {
 
     private final JButton playButton = new JButton("PLAY");
     private final JButton helpButton = new JButton("HELP");
-    private final JButton rankingButton = new JButton("Ranking");
+    private final JButton rankingButton = new JButton();
     private final JButton exitButton = new JButton("EXIT");
 
     private final JPanel playDialog = new JPanel();
@@ -67,16 +67,6 @@ public class MenuView extends View {
         UIManager.put("Button.focus", new ColorUIResource(new Color(0, 0, 0, 0)));
     }
 
-
-    private void setupBackground() {
-        ImageIcon image = new ImageIcon("resources/img/Client.jpg");
-        background = new JLabel("", image, JLabel.CENTER);
-        background.setBounds(0, 0, Game.WIDTH, Game.HEIGHT);
-
-        add(background);
-    }
-
-
     private void setupButtons() {
         buttonsWrapper.setBounds(450, 370, 300, 300);
         setupButton(playButton, 0);
@@ -116,6 +106,14 @@ public class MenuView extends View {
     private void setupHelpDialog() {
         helpDialog.setPreferredSize(new Dimension(400, 75));
         helpDialog.setHorizontalAlignment(CENTER);
+    }
+
+    private void setupBackground() {
+        ImageIcon image = new ImageIcon("resources/img/Client.jpg");
+        background = new JLabel("", image, JLabel.CENTER);
+        background.setBounds(0, 0, Game.WIDTH, Game.HEIGHT);
+
+        add(background);
     }
 
     //endregion

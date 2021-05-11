@@ -2,7 +2,7 @@ package v2.view;
 
 import v2.board.Score;
 
-import v2.component.gameObject.immovable.bonus.Bonus;
+import v2.component.intangible.bonus.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.Paddle;
@@ -11,21 +11,24 @@ import v2.controller.GameController;
 import v2.model.EnterNameDialogModel;
 import v2.model.GameModel;
 
+import javax.swing.*;
 import java.awt.*;
 
 import java.util.List;
+
 
 public class GameView extends View {
 
     private final String leftPlayerName;
     private final String rightPlayerName;
+
     private final Font infoFont = new Font("Serif", Font.PLAIN, 20);
     private final Font nameFont = new Font("Serif", Font.PLAIN, 50);
     private final Font scoreFont = new Font("Serif", Font.PLAIN, 50);
 
+
     private GameController controller;
 
-    public static int timeLong = 4400;
 
     public GameView(EnterNameDialogModel enterNameDialogModel) {
         super();
@@ -36,6 +39,14 @@ public class GameView extends View {
 
     public void setController(GameController controller) {
         this.controller = controller;
+    }
+
+    public String getLeftPlayerName() {
+        return leftPlayerName;
+    }
+
+    public String getRightPlayerName() {
+        return rightPlayerName;
     }
 
     @Override
@@ -61,13 +72,19 @@ public class GameView extends View {
         paintPaddle(g, model.getRightPaddle());
 
         paintBall(g);
+
         paintScore(g);
 
         paintName(g);
-        paintStartGame(g);
 
-        drawStar(g);
-        drawBonus(g);
+        if (!controller.isStarted()) {
+            paintStartGame(g);
+        }
+
+
+        paintStar(g);
+
+        paintProcessBars(g);
     }
 
     private void paintBackground(Graphics g) {
@@ -92,22 +109,22 @@ public class GameView extends View {
     }
 
     private void paintStartGame(Graphics g) {
-        if (!controller.isStarted()){
-            g.setColor(Color.gray);
-            g.setFont(infoFont);
-            String info = "Press Space To Start Game";
-            g.drawString(info, (v2.Game.WIDTH - g.getFontMetrics().stringWidth(info))/2, 200);
-        }
+        g.setColor(Color.gray);
+        g.setFont(infoFont);
+        String info = "Press Space To Start Game";
+        g.drawString(info, (v2.Game.WIDTH - g.getFontMetrics().stringWidth(info))/2, 200);
     }
 
     private void paintName(Graphics g) {
         int widthName1 = g.getFontMetrics().stringWidth(leftPlayerName);
         int widthName2 = g.getFontMetrics().stringWidth(rightPlayerName);
 
+        final int marginTop = 60;
+
         g.setColor(Color.gray);
         g.setFont(nameFont);
-        g.drawString(leftPlayerName, (v2.Game.WIDTH/2 - widthName1)/2, 60);
-        g.drawString(rightPlayerName, 600 + (v2.Game.WIDTH/2 - widthName2)/2, 60);
+        g.drawString(leftPlayerName, (v2.Game.WIDTH/2 - widthName1)/2, marginTop);
+        g.drawString(rightPlayerName, 600 + (v2.Game.WIDTH/2 - widthName2)/2, marginTop);
     }
 
     private void paintScore(Graphics g) {
@@ -118,13 +135,17 @@ public class GameView extends View {
         String displayScore1 = Integer.toString(scoreObj1.getScore());
         String displayScore2 = Integer.toString(scoreObj2.getScore());
 
+        final int marginTop = 60;
+        final int distanceBetweenScores = 150;
+        final int leftPlayerScoreWidth = g.getFontMetrics().stringWidth(displayScore1);
+
         g.setFont(scoreFont);
         g.setColor(Color.gray);
-        g.drawString(displayScore1, (v2.Game.WIDTH/2 - 75 - g.getFontMetrics().stringWidth(displayScore1)), 60);
-        g.drawString(displayScore2, v2.Game.WIDTH/2 + 75, 60);
+        g.drawString(displayScore1, v2.Game.WIDTH/2 - distanceBetweenScores/2 - leftPlayerScoreWidth, marginTop);
+        g.drawString(displayScore2, v2.Game.WIDTH/2 + distanceBetweenScores/2, marginTop);
     }
 
-    private void drawStar(Graphics g) {
+    private void paintStar(Graphics g) {
         Star star = controller.getModel().getStar();
 
         if (star != null) {
@@ -133,25 +154,36 @@ public class GameView extends View {
         }
     }
 
-    private void drawBonus(Graphics g) {
+    private void paintProcessBars(Graphics g) {
         List<Bonus> bonusList = controller.getModel().getBonus();
 
         for (int i = 0; i < bonusList.size(); i++) {
-            paintTimerStar(g, i, bonusList.get(i));
+            paintProcessBar(g, i, bonusList.get(i));
         }
     }
 
+    private void paintProcessBar(Graphics g, int itemIndex, Bonus bonus) {
+        final int width = 222;
+        final int height = 12;
+        final int marginLeftOfFirstItem = 50;
+        final int marginBetweenItems = 50;
+        final int border = 1;
 
-    private void paintTimerStar(Graphics g, int bonusIndex, Bonus bonus) {
-        int x = 50 + 50*bonusIndex + 220*bonusIndex;
+        int x = marginLeftOfFirstItem + marginBetweenItems*itemIndex + width*itemIndex;
+        final int y = 700;
 
+        //  Paint container
         g.setColor(Color.white);
-        g.fillRect(x - 1, 700 - 1, 222, 12);
+        g.fillRect(x, y, width, height);
 
+        //  Paint black box inside container, visible part of container becomes border
         g.setColor(Color.black);
-        g.fillRect(x, 700, 220, 10);
+        g.fillRect(x + border, y + border, width - 2*border, height - 2*border);
 
-        g.setColor(bonus.getColor());
-        g.fillRect(x, 700, bonus.getTimeLeft()/40, 10);
+        //  Paint duration part
+        g.setColor(bonus.getProcessBar().getColor());
+        g.fillRect(x + border, y + border, bonus.getProcessBar().getWidth(), height - 2*border);
     }
 }
+//endregion
+

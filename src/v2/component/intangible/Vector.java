@@ -1,4 +1,4 @@
-package v2.component.helper.model;
+package v2.component.intangible;
 
 public class Vector {
 
@@ -9,26 +9,40 @@ public class Vector {
     public Vector() { }
 
     /*
-                                | 90 ~ - 270
+                                | 90
                                 |
-              180 ~ -180        |
-                     ___________|___________ 0 ~ -360
+              180               |
+                     ___________|___________ 0
                                 |
                                 |
                                 | 270 ~ -90
      */
 
     public Vector(double degree) {
+        if (degree == 90){
+            x = 0;
+            y = -1;
+            return;
+        }
+
+        if (degree == 270){
+            x = 0;
+            y = 1;
+            return;
+        }
+
         alpha = degree;
 
-        x = 1.0/(Math.abs(Math.tan(Math.toRadians(degree))) + 1);
-        y = 1-x;
+        double tanAlpha = Math.tan(Math.toRadians(degree));
+
+        x = 1.0/Math.sqrt(Math.pow(tanAlpha, 2) + 1);
+        y = Math.abs(x*Math.tan(tanAlpha));
 
         if (90 < alpha && alpha < 270) {
             x *= -1;
         }
 
-        if (0 <= alpha && alpha <= 180){
+        if (0 <= alpha && alpha <= 180) {
             y *= -1;
         }
     }
@@ -51,7 +65,7 @@ public class Vector {
 
     public int compareOpenAngle(Vector v) {
         if (((0 <= alpha && alpha <= 90) || (270 <= alpha && alpha < 360)) &&
-                ((0 <= v.alpha && v.alpha <= 90) || (270 <= v.alpha && v.alpha < 360))) {
+            ((0 <= v.alpha && v.alpha <= 90) || (270 <= v.alpha && v.alpha < 360))) {
 
             double a = alpha <= 90 ? alpha : 360 - alpha;
             double av = v.alpha <= 90 ? v.alpha : 360 - v.alpha;
@@ -59,7 +73,7 @@ public class Vector {
             return Double.compare(a, av);
         }
         else if ((90 < alpha && alpha < 270) &&
-                ((90 < v.alpha && v.alpha < 270))) {
+                 ((90 < v.alpha && v.alpha < 270))) {
 
             double a = alpha <= 180 ? 180 - alpha : alpha - 180;
             double av = v.alpha <= 180 ? 180 - v.alpha : v.alpha - 180;

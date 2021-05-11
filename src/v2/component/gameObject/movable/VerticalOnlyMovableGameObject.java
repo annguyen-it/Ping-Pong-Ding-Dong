@@ -1,7 +1,7 @@
 package v2.component.gameObject.movable;
 
 import v2.mechanics.common.move.VerticalMoveOnly;
-import v2.component.helper.model.Vector;
+import v2.component.intangible.Vector;
 
 public abstract class VerticalOnlyMovableGameObject extends MovableGameObject implements VerticalMoveOnly {
 
