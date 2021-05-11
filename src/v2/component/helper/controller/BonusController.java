@@ -1,4 +1,4 @@
-package v2.component.helper.factory;
+package v2.component.helper.controller;
 
 import v2.component.intangible.Bonus;
 import v2.component.gameObject.immovable.star.BonusType;

@@ -1,7 +1,7 @@
 package v2.component.gameObject.movable.ball;
 
 import v2.Game;
-import v2.board.GameSide.Side;
+import v2.board.GameSide;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.AllDirectionMovableGameObject;
 import v2.component.gameObject.movable.paddle.LeftPaddle;
@@ -30,14 +30,14 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     private static final int MIN_SPEED = 9;
     private static final double INITIAL_SPEED = 11;
 
-
     private static final Vector INITIAL_TO_LEFT_VECTOR = new Vector(180);
     private static final Vector INITIAL_TO_RIGHT_VECTOR = new Vector(0);
 
     public static final int SIZE = 24;
 
+    private GameSide.Side lastTouch = GameSide.Side.unknown;
+    private double speed = INITIAL_SPEED;
     private int size = SIZE;
-    private static double speed = INITIAL_SPEED;
     private GameSoundPlayer soundPlayer;
 
     //#endregion
@@ -62,7 +62,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      *
      * @see #setSoundPlayer(v2.utils.sound.GameSoundPlayer)
      */
-    public Ball(GameSoundPlayer soundPlayer, Side initialDirection) {
+    public Ball(GameSoundPlayer soundPlayer, GameSide.Side initialDirection) {
         super(INITIAL_BALL_X, INITIAL_BALL_Y, getInitialVector(initialDirection), INITIAL_SPEED);
         setSoundPlayer(soundPlayer);
     }
@@ -78,8 +78,8 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      *
      * @see v2.board.GameSide.Side
      */
-    private static Side randomInitialSide() {
-        return (int) (Math.random()*2) == 0 ? Side.left : Side.right;
+    private static GameSide.Side randomInitialSide() {
+        return (int) (Math.random()*2) == 0 ? GameSide.Side.left : GameSide.Side.right;
     }
 
     /**
@@ -89,12 +89,12 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      *
      * @return converted vector
      *
-     * @see Side
+     * @see v2.board.GameSide.Side
      * @see #INITIAL_TO_LEFT_VECTOR
      * @see #INITIAL_TO_RIGHT_VECTOR
      */
-    private static Vector getInitialVector(Side initialDirection) {
-        return initialDirection == Side.left ? INITIAL_TO_LEFT_VECTOR : INITIAL_TO_RIGHT_VECTOR;
+    private static Vector getInitialVector(GameSide.Side initialDirection) {
+        return initialDirection == GameSide.Side.left ? INITIAL_TO_LEFT_VECTOR : INITIAL_TO_RIGHT_VECTOR;
     }
 
     /**
@@ -201,17 +201,17 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     }
 
     @Override
-    public Side isOutTheBoard() {
+    public GameSide.Side isOutTheBoard() {
         if (x < -SIZE) {
             soundPlayer.miss();
-            return Side.left;
+            return GameSide.Side.left;
         }
         else if (x > Game.WIDTH) {
             soundPlayer.miss();
-            return Side.right;
+            return GameSide.Side.right;
         }
 
-        return Side.unknown;
+        return GameSide.Side.unknown;
     }
     //#endregion
 
@@ -272,11 +272,13 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
 
     @Override
     public boolean willCollide(Star star) {
-        return getBallBound().intersects(star.getBound());
+        return getBallBound().intersects(star.getBound()) && lastTouch != GameSide.Side.unknown;
     }
 
     @Override
     public void collide(Paddle paddle) {
+        lastTouch = paddle.getSide();
+
         changeSpeed(paddle);
         changeDirection(paddle);
         soundPlayer.ballCollide();

@@ -1,6 +1,7 @@
 package v2.component.gameObject.movable.paddle;
 
 import v2.Game;
+import v2.board.GameSide;
 import v2.board.Score;
 import v2.component.gameObject.GameObject;
 import v2.component.gameObject.movable.VerticalOnlyMovableGameObject;
@@ -17,13 +18,15 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
     public static final int DISTANCE_TO_CROSS = 30;
     public static final int INITIAL_PADDLE_Y = Game.HEIGHT/2 - INITIAL_PADDLE_HEIGHT/2;
 
-    protected Score score = new Score();
-
     private int height = INITIAL_PADDLE_HEIGHT;
     private double speed = INITIAL_SPEED;
 
-    public Paddle(int x, int y) {
+    protected Score score = new Score();
+    private final GameSide.Side side;
+
+    public Paddle(GameSide.Side side, int x, int y) {
         super(x, y, INITIAL_VECTOR, INITIAL_SPEED);
+        this.side = side;
     }
 
     public int getHeight() {
@@ -90,5 +93,9 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
 
     public Score getScoreObject() {
         return score;
+    }
+
+    public GameSide.Side getSide() {
+        return side;
     }
 }

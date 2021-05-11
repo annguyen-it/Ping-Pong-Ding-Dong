@@ -7,7 +7,7 @@ import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.*;
 import v2.component.helper.factory.BallFactory;
-import v2.component.helper.factory.BonusController;
+import v2.component.helper.controller.BonusController;
 import v2.component.helper.factory.StarFactory;
 import v2.controller.GameController;
 import v2.utils.sound.GameSoundPlayer;
