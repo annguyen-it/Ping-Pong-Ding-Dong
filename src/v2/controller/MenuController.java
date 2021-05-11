@@ -163,7 +163,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
                 if (evt.getPropertyName().equals("state")) {
-                    if (evt.getNewValue() == SwingWorker.StateValue.DONE) {
+                    if (evt.getNewValue() == SwingWorker.StateValue.DONE && dialog.isShowing()) {
                         dialog.dispose();
 
                         if (!Database.connected()) {
