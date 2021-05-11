@@ -11,6 +11,7 @@ import v2.component.helper.controller.BonusController;
 import v2.component.helper.factory.StarFactory;
 import v2.controller.GameController;
 import v2.utils.sound.GameSoundPlayer;
+import v2.view.GameView;
 
 import java.util.List;
 

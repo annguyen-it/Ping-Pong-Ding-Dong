@@ -32,22 +32,32 @@ public class GameSoundPlayer {
     }
 
     public void ballCollide() {
-        audioSets.get("ballCollide").play();
+        if(isMute==false){
+            audioSets.get("ballCollide").play();
+        }
     }
 
     public void wallCollide() {
-        audioSets.get("wallCollide").play();
+        if(isMute==false) {
+            audioSets.get("wallCollide").play();
+        }
     }
 
     public void miss() {
-        audioSets.get("miss").play();
+        if (isMute==false) {
+            audioSets.get("miss").play();
+        }
     }
 
     public void starCollide() {
-        audioSets.get("starCollide").play();
+        if(isMute==false) {
+            audioSets.get("starCollide").play();
+        }
     }
 
     public void joinGame() {
-        audioSets.get("joinGame").play();
+        if(isMute==false) {
+            audioSets.get("joinGame").play();
+        }
     }
 }

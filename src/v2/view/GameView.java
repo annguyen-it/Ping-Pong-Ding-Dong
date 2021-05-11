@@ -11,6 +11,7 @@ import v2.controller.GameController;
 import v2.model.EnterNameDialogModel;
 import v2.model.GameModel;
 
+import javax.swing.*;
 import java.awt.*;
 
 import java.util.List;
