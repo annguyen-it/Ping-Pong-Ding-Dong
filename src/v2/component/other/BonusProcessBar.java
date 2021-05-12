@@ -15,7 +15,7 @@ public class BonusProcessBar {
             new AbstractMap.SimpleEntry<>(StarType.bigBall, Color.blue),
             new AbstractMap.SimpleEntry<>(StarType.multiBall, Color.green),
             new AbstractMap.SimpleEntry<>(StarType.speedingBall, Color.pink),
-            new AbstractMap.SimpleEntry<>(StarType.slowlyPaddle, Color.red)
+            new AbstractMap.SimpleEntry<>(StarType.slowlyPaddle, Color.yellow)
     );
 
     public BonusProcessBar(Bonus bonus) {

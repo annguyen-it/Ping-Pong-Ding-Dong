@@ -149,7 +149,9 @@ public class GameView extends View {
         Star star = controller.getModel().getStar();
 
         if (star != null) {
+
             Image image = getToolkit().getImage(star.getImagePath());
+
             g.drawImage(image, star.getX(), star.getY(), null);
         }
     }

@@ -14,10 +14,10 @@ public class Star extends ImmovableGameObject {
     private final StarType type;
 
     private static final String[] BONUS_IMAGE = new String[]{
-            "resources/img/starBlue.png",
-            "resources/img/starGreen.png",
-            "resources/img/starPink.png",
-            "resources/img/starRed.png",
+            "resources/img/big-ball.png",
+            "resources/img/multi-ball.png",
+            "resources/img/speed-up.png",
+            "resources/img/speed-down.png",
             //            "resources/img/starYellow.png"
     };
 
