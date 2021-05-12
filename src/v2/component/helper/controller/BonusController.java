@@ -50,7 +50,7 @@ public class BonusController {
 
     private void activate(Bonus bonus) {
         listBonus.add(bonus);
-        bonus.active();
+        bonus.activate();
     }
 
     private void reset(Bonus bonus) {
@@ -71,13 +71,13 @@ public class BonusController {
     }
 
     private void removeBonusAt(int index){
-        listBonus.get(index).deactive();
+        listBonus.get(index).deactivate();
         listBonus.remove(index);
     }
 
     public void clear() {
         for (Bonus bonus : listBonus){
-            bonus.deactive();
+            bonus.deactivate();
         }
 
         listBonus.clear();

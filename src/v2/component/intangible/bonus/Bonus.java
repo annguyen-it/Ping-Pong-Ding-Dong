@@ -11,7 +11,7 @@ abstract public class Bonus {
     public static final int EXIST_TIME = 8800;
 
     protected final BonusType bonusType;
-    private final BonusProcessBar processBar = new BonusProcessBar(this);
+    private final BonusProcessBar processBar = this instanceof HasTimeLimit ? new BonusProcessBar(this) : null;
     private int timeLeft = EXIST_TIME;
 
     protected Side receiveSide;
@@ -77,5 +77,11 @@ abstract public class Bonus {
         timeLeft -= GameController.GAME_DELAY;
     }
 
-    public abstract void active();
+    public boolean hasTimeLimit(){
+        return this instanceof HasTimeLimit;
+    }
+
+    public abstract void activate();
+
+    public void deactivate() { }
 }

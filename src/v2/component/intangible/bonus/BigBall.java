@@ -9,14 +9,14 @@ public class BigBall extends Bonus implements HasTimeLimit {
     }
 
     @Override
-    public void active() {
+    public void activate() {
         for (Ball ball : gameModel.getBalls()){
             ball.sizeUp();
         }
     }
 
     @Override
-    public void deactive() {
+    public void deactivate() {
         for (Ball ball : gameModel.getBalls()){
             ball.returnInitialSize();
         }

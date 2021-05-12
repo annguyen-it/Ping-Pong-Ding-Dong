@@ -11,7 +11,6 @@ import v2.controller.GameController;
 import v2.model.EnterNameDialogModel;
 import v2.model.GameModel;
 
-import javax.swing.*;
 import java.awt.*;
 
 import java.util.List;
@@ -163,26 +162,29 @@ public class GameView extends View {
     }
 
     private void paintProcessBar(Graphics g, int itemIndex, Bonus bonus) {
-        final int width = 222;
-        final int height = 12;
-        final int marginLeftOfFirstItem = 50;
-        final int marginBetweenItems = 50;
-        final int border = 1;
+        if (bonus.hasTimeLimit()) {
+            final int width = 222;
+            final int height = 12;
+            final int marginLeftOfFirstItem = 50;
+            final int marginBetweenItems = 50;
+            final int border = 1;
 
-        int x = marginLeftOfFirstItem + marginBetweenItems*itemIndex + width*itemIndex;
-        final int y = 700;
+            int x = marginLeftOfFirstItem + marginBetweenItems*itemIndex + width*itemIndex;
+            final int y = 700;
 
-        //  Paint container
-        g.setColor(Color.white);
-        g.fillRect(x, y, width, height);
+            //  Paint container
+            g.setColor(Color.white);
+            g.fillRect(x, y, width, height);
 
-        //  Paint black box inside container, visible part of container becomes border
-        g.setColor(Color.black);
-        g.fillRect(x + border, y + border, width - 2*border, height - 2*border);
+            //  Paint black box inside container, visible part of container becomes border
+            g.setColor(Color.black);
+            g.fillRect(x + border, y + border, width - 2*border, height - 2*border);
 
-        //  Paint duration part
-        g.setColor(bonus.getProcessBar().getColor());
-        g.fillRect(x + border, y + border, bonus.getProcessBar().getWidth(), height - 2*border);
+            //  Paint duration part
+
+            g.setColor(bonus.getProcessBar().getColor());
+            g.fillRect(x + border, y + border, bonus.getProcessBar().getWidth(), height - 2*border);
+        }
     }
 }
 //endregion

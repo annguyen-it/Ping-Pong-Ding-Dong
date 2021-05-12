@@ -9,14 +9,14 @@ public class SpeedingBall extends Bonus implements HasTimeLimit {
     }
 
     @Override
-    public void active() {
+    public void activate() {
         for (Ball ball : gameModel.getBalls()) {
             ball.speedUp();
         }
     }
 
     @Override
-    public void deactive() {
+    public void deactivate() {
         for (Ball ball : gameModel.getBalls()) {
             ball.returnInitialSpeed();
         }

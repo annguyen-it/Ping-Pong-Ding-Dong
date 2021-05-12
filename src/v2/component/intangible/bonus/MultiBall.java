@@ -11,7 +11,7 @@ public class MultiBall extends Bonus {
     }
 
     @Override
-    public void active() {
+    public void activate() {
         GameSoundPlayer soundPlayer = gameModel.getSoundPlayer();
         int x = ball.getX();
         int y = ball.getY();
