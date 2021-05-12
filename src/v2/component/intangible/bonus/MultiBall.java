@@ -21,7 +21,4 @@ public class MultiBall extends Bonus {
         gameModel.addBall(new Ball(soundPlayer, x, y, vector.getReflection(), speed));
         gameModel.addBall(new Ball(soundPlayer, x, y, vector.getOpposite(), speed));
     }
-
-    @Override
-    public void deactive() { }
 }

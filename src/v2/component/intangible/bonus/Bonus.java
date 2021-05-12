@@ -78,6 +78,4 @@ abstract public class Bonus {
     }
 
     public abstract void active();
-
-    public abstract void deactive();
 }
