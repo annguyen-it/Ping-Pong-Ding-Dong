@@ -24,4 +24,9 @@ public class SlowlyPaddle extends Bonus {
     public void deactive() {
         affectedPaddle.returnInitialSpeed();
     }
+
+    @Override
+    public boolean sameTypeWith(Bonus bonus) {
+        return super.sameTypeWith(bonus) && affectedPaddle == ((SlowlyPaddle) bonus).affectedPaddle;
+    }
 }
