@@ -1,7 +1,9 @@
 package v2.view;
 
+import v2.Game;
 import v2.board.Score;
 
+import v2.component.gameObject.movable.paddle.LeftPaddle;
 import v2.component.intangible.bonus.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
@@ -164,29 +166,32 @@ public class GameView extends View {
     }
 
     private void paintProcessBar(Graphics g, int itemIndex, Bonus bonus) {
-        if (bonus.hasTimeLimit()) {
-            final int width = 222;
-            final int height = 12;
-            final int marginLeftOfFirstItem = 50;
-            final int marginBetweenItems = 50;
-            final int border = 1;
+        //7*5+4 = 39 part
 
-            int x = marginLeftOfFirstItem + marginBetweenItems*itemIndex + width*itemIndex;
-            final int y = 700;
+        final int part = (Game.WIDTH-2*(LeftPaddle.INITIAL_LEFT_PADDLE_X+Paddle.INITIAL_PADDLE_WIDTH))/39;
+        final int width = part*7;
+        final int height = 12;
+        final int marginLeftOfFirstItem = LeftPaddle.INITIAL_LEFT_PADDLE_X;
+        final int marginBetweenItems = part;
+        final int border = 1;
 
-            //  Paint container
-            g.setColor(Color.white);
-            g.fillRect(x, y, width, height);
+        int x = marginLeftOfFirstItem + marginBetweenItems*itemIndex + width*itemIndex;
+        final int y = 700;
 
-            //  Paint black box inside container, visible part of container becomes border
-            g.setColor(Color.black);
-            g.fillRect(x + border, y + border, width - 2*border, height - 2*border);
+        //Paint icon
+        //g.drawImage(,x-30,y, 20,20,null);
 
-            //  Paint duration part
+        //  Paint container
+        g.setColor(Color.white);
+        g.fillRect(x, y, width, height);
 
-            g.setColor(bonus.getProcessBar().getColor());
-            g.fillRect(x + border, y + border, bonus.getProcessBar().getWidth(), height - 2*border);
-        }
+        //  Paint black box inside container, visible part of container becomes border
+        g.setColor(Color.black);
+        g.fillRect(x + border, y + border, width - 2*border, height - 2*border);
+
+        //  Paint duration part
+        g.setColor(bonus.getProcessBar().getColor());
+        g.fillRect(x + border, y + border, bonus.getProcessBar().getWidth(), height - 2*border);
     }
 }
 //endregion
