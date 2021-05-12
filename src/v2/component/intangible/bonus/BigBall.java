@@ -1,12 +1,11 @@
 package v2.component.intangible.bonus;
 
-import v2.component.gameObject.immovable.star.StarType;
 import v2.component.gameObject.movable.ball.Ball;
 
 public class BigBall extends Bonus {
 
     public BigBall() {
-        super(StarType.bigBall);
+        super(BonusType.bigBall);
     }
 
     @Override

@@ -18,4 +18,10 @@ public interface ChangeSpeed<T extends GameObject> extends Mechanic {
      * @param causeObject implementation of GameObject
      */
     void changeSpeed(T causeObject);
+
+    void speedUp();
+
+    void speedDown();
+
+    void returnInitialSpeed();
 }

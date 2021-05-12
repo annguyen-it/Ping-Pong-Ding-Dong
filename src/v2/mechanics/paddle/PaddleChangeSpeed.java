@@ -8,7 +8,6 @@ interface PaddleChangeSpeed extends ChangeSpeed<GameObject> {
     @Override
     default void changeSpeed(GameObject causeObject) { }
 
-    void returnInitialSpeed();
-
-    void speedDown();
+    @Override
+    default void speedUp() { }
 }

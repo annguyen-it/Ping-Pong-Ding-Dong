@@ -42,5 +42,10 @@ interface BallChangeSpeed extends ChangeSpeed<GameObject> {
      *
      * @param star Star
      */
-    void changeSpeed(Star star);
+    default void changeSpeed(Star star){
+        speedUp();
+    }
+
+    @Override
+    default void speedDown(){ }
 }

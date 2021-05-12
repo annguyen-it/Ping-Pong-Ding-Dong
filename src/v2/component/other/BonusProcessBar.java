@@ -1,7 +1,7 @@
 package v2.component.other;
 
 import v2.component.intangible.bonus.Bonus;
-import v2.component.gameObject.immovable.star.StarType;
+import v2.component.intangible.bonus.BonusType;
 
 import java.awt.*;
 import java.util.AbstractMap;
@@ -11,11 +11,11 @@ public class BonusProcessBar {
 
     private final Bonus bonus;
 
-    private static final Map<StarType, Color> colorMap = Map.ofEntries(
-            new AbstractMap.SimpleEntry<>(StarType.bigBall, Color.blue),
-            new AbstractMap.SimpleEntry<>(StarType.multiBall, Color.green),
-            new AbstractMap.SimpleEntry<>(StarType.speedingBall, Color.pink),
-            new AbstractMap.SimpleEntry<>(StarType.slowlyPaddle, Color.red)
+    private static final Map<BonusType, Color> colorMap = Map.ofEntries(
+            new AbstractMap.SimpleEntry<>(BonusType.bigBall, Color.blue),
+            new AbstractMap.SimpleEntry<>(BonusType.multiBall, Color.green),
+            new AbstractMap.SimpleEntry<>(BonusType.speedingBall, Color.pink),
+            new AbstractMap.SimpleEntry<>(BonusType.slowlyPaddle, Color.red)
     );
 
     public BonusProcessBar(Bonus bonus) {
@@ -23,7 +23,7 @@ public class BonusProcessBar {
     }
 
     public Color getColor() {
-        return colorMap.get(bonus.getStarType());
+        return colorMap.get(bonus.getType());
     }
 
     public int getWidth() {

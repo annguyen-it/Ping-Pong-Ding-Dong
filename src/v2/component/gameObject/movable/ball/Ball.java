@@ -29,6 +29,9 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     private static final int MAX_SPEED = 15;
     private static final int MIN_SPEED = 8;
     private static final double INITIAL_SPEED = 9;
+    private static final int BONUS_MAX_SPEED = 20;
+    private static final int BONUS_MIN_SPEED = 13;
+
 
     private static final Vector INITIAL_TO_LEFT_VECTOR = new Vector(180);
     private static final Vector INITIAL_TO_RIGHT_VECTOR = new Vector(0);
@@ -179,8 +182,15 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     }
 
     @Override
-    public void changeSpeed(Star star) {
-        // TODO
+    public void speedUp() {
+        speed = Math.min(speed + 5, BONUS_MAX_SPEED);
+    }
+
+    @Override
+    public void returnInitialSpeed() {
+        if (speed >= BONUS_MIN_SPEED){
+            speed -= 5;
+        }
     }
 
     @Override

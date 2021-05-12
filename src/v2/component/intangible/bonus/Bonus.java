@@ -1,7 +1,6 @@
 package v2.component.intangible.bonus;
 
 import v2.board.GameSide.Side;
-import v2.component.gameObject.immovable.star.StarType;
 import v2.component.other.BonusProcessBar;
 import v2.controller.GameController;
 import v2.model.GameModel;
@@ -10,19 +9,19 @@ abstract public class Bonus {
 
     public static final int EXIST_TIME = 8800;
 
-    private final StarType starType;
+    protected final BonusType bonusType;
     private final BonusProcessBar processBar = new BonusProcessBar(this);
     private int timeLeft = EXIST_TIME;
 
     protected Side receiveSide;
     protected GameModel gameModel;
 
-    public Bonus(StarType starType) {
-        this.starType = starType;
+    public Bonus(BonusType bonusType) {
+        this.bonusType = bonusType;
     }
 
-    public static Bonus type(StarType starType){
-        switch (starType){
+    public static Bonus type(BonusType bonusType){
+        switch (bonusType){
             case bigBall:
                 return new BigBall();
 
@@ -63,12 +62,12 @@ abstract public class Bonus {
         return timeLeft <= 0;
     }
 
-    public StarType getStarType() {
-        return starType;
+    public BonusType getType() {
+        return bonusType;
     }
 
     public boolean sameTypeWith(Bonus bonus){
-        return starType == bonus.starType;
+        return bonusType == bonus.bonusType;
     }
 
     public void decreaseTimeLeft() {

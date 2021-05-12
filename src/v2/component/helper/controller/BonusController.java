@@ -2,7 +2,7 @@ package v2.component.helper.controller;
 
 import v2.board.GameSide;
 import v2.component.intangible.bonus.Bonus;
-import v2.component.gameObject.immovable.star.StarType;
+import v2.component.intangible.bonus.BonusType;
 import v2.model.GameModel;
 
 import java.util.ArrayList;
@@ -21,15 +21,15 @@ public class BonusController {
         return listBonus;
     }
 
-    public void receive(StarType starType, GameSide.Side side) {
-        Bonus bonus = Bonus.type(starType).with(gameModel).by(side);
+    public void receive(BonusType bonusType, GameSide.Side side) {
+        Bonus bonus = Bonus.type(bonusType).with(gameModel).by(side);
         int duplicateIndex = indexOf(bonus);
 
         if (duplicateIndex == -1) {
             activate(bonus);
         }
         else {
-            reset(duplicateIndex);
+            reset(listBonus.get(duplicateIndex));
         }
     }
 
@@ -52,8 +52,8 @@ public class BonusController {
         bonus.active();
     }
 
-    private void reset(int bonusIndex) {
-        listBonus.get(bonusIndex).reset();
+    private void reset(Bonus bonus) {
+        bonus.reset();
     }
 
     public void update() {

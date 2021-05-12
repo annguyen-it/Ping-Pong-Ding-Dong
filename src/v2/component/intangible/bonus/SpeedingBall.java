@@ -1,20 +1,24 @@
 package v2.component.intangible.bonus;
 
-import v2.component.gameObject.immovable.star.StarType;
+import v2.component.gameObject.movable.ball.Ball;
 
 public class SpeedingBall extends Bonus {
 
     public SpeedingBall() {
-        super(StarType.speedingBall);
+        super(BonusType.speedingBall);
     }
 
     @Override
     public void active() {
-
+        for (Ball ball : gameModel.getBalls()){
+            ball.speedUp();
+        }
     }
 
     @Override
     public void deactive() {
-
+        for (Ball ball :  gameModel.getBalls()){
+            ball.returnInitialSpeed();
+        }
     }
 }

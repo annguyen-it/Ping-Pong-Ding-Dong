@@ -2,6 +2,7 @@ package v2.component.gameObject.immovable.star;
 
 import v2.Game;
 import v2.component.gameObject.immovable.ImmovableGameObject;
+import v2.component.intangible.bonus.BonusType;
 
 import java.awt.*;
 import java.util.Arrays;
@@ -11,7 +12,7 @@ public class Star extends ImmovableGameObject {
 
     private final long appearTime;
     private final String imagePath;
-    private final StarType type;
+    private final BonusType type;
 
     private static final String[] BONUS_IMAGE = new String[]{
             "resources/img/starBlue.png",
@@ -29,10 +30,10 @@ public class Star extends ImmovableGameObject {
         int randomNumber = (int) (Math.random()*BONUS_IMAGE.length);
 
         imagePath = BONUS_IMAGE[randomNumber];
-        type = Arrays.asList(StarType.values()).get(randomNumber);
+        type = Arrays.asList(BonusType.values()).get(randomNumber);
     }
 
-    public StarType getType() {
+    public BonusType getType() {
         return type;
     }
 
