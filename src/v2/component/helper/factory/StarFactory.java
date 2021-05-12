@@ -5,7 +5,6 @@ import v2.component.helper.controller.BonusController;
 import v2.component.intangible.bonus.BonusType;
 
 import java.util.Calendar;
-import java.util.List;
 
 public class StarFactory {
 
@@ -32,18 +31,21 @@ public class StarFactory {
 
     public void createStar() {
         boolean duplicate;
+        Star star;
 
         do {
-            currentStar = new Star();
+            star = new Star();
             duplicate = false;
 
             for (BonusType type : bonusController.getExcludeBonusType()) {
-                if (currentStar.getType() == type) {
+                if (star.getType() == type) {
                     duplicate = true;
                     break;
                 }
             }
         }
         while (duplicate);
+
+        currentStar = star;
     }
 }

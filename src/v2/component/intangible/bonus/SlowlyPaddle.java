@@ -21,9 +21,4 @@ public class SlowlyPaddle extends Bonus implements HasTimeLimit {
     public void deactivate() {
         affectedPaddle.returnInitialSpeed();
     }
-
-    @Override
-    public boolean sameTypeWith(Bonus bonus) {
-        return super.sameTypeWith(bonus) && affectedPaddle == ((SlowlyPaddle) bonus).affectedPaddle;
-    }
 }
