@@ -9,54 +9,54 @@ public class GameSoundPlayer {
     private final Map<String, AudioSet> audioSets = new HashMap<>();
     private boolean isMute = false;
 
-    private static final File ballCollideAudioFile = new File("resources/audio/ball-collide.wav");
-    private static final File wallCollideAudioFile = new File("resources/audio/Wallcollide.wav");
-    private static final File missFile = new File("resources/audio/miss.wav");
-    private static final File joinGameAudioFile = new File("resources/audio/JoinGame.wav");
-    private static final File starCollideAudioFile = new File("resources/audio/starCollide.wav");
+    private static final File ballCollidePaddleAudioFile = new File("resources/audio/ball-collide-paddle.wav");
+    private static final File ballCollideWallAudioFile = new File("resources/audio/ball-collide-wall.wav");
+    private static final File lostBallFile = new File("resources/audio/lost-ball.wav");
+    private static final File joinGameAudioFile = new File("resources/audio/join-game.wav");
+    private static final File ballCollideStarAudioFile = new File("resources/audio/ball-collide-star.wav");
 
     public GameSoundPlayer() {
         loadAudioSets();
     }
 
     private void loadAudioSets() {
-        audioSets.put("ballCollide", new AudioSet(ballCollideAudioFile));
-        audioSets.put("wallCollide", new AudioSet(wallCollideAudioFile));
-        audioSets.put("miss", new AudioSet(missFile));
+        audioSets.put("ballCollidePaddle", new AudioSet(ballCollidePaddleAudioFile));
+        audioSets.put("ballCollideWall", new AudioSet(ballCollideWallAudioFile));
+        audioSets.put("lost-ball", new AudioSet(lostBallFile));
         audioSets.put("joinGame", new AudioSet(joinGameAudioFile));
-        audioSets.put("starCollide", new AudioSet(starCollideAudioFile));
+        audioSets.put("ballCollideStar", new AudioSet(ballCollideStarAudioFile));
     }
 
     public void toggle(){
         isMute = !isMute;
     }
 
-    public void ballCollide() {
-        if(isMute==false){
-            audioSets.get("ballCollide").play();
+    public void ballCollidePaddle() {
+        if(!isMute){
+            audioSets.get("ballCollidePaddle").play();
         }
     }
 
-    public void wallCollide() {
-        if(isMute==false) {
-            audioSets.get("wallCollide").play();
+    public void ballCollideWall() {
+        if(!isMute) {
+            audioSets.get("ballCollideWall").play();
         }
     }
 
-    public void miss() {
-        if (isMute==false) {
-            audioSets.get("miss").play();
+    public void lostBall() {
+        if (!isMute) {
+            audioSets.get("lost-ball").play();
         }
     }
 
-    public void starCollide() {
-        if(isMute==false) {
-            audioSets.get("starCollide").play();
+    public void ballCollideStar() {
+        if(!isMute) {
+            audioSets.get("ballCollideStar").play();
         }
     }
 
     public void joinGame() {
-        if(isMute==false) {
+        if(!isMute) {
             audioSets.get("joinGame").play();
         }
     }

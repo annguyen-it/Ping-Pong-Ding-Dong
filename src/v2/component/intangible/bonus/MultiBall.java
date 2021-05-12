@@ -8,10 +8,9 @@ public class MultiBall extends Bonus {
 
     @Override
     public void active() {
+        // TODO
     }
 
     @Override
-    public void deactive() {
-
-    }
+    public void deactive() { }
 }

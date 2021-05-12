@@ -9,7 +9,6 @@ import v2.component.gameObject.movable.paddle.Paddle;
 import v2.component.gameObject.movable.paddle.RightPaddle;
 import v2.mechanics.ball.BallMechanics;
 import v2.utils.sound.GameSoundPlayer;
-import v2.utils.sound.HasSound;
 import v2.component.intangible.Vector;
 
 import java.awt.*;
@@ -19,9 +18,8 @@ import java.awt.*;
  *
  * @see v2.component.gameObject.movable.AllDirectionMovableGameObject
  * @see v2.mechanics.ball.BallMechanics
- * @see v2.utils.sound.HasSound
  */
-public class Ball extends AllDirectionMovableGameObject implements BallMechanics, HasSound {
+public class Ball extends AllDirectionMovableGameObject implements BallMechanics {
 
     //#region Properties
     private static final int INITIAL_BALL_X = 588;
@@ -32,14 +30,13 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     private static final int BONUS_MAX_SPEED = 20;
     private static final int BONUS_MIN_SPEED = 13;
 
-
     private static final Vector INITIAL_TO_LEFT_VECTOR = new Vector(180);
     private static final Vector INITIAL_TO_RIGHT_VECTOR = new Vector(0);
 
     public static final int SIZE = 24;
 
     private GameSide.Side lastTouch = GameSide.Side.unknown;
-    private GameSoundPlayer soundPlayer;
+    private final GameSoundPlayer soundPlayer;
     private int size = SIZE;
 
     //#endregion
@@ -61,14 +58,18 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      *
      * @param soundPlayer      Sound player of ball
      * @param initialDirection Initial direction of ball
-     *
-     * @see #setSoundPlayer(v2.utils.sound.GameSoundPlayer)
      */
     public Ball(GameSoundPlayer soundPlayer, GameSide.Side initialDirection) {
         super(INITIAL_BALL_X, INITIAL_BALL_Y, getInitialVector(initialDirection), INITIAL_SPEED);
-        setSoundPlayer(soundPlayer);
+        this.soundPlayer = soundPlayer;
         speed = INITIAL_SPEED;
     }
+
+    public Ball(GameSoundPlayer soundPlayer, int x, int y, Vector vector, double speed){
+        super(x, y, vector, speed);
+        this.soundPlayer = soundPlayer;
+    }
+
     //#endregion
 
     //#region Own Method
@@ -217,11 +218,11 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     @Override
     public GameSide.Side isOutTheBoard() {
         if (x < -SIZE) {
-            soundPlayer.miss();
+            soundPlayer.lostBall();
             return GameSide.Side.left;
         }
         else if (x > Game.WIDTH) {
-            soundPlayer.miss();
+            soundPlayer.lostBall();
             return GameSide.Side.right;
         }
 
@@ -256,7 +257,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
 
     @Override
     public void wallCollide() {
-        soundPlayer.wallCollide();
+        soundPlayer.ballCollideWall();
         vector = vector.getReflection();
     }
 
@@ -295,19 +296,12 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
 
         changeSpeed(paddle);
         changeDirection(paddle);
-        soundPlayer.ballCollide();
+        soundPlayer.ballCollidePaddle();
     }
 
     @Override
     public void collide(Star __) {
-        soundPlayer.starCollide();
-    }
-    //#endregion
-
-    //#region Others
-    @Override
-    public void setSoundPlayer(GameSoundPlayer soundPlayer) {
-        this.soundPlayer = soundPlayer;
+        soundPlayer.ballCollideStar();
     }
     //#endregion
 }

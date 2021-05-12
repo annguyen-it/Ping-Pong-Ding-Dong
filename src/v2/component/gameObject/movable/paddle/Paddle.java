@@ -56,7 +56,6 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
     public void speedDown() {
         if (speed == INITIAL_SPEED){
             speed -= 4;
-            System.out.println(speed);
         }
     }
 

@@ -14,9 +14,6 @@ public class SlowlyPaddle extends Bonus {
     @Override
     public void active() {
         affectedPaddle = gameModel.getPaddle(GameSide.opposite(receiveSide));
-
-        System.out.println(affectedPaddle.getScore());
-
         affectedPaddle.speedDown();
     }
 
