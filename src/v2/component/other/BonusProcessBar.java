@@ -11,7 +11,7 @@ public class BonusProcessBar {
 
     private final Bonus bonus;
 
-    private static final Map<BonusType, Color> colorMap = Map.ofEntries(
+    private static final Map<BonusType, Color> COLOR_MAP = Map.ofEntries(
             new AbstractMap.SimpleEntry<>(BonusType.bigBall, Color.blue),
             new AbstractMap.SimpleEntry<>(BonusType.multiBall, Color.green),
             new AbstractMap.SimpleEntry<>(BonusType.speedingBall, Color.pink),
@@ -23,7 +23,7 @@ public class BonusProcessBar {
     }
 
     public Color getColor() {
-        return colorMap.get(bonus.getType());
+        return COLOR_MAP.get(bonus.getType());
     }
 
     public int getWidth() {

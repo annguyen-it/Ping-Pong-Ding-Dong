@@ -6,7 +6,16 @@ import v2.component.other.BonusProcessBar;
 import v2.controller.GameController;
 import v2.model.GameModel;
 
+import java.util.AbstractMap;
+import java.util.Map;
+
 abstract public class Bonus {
+    private static final Map<BonusType, String> IMAGE_MAP = Map.ofEntries(
+            new AbstractMap.SimpleEntry<>(BonusType.bigBall, "resources/img/big-ball.png"),
+            new AbstractMap.SimpleEntry<>(BonusType.multiBall, "resources/img/multi-ball.png"),
+            new AbstractMap.SimpleEntry<>(BonusType.speedingBall, "resources/img/speed-up.png"),
+            new AbstractMap.SimpleEntry<>(BonusType.slowlyPaddle, "resources/img/speed-down.png")
+    );
 
     public static final int EXIST_TIME = 8800;
 
@@ -37,6 +46,11 @@ abstract public class Bonus {
                 return new SpeedingBall();
         }
     }
+
+    public static String getImagePath(BonusType bonusType){
+        return IMAGE_MAP.get(bonusType);
+    }
+
 
     public Bonus with(GameModel gameModel){
         this.gameModel = gameModel;

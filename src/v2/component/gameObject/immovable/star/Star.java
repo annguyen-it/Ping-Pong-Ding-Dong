@@ -2,11 +2,12 @@ package v2.component.gameObject.immovable.star;
 
 import v2.Game;
 import v2.component.gameObject.immovable.ImmovableGameObject;
+import v2.component.intangible.bonus.Bonus;
 import v2.component.intangible.bonus.BonusType;
 
 import java.awt.*;
-import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Random;
 
 public class Star extends ImmovableGameObject {
 
@@ -14,23 +15,12 @@ public class Star extends ImmovableGameObject {
     private final String imagePath;
     private final BonusType type;
 
-    private static final String[] BONUS_IMAGE = new String[]{
-            "resources/img/big-ball.png",
-            "resources/img/multi-ball.png",
-            "resources/img/speed-up.png",
-            "resources/img/speed-down.png",
-            //            "resources/img/starYellow.png"
-    };
-
     public Star() {
         super(randomX(), randomY());
-
         appearTime = Calendar.getInstance().getTimeInMillis();
 
-        int randomNumber = (int) (Math.random()*BONUS_IMAGE.length);
-
-        imagePath = BONUS_IMAGE[randomNumber];
-        type = Arrays.asList(BonusType.values()).get(randomNumber);
+        type = BonusType.values()[new Random().nextInt(BonusType.values().length)];
+        imagePath = Bonus.getImagePath(type);
     }
 
     public BonusType getType() {
