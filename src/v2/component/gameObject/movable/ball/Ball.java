@@ -65,10 +65,11 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
         speed = INITIAL_SPEED;
     }
 
-    public Ball(GameSoundPlayer soundPlayer, int x, int y, int size, Vector vector, double speed){
+    public Ball(GameSoundPlayer soundPlayer, int x, int y, int size, Vector vector, double speed, GameSide.Side lastTouch){
         super(x, y, vector, speed);
-        this.size = size;
         this.soundPlayer = soundPlayer;
+        this.size = size;
+        this.lastTouch = lastTouch;
     }
 
     //#endregion
