@@ -70,16 +70,28 @@ public class BonusController {
         }
     }
 
-    private void removeBonusAt(int index){
+    private void removeBonusAt(int index) {
         listBonus.get(index).deactivate();
         listBonus.remove(index);
     }
 
     public void clear() {
-        for (Bonus bonus : listBonus){
+        for (Bonus bonus : listBonus) {
             bonus.deactivate();
         }
 
         listBonus.clear();
+    }
+
+    public List<BonusType> getExcludeBonusType() {
+        List<BonusType> result = new ArrayList<>();
+
+        for (Bonus bonus : listBonus) {
+            if (!bonus.canAppearWhenActivated()) {
+                result.add(bonus.getType());
+            }
+        }
+
+        return result;
     }
 }

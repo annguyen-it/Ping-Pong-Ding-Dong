@@ -7,7 +7,6 @@ import v2.component.intangible.bonus.BonusType;
 
 import java.awt.*;
 import java.util.Calendar;
-import java.util.Random;
 
 public class Star extends ImmovableGameObject {
 
@@ -19,7 +18,7 @@ public class Star extends ImmovableGameObject {
         super(randomX(), randomY());
         appearTime = Calendar.getInstance().getTimeInMillis();
 
-        type = BonusType.values()[new Random().nextInt(BonusType.values().length)];
+        type = Bonus.randomType();
         imagePath = Bonus.getImagePath(type);
     }
 

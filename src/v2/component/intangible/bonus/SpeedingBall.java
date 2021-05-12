@@ -2,7 +2,7 @@ package v2.component.intangible.bonus;
 
 import v2.component.gameObject.movable.ball.Ball;
 
-public class SpeedingBall extends Bonus implements HasTimeLimit {
+public class SpeedingBall extends Bonus implements HasTimeLimit, CanAppearWhenActivated {
 
     public SpeedingBall() {
         super(BonusType.speedingBall);

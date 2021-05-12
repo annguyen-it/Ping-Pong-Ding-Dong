@@ -1,40 +1,49 @@
 package v2.component.helper.factory;
 
 import v2.component.gameObject.immovable.star.Star;
+import v2.component.helper.controller.BonusController;
+import v2.component.intangible.bonus.BonusType;
 
 import java.util.Calendar;
+import java.util.List;
 
 public class StarFactory {
 
     private static final int STAR_EXISTING_TIME = 10000;
 
-    private Star star;
+    private final BonusController bonusController;
+    private Star currentStar;
 
-    public StarFactory() { }
+    public StarFactory(BonusController bonusController) {
+        this.bonusController = bonusController;
+    }
 
     public Star getStar() {
-        return star;
+        return currentStar;
     }
 
     public void update() {
         long currentTime = Calendar.getInstance().getTimeInMillis();
 
-        if (star == null || currentTime - star.getAppearTime() >= STAR_EXISTING_TIME) {
+        if (currentStar == null || currentTime - currentStar.getAppearTime() >= STAR_EXISTING_TIME) {
             createStar();
         }
     }
 
     public void createStar() {
-        if (star != null) {
-            int x, y;
-            do {
-                x = star.getX();
-                y = star.getY();
-                star = new Star();
-            } while (Math.sqrt(Math.pow(x - star.getX(), 2) + Math.pow(y - star.getY(), 2)) > 100);
+        boolean duplicate;
+
+        do {
+            currentStar = new Star();
+            duplicate = false;
+
+            for (BonusType type : bonusController.getExcludeBonusType()) {
+                if (currentStar.getType() == type) {
+                    duplicate = true;
+                    break;
+                }
+            }
         }
-        else {
-            star = new Star();
-        }
+        while (duplicate);
     }
 }

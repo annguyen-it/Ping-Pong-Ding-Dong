@@ -2,6 +2,7 @@ package v2.component.helper.factory;
 
 import v2.board.GameSide;
 import v2.component.gameObject.movable.ball.Ball;
+import v2.component.intangible.bonus.Bonus;
 import v2.utils.sound.GameSoundPlayer;
 
 import java.util.ArrayList;

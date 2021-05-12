@@ -25,9 +25,9 @@ public class GameModel implements Model {
     private final LeftPaddle leftPaddle = new LeftPaddle();
     private final RightPaddle rightPaddle = new RightPaddle();
 
-    private final BallFactory ballFactory = new BallFactory(soundPlayer);
-    private final StarFactory starFactory = new StarFactory();
     private final BonusController bonusController = new BonusController(this);
+    private final BallFactory ballFactory = new BallFactory(soundPlayer);
+    private final StarFactory starFactory = new StarFactory(bonusController);
 
     //#endregion
 

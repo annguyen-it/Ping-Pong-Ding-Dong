@@ -8,6 +8,7 @@ import v2.model.GameModel;
 
 import java.util.AbstractMap;
 import java.util.Map;
+import java.util.Random;
 
 abstract public class Bonus {
     private static final Map<BonusType, String> IMAGE_MAP = Map.ofEntries(
@@ -21,7 +22,8 @@ abstract public class Bonus {
 
     protected final BonusType bonusType;
     private final BonusProcessBar processBar = this instanceof HasTimeLimit ? new BonusProcessBar(this) : null;
-    private int timeLeft = EXIST_TIME;
+
+    private int timeLeft = this instanceof HasTimeLimit ? EXIST_TIME : 0;
 
     protected Side receiveSide;
     protected GameModel gameModel;
@@ -51,6 +53,9 @@ abstract public class Bonus {
         return IMAGE_MAP.get(bonusType);
     }
 
+    public static BonusType randomType(){
+        return BonusType.values()[new Random().nextInt(BonusType.values().length)];
+    }
 
     public Bonus with(GameModel gameModel){
         this.gameModel = gameModel;
@@ -93,6 +98,10 @@ abstract public class Bonus {
 
     public boolean hasTimeLimit(){
         return this instanceof HasTimeLimit;
+    }
+
+    public boolean canAppearWhenActivated(){
+        return this instanceof CanAppearWhenActivated;
     }
 
     public abstract void activate();
