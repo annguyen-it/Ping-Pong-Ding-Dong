@@ -15,10 +15,11 @@ public class MultiBall extends Bonus {
         GameSoundPlayer soundPlayer = gameModel.getSoundPlayer();
         int x = ball.getX();
         int y = ball.getY();
+        int size = ball.getSize();
         Vector vector = ball.getVector();
         double speed = ball.getSpeed();
 
-        gameModel.addBall(new Ball(soundPlayer, x, y, vector.getReflection(), speed));
-        gameModel.addBall(new Ball(soundPlayer, x, y, vector.getOpposite(), speed));
+        gameModel.addBall(new Ball(soundPlayer, x, y, size, vector.getReflection(), speed));
+        gameModel.addBall(new Ball(soundPlayer, x, y, size, vector.getOpposite(), speed));
     }
 }
