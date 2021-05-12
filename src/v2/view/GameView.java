@@ -166,32 +166,34 @@ public class GameView extends View {
     }
 
     private void paintProcessBar(Graphics g, int itemIndex, Bonus bonus) {
-        //7*5+4 = 39 part
+        if (bonus.hasTimeLimit()) {
+            // 7*5+4 = 39 part
+            // 5 items and 4 spaces between them, item.width : space.width = 7 : 1
 
-        final int part = (Game.WIDTH-2*(LeftPaddle.INITIAL_LEFT_PADDLE_X+Paddle.INITIAL_PADDLE_WIDTH))/39;
-        final int width = part*7;
-        final int height = 12;
-        final int marginLeftOfFirstItem = LeftPaddle.INITIAL_LEFT_PADDLE_X;
-        final int marginBetweenItems = part;
-        final int border = 1;
+            final int space = (Game.WIDTH - 2*(LeftPaddle.INITIAL_LEFT_PADDLE_X + Paddle.INITIAL_PADDLE_WIDTH))/39;
+            final int width = space*7;
+            final int height = 12;
+            final int marginLeftOfFirstItem = LeftPaddle.INITIAL_LEFT_PADDLE_X;
+            final int border = 1;
 
-        int x = marginLeftOfFirstItem + marginBetweenItems*itemIndex + width*itemIndex;
-        final int y = 700;
+            final int x = marginLeftOfFirstItem + space*itemIndex + width*itemIndex;
+            final int y = 700;
 
-        //Paint icon
-        //g.drawImage(,x-30,y, 20,20,null);
+            //Paint icon
+            //g.drawImage(,x-30,y, 20,20,null);
 
-        //  Paint container
-        g.setColor(Color.white);
-        g.fillRect(x, y, width, height);
+            //  Paint container
+            g.setColor(Color.white);
+            g.fillRect(x, y, width, height);
 
-        //  Paint black box inside container, visible part of container becomes border
-        g.setColor(Color.black);
-        g.fillRect(x + border, y + border, width - 2*border, height - 2*border);
+            //  Paint black box inside container, visible part of container becomes border
+            g.setColor(Color.black);
+            g.fillRect(x + border, y + border, width - 2*border, height - 2*border);
 
-        //  Paint duration part
-        g.setColor(bonus.getProcessBar().getColor());
-        g.fillRect(x + border, y + border, bonus.getProcessBar().getWidth(), height - 2*border);
+            //  Paint duration part
+            g.setColor(bonus.getProcessBar().getColor());
+            g.fillRect(x + border, y + border, bonus.getProcessBar().getWidth(), height - 2*border);
+        }
     }
 }
 //endregion
