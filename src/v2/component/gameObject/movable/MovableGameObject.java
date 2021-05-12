@@ -20,4 +20,12 @@ public abstract class MovableGameObject extends GameObject implements Movable {
         x += speed*vector.getX();
         y += speed*vector.getY();
     }
+
+    public Vector getVector() {
+        return vector;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
 }

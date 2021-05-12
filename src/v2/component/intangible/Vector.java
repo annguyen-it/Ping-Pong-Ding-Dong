@@ -18,22 +18,22 @@ public class Vector {
                                 | 270 ~ -90
      */
 
-    public Vector(double degree) {
-        if (degree == 90){
+    public Vector(double alpha) {
+        if (alpha == 90) {
             x = 0;
             y = -1;
             return;
         }
 
-        if (degree == 270){
+        if (alpha == 270) {
             x = 0;
             y = 1;
             return;
         }
 
-        alpha = degree;
+        this.alpha = alpha;
 
-        double tanAlpha = Math.tan(Math.toRadians(degree));
+        double tanAlpha = Math.tan(Math.toRadians(alpha));
 
         x = 1.0/Math.sqrt(Math.pow(tanAlpha, 2) + 1);
         y = Math.abs(x*Math.tan(tanAlpha));
@@ -47,10 +47,6 @@ public class Vector {
         }
     }
 
-    public double getAlpha() {
-        return Math.acos(y/x);
-    }
-
     public double getX() {
         return x;
     }
@@ -61,6 +57,14 @@ public class Vector {
 
     public Vector getReflection() {
         return new Vector(360 - alpha);
+    }
+
+    public Vector getOpposite() {
+        if (alpha < 180) {
+            return new Vector(180 + alpha);
+        }
+
+        return new Vector(alpha - 180);
     }
 
     public int compareOpenAngle(Vector v) {

@@ -1,6 +1,7 @@
 package v2.component.intangible.bonus;
 
 import v2.board.GameSide.Side;
+import v2.component.gameObject.movable.ball.Ball;
 import v2.component.other.BonusProcessBar;
 import v2.controller.GameController;
 import v2.model.GameModel;
@@ -15,6 +16,7 @@ abstract public class Bonus {
 
     protected Side receiveSide;
     protected GameModel gameModel;
+    protected Ball ball;
 
     public Bonus(BonusType bonusType) {
         this.bonusType = bonusType;
@@ -41,8 +43,9 @@ abstract public class Bonus {
         return this;
     }
 
-    public Bonus by(Side side){
+    public Bonus by(Side side, Ball ball){
         this.receiveSide = side;
+        this.ball = ball;
         return this;
     }
 

@@ -1,6 +1,7 @@
 package v2.component.helper.controller;
 
 import v2.board.GameSide;
+import v2.component.gameObject.movable.ball.Ball;
 import v2.component.intangible.bonus.Bonus;
 import v2.component.intangible.bonus.BonusType;
 import v2.model.GameModel;
@@ -21,8 +22,8 @@ public class BonusController {
         return listBonus;
     }
 
-    public void receive(BonusType bonusType, GameSide.Side side) {
-        Bonus bonus = Bonus.type(bonusType).with(gameModel).by(side);
+    public void receive(BonusType bonusType, GameSide.Side side, Ball ball) {
+        Bonus bonus = Bonus.type(bonusType).with(gameModel).by(side, ball);
         int duplicateIndex = indexOf(bonus);
 
         if (duplicateIndex == -1) {

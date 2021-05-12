@@ -11,7 +11,6 @@ import v2.component.helper.controller.BonusController;
 import v2.component.helper.factory.StarFactory;
 import v2.controller.GameController;
 import v2.utils.sound.GameSoundPlayer;
-import v2.view.GameView;
 
 import java.util.List;
 
@@ -54,12 +53,12 @@ public class GameModel implements Model {
         return rightPaddle;
     }
 
-    public Paddle getPaddle(Side side){
-        if (side == Side.left){
+    public Paddle getPaddle(Side side) {
+        if (side == Side.left) {
             return leftPaddle;
         }
 
-        if (side == Side.right){
+        if (side == Side.right) {
             return rightPaddle;
         }
 
@@ -88,7 +87,7 @@ public class GameModel implements Model {
 
     //#endregion
 
-    public void update(){
+    public void update() {
         updatePaddles();
         updateBall();
         updateStar();
@@ -116,13 +115,22 @@ public class GameModel implements Model {
     //#region Ball
 
     private void updateBall() {
-        for (Ball ball : ballFactory.getBalls()) {
-            ball.tryMove();
+        List<Ball> balls = ballFactory.getBalls();
 
-            Side loseSide = ball.isOutTheBoard();
+        for (int i = 0; i < balls.size(); ) {
+            balls.get(i).tryMove();
+
+            Side loseSide = balls.get(i).isOutTheBoard();
 
             if (loseSide != Side.unknown) {
                 lostBall(loseSide);
+
+                if (!ballFactory.hasOnlyOne()){
+                    balls.remove(i);
+                }
+            }
+            else {
+                i++;
             }
         }
     }
@@ -139,7 +147,7 @@ public class GameModel implements Model {
             removeActivatedBonus();
 
             if (shouldContinue()) {
-                addNewBall(GameSide.opposite(loseSide));
+                createNewBall(GameSide.opposite(loseSide));
             }
             else {
                 controller.over();
@@ -158,8 +166,12 @@ public class GameModel implements Model {
         bonusController.clear();
     }
 
-    private void addNewBall(Side ballDirection) {
-        ballFactory.createBall(ballDirection);
+    private void createNewBall(Side ballDirection) {
+        ballFactory.create(ballDirection);
+    }
+
+    public void addBall(Ball ball) {
+        ballFactory.add(ball);
     }
 
     //#endregion
@@ -175,7 +187,8 @@ public class GameModel implements Model {
                 if (ball.willCollide(star)) {
                     ball.collide(star);
                     starFactory.createStar();
-                    bonusController.receive(star.getType(), ball.getLastTouch());
+                    bonusController.receive(star.getType(), ball.getLastTouch(), ball);
+                    break;
                 }
             }
         }

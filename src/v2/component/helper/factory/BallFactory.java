@@ -15,15 +15,19 @@ public class BallFactory {
 
     public BallFactory(GameSoundPlayer soundPlayer) {
         this.soundPlayer = soundPlayer;
-        createBall();
+        create();
     }
 
-    public void createBall() {
+    public void create() {
         list.add(new Ball(soundPlayer));
     }
 
-    public void createBall(GameSide.Side ballDirection) {
+    public void create(GameSide.Side ballDirection) {
         list.set(0, new Ball(soundPlayer, ballDirection));
+    }
+
+    public void add(Ball ball){
+        list.add(ball);
     }
 
     public List<Ball> getBalls() {
