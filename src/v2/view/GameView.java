@@ -1,7 +1,9 @@
 package v2.view;
 
+import v2.Game;
 import v2.board.Score;
 
+import v2.component.gameObject.movable.paddle.LeftPaddle;
 import v2.component.intangible.bonus.Bonus;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.ball.Ball;
@@ -145,6 +147,8 @@ public class GameView extends View {
         g.drawString(displayScore2, v2.Game.WIDTH/2 + distanceBetweenScores/2, marginTop);
     }
 
+
+
     private void paintStar(Graphics g) {
         Star star = controller.getModel().getStar();
 
@@ -165,14 +169,20 @@ public class GameView extends View {
     }
 
     private void paintProcessBar(Graphics g, int itemIndex, Bonus bonus) {
-        final int width = 222;
+        //7*5+4 = 39 part
+
+        final int part = (Game.WIDTH-2*(LeftPaddle.INITIAL_LEFT_PADDLE_X+Paddle.INITIAL_PADDLE_WIDTH))/39;
+        final int width = part*7;
         final int height = 12;
-        final int marginLeftOfFirstItem = 50;
-        final int marginBetweenItems = 50;
+        final int marginLeftOfFirstItem = LeftPaddle.INITIAL_LEFT_PADDLE_X;
+        final int marginBetweenItems = part;
         final int border = 1;
 
         int x = marginLeftOfFirstItem + marginBetweenItems*itemIndex + width*itemIndex;
         final int y = 700;
+
+        //Paint icon
+        //g.drawImage(,x-30,y, 20,20,null);
 
         //  Paint container
         g.setColor(Color.white);
