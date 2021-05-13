@@ -17,7 +17,6 @@ import java.awt.*;
 
 import java.util.List;
 
-
 public class GameView extends View {
 
     private final String leftPlayerName;
@@ -27,9 +26,7 @@ public class GameView extends View {
     private final Font nameFont = new Font("Serif", Font.PLAIN, 50);
     private final Font scoreFont = new Font("Serif", Font.PLAIN, 50);
 
-
     private GameController controller;
-
 
     public GameView(EnterNameDialogModel enterNameDialogModel) {
         super();
@@ -158,15 +155,12 @@ public class GameView extends View {
 
     private void paintProcessBars(Graphics g) {
         List<Bonus> bonusList = controller.getModel().getBonus();
+        int displayItemIndex = 0;
 
-        for (int i = 0; i < bonusList.size(); i++) {
-
-            //            if (bonus.hasTimeLimit()) {
-            //                paintProcessBar(g, j, bonusList.get(i));
-            //                j++;
-            //            }
-
-            paintProcessBar(g, i, bonusList.get(i));
+        for (Bonus bonus : bonusList) {
+            if (bonus.hasTimeLimit()) {
+                paintProcessBar(g, displayItemIndex++, bonus);
+            }
         }
     }
 
@@ -202,5 +196,3 @@ public class GameView extends View {
         }
     }
 }
-//endregion
-

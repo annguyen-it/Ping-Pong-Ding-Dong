@@ -18,16 +18,16 @@ public class GameModel implements Model {
 
     //#region Properties
 
-    GameController controller;
+    private GameController controller;
 
     private final GameSoundPlayer soundPlayer = new GameSoundPlayer();
 
-    private final LeftPaddle leftPaddle = new LeftPaddle();
-    private final RightPaddle rightPaddle = new RightPaddle();
+    private LeftPaddle leftPaddle = new LeftPaddle();
+    private RightPaddle rightPaddle = new RightPaddle();
 
-    private final BonusController bonusController = new BonusController(this);
-    private final BallFactory ballFactory = new BallFactory(soundPlayer);
-    private final StarFactory starFactory = new StarFactory(bonusController);
+    private BonusController bonusController = new BonusController(this);
+    private BallFactory ballFactory = new BallFactory(soundPlayer);
+    private StarFactory starFactory = new StarFactory(bonusController);
 
     //#endregion
 
@@ -94,6 +94,18 @@ public class GameModel implements Model {
         updateBonus();
     }
 
+    public void reset() {
+        leftPaddle = new LeftPaddle();
+        rightPaddle = new RightPaddle();
+
+        bonusController.clear();
+        ballFactory.clear();
+
+        bonusController = new BonusController(this);
+        ballFactory = new BallFactory(soundPlayer);
+        starFactory = new StarFactory(bonusController);
+    }
+
     //#region Paddle
 
     private void updatePaddles() {
@@ -125,7 +137,7 @@ public class GameModel implements Model {
             if (loseSide != Side.unknown) {
                 lostBall(loseSide);
 
-                if (!ballFactory.hasOnlyOne()){
+                if (!ballFactory.hasOnlyOne()) {
                     balls.remove(i);
                 }
             }
@@ -149,7 +161,7 @@ public class GameModel implements Model {
             if (shouldContinue()) {
                 createNewBall(GameSide.opposite(loseSide));
             }
-            else {
+            else if (controller.isStarted()){
                 controller.over();
             }
         }

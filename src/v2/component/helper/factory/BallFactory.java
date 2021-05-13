@@ -38,4 +38,8 @@ public class BallFactory {
     public boolean hasOnlyOne(){
         return list.size() == 1;
     }
+
+    public void clear(){
+        list.clear();
+    }
 }

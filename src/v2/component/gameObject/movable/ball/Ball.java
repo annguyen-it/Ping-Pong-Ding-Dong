@@ -218,7 +218,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
 
     @Override
     public Side isOutTheBoard() {
-        if (x < -INITIAL_SIZE) {
+        if (x < -size) {
             soundPlayer.lostBall();
             return Side.left;
         }

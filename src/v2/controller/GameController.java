@@ -16,12 +16,17 @@ public class GameController extends Controller<GameView, GameModel> implements A
 
     public static final int GAME_DELAY = 5;
 
-    private static final int leftUp = KeyEvent.VK_W;
-    private static final int leftDown = KeyEvent.VK_S;
-    private static final int rightUp = KeyEvent.VK_UP;
-    private static final int rightDown = KeyEvent.VK_DOWN;
-    private static final int escape = KeyEvent.VK_ESCAPE;
-    private static final int space = KeyEvent.VK_SPACE;
+    private static final int LEFT_UP = KeyEvent.VK_W;
+    private static final int LEFT_DOWN = KeyEvent.VK_S;
+    private static final int RIGHT_UP = KeyEvent.VK_UP;
+    private static final int RIGHT_DOWN = KeyEvent.VK_DOWN;
+    private static final int ESC = KeyEvent.VK_ESCAPE;
+    private static final int SPACE = KeyEvent.VK_SPACE;
+
+    private static final int HOME_BUTTON = 0;
+    private static final int CONTINUE_BUTTON = 1;
+    private static final int NEW_GAME_BUTTON = 2;
+    private static final int MUTE_BUTTON = 3;
 
     private Timer gameTimer;
 
@@ -55,27 +60,27 @@ public class GameController extends Controller<GameView, GameModel> implements A
     public void keyPressed(KeyEvent e) {
         int key = e.getKeyCode();
         switch (key) {
-            case space:
+            case SPACE:
                 start();
                 break;
 
-            case leftUp:
+            case LEFT_UP:
                 model.getLeftPaddle().willMoveUp();
                 break;
 
-            case leftDown:
+            case LEFT_DOWN:
                 model.getLeftPaddle().willMoveDown();
                 break;
 
-            case rightUp:
+            case RIGHT_UP:
                 model.getRightPaddle().willMoveUp();
                 break;
 
-            case rightDown:
+            case RIGHT_DOWN:
                 model.getRightPaddle().willMoveDown();
                 break;
 
-            case escape:
+            case ESC:
                 pause();
                 break;
         }
@@ -84,13 +89,13 @@ public class GameController extends Controller<GameView, GameModel> implements A
     public void keyReleased(KeyEvent e) {
         int key = e.getKeyCode();
         switch (key) {
-            case leftUp:
-            case leftDown:
+            case LEFT_UP:
+            case LEFT_DOWN:
                 model.getLeftPaddle().stop();
                 break;
 
-            case rightUp:
-            case rightDown:
+            case RIGHT_UP:
+            case RIGHT_DOWN:
                 model.getRightPaddle().stop();
                 break;
         }
@@ -99,7 +104,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
     public void over() {
         gameTimer.stop();
         saveResultToDatabase();
-        showOverDialog();
+        showGameOverDialog();
     }
 
     public void saveResultToDatabase() {
@@ -119,21 +124,24 @@ public class GameController extends Controller<GameView, GameModel> implements A
         }
     }
 
-    private void addPauseEvent() {
+    private void addEventToPauseDialog() {
         int output = showPauseDialog();
 
         switch (output) {
-            case 0:
+            case HOME_BUTTON:
                 switchToMenuController();
                 break;
 
-            case 2:
+            case NEW_GAME_BUTTON:
                 restart();
                 break;
 
-            case 3:
+            case MUTE_BUTTON:
                 model.getSoundPlayer().toggle();
+                resume();
+                break;
 
+            case CONTINUE_BUTTON:
             default:
                 resume();
         }
@@ -148,7 +156,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
 
     private void pause() {
         gameTimer.stop();
-        addPauseEvent();
+        addEventToPauseDialog();
     }
 
     private void resume() {
@@ -158,15 +166,10 @@ public class GameController extends Controller<GameView, GameModel> implements A
     }
 
     private void restart() {
-        EnterNameDialogModel model = new EnterNameDialogModel(MenuController.playerName1, MenuController.playerName2);
-        GameView gameView = new GameView(model);
-        GameModel gameModel = new GameModel();
+        isStarted = false;
 
-        GameController gameController = new GameController(flowController, gameView, gameModel);
-        gameModel.setController(gameController);
-        gameView.setController(gameController);
-
-        switchController(gameController);
+        model.reset();
+        view.repaint();
     }
 
     private void switchToMenuController() {
@@ -187,8 +190,8 @@ public class GameController extends Controller<GameView, GameModel> implements A
         );
     }
 
-    private void showOverDialog() {
-        String[] dialogOptions = { "NewGame", "Home" };
+    private void showGameOverDialog() {
+        String[] options = { "NewGame", "Home" };
         int result = JOptionPane.showOptionDialog(
                 null,
                 new JLabel("Congratulations " + getNameWinner() + " !"),
@@ -196,12 +199,17 @@ public class GameController extends Controller<GameView, GameModel> implements A
                 JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE,
                 null,
-                dialogOptions,
+                options,
                 null
         );
 
-        if (result == 0) {restart();}
-        if (result == 1) {switchToMenuController(); }
+        if (result == 0) {
+            restart();
+        }
+        else {
+            model.reset();
+            switchToMenuController();
+        }
     }
 
     public String getNameWinner() {
