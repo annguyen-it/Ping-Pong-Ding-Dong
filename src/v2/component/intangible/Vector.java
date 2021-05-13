@@ -71,16 +71,26 @@ public class Vector {
         if (((0 <= alpha && alpha <= 90) || (270 <= alpha && alpha < 360)) &&
             ((0 <= v.alpha && v.alpha <= 90) || (270 <= v.alpha && v.alpha < 360))) {
 
-            double a = alpha <= 90 ? alpha : 360 - alpha;
-            double av = v.alpha <= 90 ? v.alpha : 360 - v.alpha;
+            double a = alpha <= 90
+                    ? alpha
+                    : 360 - alpha;
+
+            double av = v.alpha <= 90
+                    ? v.alpha
+                    : 360 - v.alpha;
 
             return Double.compare(a, av);
         }
         else if ((90 < alpha && alpha < 270) &&
                  ((90 < v.alpha && v.alpha < 270))) {
 
-            double a = alpha <= 180 ? 180 - alpha : alpha - 180;
-            double av = v.alpha <= 180 ? 180 - v.alpha : v.alpha - 180;
+            double a = alpha <= 180
+                    ? 180 - alpha
+                    : alpha - 180;
+
+            double av = v.alpha <= 180
+                    ? 180 - v.alpha
+                    : v.alpha - 180;
 
             return Double.compare(a, av);
         }

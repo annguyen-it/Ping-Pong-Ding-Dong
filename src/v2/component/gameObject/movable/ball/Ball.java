@@ -99,7 +99,9 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      * @see #INITIAL_TO_RIGHT_VECTOR
      */
     private static Vector getInitialVector(Side initialDirection) {
-        return initialDirection == Side.left ? INITIAL_TO_LEFT_VECTOR : INITIAL_TO_RIGHT_VECTOR;
+        return initialDirection == Side.left
+                ? INITIAL_TO_LEFT_VECTOR
+                : INITIAL_TO_RIGHT_VECTOR;
     }
 
     /**

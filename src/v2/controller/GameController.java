@@ -1,13 +1,13 @@
 package v2.controller;
 
 import v2.board.GameAdapter;
-import v2.model.EnterNameDialogModel;
 import v2.model.GameModel;
 import v2.utils.database.Database;
 import v2.utils.database.dto.PlayerInfo;
 import v2.view.GameView;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -22,11 +22,6 @@ public class GameController extends Controller<GameView, GameModel> implements A
     private static final int RIGHT_DOWN = KeyEvent.VK_DOWN;
     private static final int ESC = KeyEvent.VK_ESCAPE;
     private static final int SPACE = KeyEvent.VK_SPACE;
-
-    private static final int HOME_BUTTON = 0;
-    private static final int CONTINUE_BUTTON = 1;
-    private static final int NEW_GAME_BUTTON = 2;
-    private static final int MUTE_BUTTON = 3;
 
     private Timer gameTimer;
 
@@ -124,29 +119,6 @@ public class GameController extends Controller<GameView, GameModel> implements A
         }
     }
 
-    private void addEventToPauseDialog() {
-        int output = showPauseDialog();
-
-        switch (output) {
-            case HOME_BUTTON:
-                switchToMenuController();
-                break;
-
-            case NEW_GAME_BUTTON:
-                restart();
-                break;
-
-            case MUTE_BUTTON:
-                model.getSoundPlayer().toggle();
-                resume();
-                break;
-
-            case CONTINUE_BUTTON:
-            default:
-                resume();
-        }
-    }
-
     private void start() {
         if (!isStarted) {
             gameTimer.start();
@@ -156,7 +128,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
 
     private void pause() {
         gameTimer.stop();
-        addEventToPauseDialog();
+        showPauseDialog();
     }
 
     private void resume() {
@@ -176,11 +148,51 @@ public class GameController extends Controller<GameView, GameModel> implements A
         switchController(new MenuController(flowController));
     }
 
-    private int showPauseDialog() {
-        String[] options = { "Home", "Continue", "New Game", "Mute" };
-        return JOptionPane.showOptionDialog(
+    private void showPauseDialog() {
+        JButton btnHome = new JButton();
+        JButton btnContinue = new JButton();
+        JButton btnNewGame = new JButton();
+        JButton btnMute = new JButton();
+
+        JButton[] options = { btnHome, btnContinue, btnNewGame, btnMute };
+        String[] btnImagePath = {
+                "resources/img/home.png",
+                "resources/img/continue.png",
+                "resources/img/replay.png",
+                model.getSoundPlayer().isMute()
+                        ? "resources/img/volume-mute.png"
+                        : "resources/img/volume-up.png"
+        };
+
+        for (int i = 0; i < options.length; i++) {
+            options[i].setIcon(new ImageIcon(btnImagePath[i]));
+            options[i].setOpaque(false);
+            options[i].setBorderPainted(false);
+        }
+
+        btnHome.addActionListener(e -> {
+            switchToMenuController();
+            closeDialogByButton(btnHome);
+        });
+        btnContinue.addActionListener(e -> {
+            resume();
+            closeDialogByButton(btnContinue);
+        });
+        btnNewGame.addActionListener(e -> {
+            restart();
+            closeDialogByButton(btnNewGame);
+        });
+        btnMute.addActionListener(e -> {
+            model.getSoundPlayer().toggle();
+            btnMute.setIcon(new ImageIcon(
+                    model.getSoundPlayer().isMute()
+                            ? "resources/img/volume-mute.png"
+                            : "resources/img/volume-up.png"));
+        });
+
+        int res = JOptionPane.showOptionDialog(
                 null,
-                "Do you want exit this game? ",
+                "",
                 "",
                 JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE,
@@ -188,10 +200,28 @@ public class GameController extends Controller<GameView, GameModel> implements A
                 options,
                 options[1]
         );
+
+        if (res == -1) {
+            resume();
+        }
+    }
+
+    private void closeDialogByButton(JButton button) {
+        Window w = SwingUtilities.getWindowAncestor(button);
+        w.setVisible(false);
+        w.dispose();
     }
 
     private void showGameOverDialog() {
-        String[] options = { "NewGame", "Home" };
+        JButton btnHome = new JButton();
+        JButton btnNewGame = new JButton();
+
+        JButton[] options = { btnHome, btnNewGame };
+        String[] btnImagePath = {
+                "resources/img/home.png",
+                "resources/img/replay.png",
+        };
+
         int result = JOptionPane.showOptionDialog(
                 null,
                 new JLabel("Congratulations " + getNameWinner() + " !"),
@@ -212,9 +242,10 @@ public class GameController extends Controller<GameView, GameModel> implements A
         }
     }
 
+
     public String getNameWinner() {
-        return model.getLeftPaddle().getScore() > model.getRightPaddle().getScore() ?
-                getView().getLeftPlayerName() :
-                getView().getRightPlayerName();
+        return model.getLeftPaddle().getScore() > model.getRightPaddle().getScore()
+                ? getView().getLeftPlayerName()
+                : getView().getRightPlayerName();
     }
 }
