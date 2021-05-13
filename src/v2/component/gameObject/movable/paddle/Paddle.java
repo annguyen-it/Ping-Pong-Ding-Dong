@@ -17,7 +17,7 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
     public static final int DISTANCE_TO_CROSS = 30;
     public static final int INITIAL_Y = Game.HEIGHT/2 - INITIAL_HEIGHT/2;
 
-    private static final int MAX_HEIGHT = 175;
+    private static final int MAX_HEIGHT = 150;
     private static final int MIN_HEIGHT = 50;
 
     private int height = INITIAL_HEIGHT;
@@ -33,6 +33,10 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
 
     public int getHeight() {
         return height;
+    }
+
+    public int getWidth() {
+        return INITIAL_WIDTH;
     }
 
     @Override

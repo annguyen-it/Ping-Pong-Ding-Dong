@@ -11,6 +11,7 @@ import java.util.Map;
 import java.util.Random;
 
 abstract public class Bonus {
+
     private static final Map<BonusType, String> IMAGE_MAP = Map.ofEntries(
             new AbstractMap.SimpleEntry<>(BonusType.bigBall, "resources/img/big-ball.png"),
             new AbstractMap.SimpleEntry<>(BonusType.multiBall, "resources/img/multi-ball.png"),
@@ -34,8 +35,8 @@ abstract public class Bonus {
         this.bonusType = bonusType;
     }
 
-    public static Bonus type(BonusType bonusType){
-        switch (bonusType){
+    public static Bonus type(BonusType bonusType) {
+        switch (bonusType) {
             case bigBall:
                 return new BigBall();
 
@@ -56,20 +57,20 @@ abstract public class Bonus {
         }
     }
 
-    public static String getImagePath(BonusType bonusType){
+    public static String getImagePath(BonusType bonusType) {
         return IMAGE_MAP.get(bonusType);
     }
 
-    public static BonusType randomType(){
+    public static BonusType randomType() {
         return BonusType.values()[new Random().nextInt(BonusType.values().length)];
     }
 
-    public Bonus with(GameModel gameModel){
+    public Bonus with(GameModel gameModel) {
         this.gameModel = gameModel;
         return this;
     }
 
-    public Bonus by(Side side, Ball ball){
+    public Bonus by(Side side, Ball ball) {
         this.receiveSide = side;
         this.ball = ball;
         return this;
@@ -87,7 +88,7 @@ abstract public class Bonus {
         return timeLeft;
     }
 
-    public boolean timeout(){
+    public boolean timeout() {
         return timeLeft <= 0;
     }
 
@@ -95,7 +96,7 @@ abstract public class Bonus {
         return bonusType;
     }
 
-    public boolean sameTypeWith(Bonus bonus){
+    public boolean sameTypeWith(Bonus bonus) {
         return bonusType == bonus.bonusType;
     }
 
@@ -103,11 +104,11 @@ abstract public class Bonus {
         timeLeft -= GameController.GAME_DELAY;
     }
 
-    public boolean hasTimeLimit(){
+    public boolean hasTimeLimit() {
         return this instanceof HasTimeLimit;
     }
 
-    public boolean canAppearWhenActivated(){
+    public boolean canAppearWhenActivated() {
         return this instanceof CanAppearWhenActivated;
     }
 

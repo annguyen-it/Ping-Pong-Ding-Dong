@@ -82,7 +82,6 @@ public class GameView extends View {
             paintStartGame(g);
         }
 
-
         paintStar(g);
 
         paintProcessBars(g);
@@ -95,7 +94,7 @@ public class GameView extends View {
 
     private void paintPaddle(Graphics g, Paddle paddle) {
         g.setColor(Color.cyan);
-        g.fillRect(paddle.getX(), paddle.getY(), Paddle.INITIAL_WIDTH, Paddle.INITIAL_HEIGHT);
+        g.fillRect(paddle.getX(), paddle.getY(), paddle.getWidth(), paddle.getHeight());
     }
 
     private void paintBall(Graphics g) {
