@@ -27,6 +27,10 @@ public class GameSoundPlayer {
         audioSets.put("ballCollideStar", new AudioSet(ballCollideStarAudioFile));
     }
 
+    public Boolean isMute(){
+        return  isMute;
+    }
+
     public void toggle(){
         isMute = !isMute;
     }

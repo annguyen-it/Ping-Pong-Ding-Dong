@@ -13,6 +13,7 @@ import v2.controller.GameController;
 import v2.model.EnterNameDialogModel;
 import v2.model.GameModel;
 
+import javax.swing.*;
 import java.awt.*;
 
 import java.util.List;
@@ -54,6 +55,7 @@ public class GameView extends View {
     public void initUI() {
         setBackground(Color.BLACK);
         setFocusable(true);
+        controller.addInitEvent();
     }
 
     //region paint components
@@ -160,6 +162,12 @@ public class GameView extends View {
         List<Bonus> bonusList = controller.getModel().getBonus();
 
         for (int i = 0; i < bonusList.size(); i++) {
+
+//            if (bonus.hasTimeLimit()) {
+//                paintProcessBar(g, j, bonusList.get(i));
+//                j++;
+//            }
+
             paintProcessBar(g, i, bonusList.get(i));
         }
     }
@@ -179,7 +187,8 @@ public class GameView extends View {
             final int y = 700;
 
             //Paint icon
-            //g.drawImage(,x-30,y, 20,20,null);
+            Image image = getToolkit().getImage(bonus.getImagePath(bonus.getType()));
+            g.drawImage(image,x-25,y-5, 20,20,null);
 
             //  Paint container
             g.setColor(Color.white);
@@ -194,6 +203,74 @@ public class GameView extends View {
             g.fillRect(x + border, y + border, bonus.getProcessBar().getWidth(), height - 2*border);
         }
     }
+
+    private JButton btnHome = new JButton();
+    private JButton btnContinue = new JButton();
+    private JButton btnNewGame = new JButton();
+    private JButton btnMute = new JButton();
+    private JPanel escGame ;
+    private JPanel overGame;
+
+    private void customButton(JButton button, String file){
+
+        button.setIcon(new ImageIcon(file));
+
+        button.setOpaque(false);
+        button.setBorderPainted(false);
+    }
+
+    private void setupButtons() {
+        customButton(btnHome,"resources/img/home.png");
+        customButton(btnContinue, "resources/img/continue.png");
+        customButton(btnNewGame,"resources/img/replay.png");
+        if(controller.IsMute()){
+            customButton(btnMute,"resources/img/volume-mute.png");
+        }else customButton(btnMute,"resources/img/volume-up.png");
+    }
+
+
+    public JButton getBtnHome() { return btnHome; }
+
+    public JButton getBtnContinue() { return btnContinue; }
+
+    public JButton getBtnNewGame() { return btnNewGame; }
+
+    public JButton getBtnMute() { return btnMute; }
+
+    public JPanel getEscGame(){
+        escGame = new JPanel();
+
+        escGame.setPreferredSize(new Dimension(400,80));
+
+        setupButtons();
+
+        escGame.add(btnHome);
+        escGame.add(btnContinue);
+        escGame.add(btnNewGame);
+        escGame.add(btnMute);
+
+        return escGame;
+    }
+
+    public JPanel getOverGame(){
+        overGame = new JPanel();
+
+        JLabel label = new JLabel("Congratulations "  + controller.getNameWinner() + " !");
+        label.setPreferredSize(new Dimension(250,150));
+
+
+        overGame.add(label);
+
+        setupButtons();
+
+        overGame.add(btnHome);
+        overGame.add(btnNewGame);
+
+        return overGame;
+    }
+
+
+
 }
 //endregion
 

@@ -8,6 +8,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 import java.awt.*;
+import java.lang.reflect.Array;
 import java.util.Locale;
 
 public class MenuView extends View {
@@ -137,4 +138,8 @@ public class MenuView extends View {
             }
         }
     }
+
+
+
+
 }
