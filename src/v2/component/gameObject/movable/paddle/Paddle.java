@@ -93,13 +93,13 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
 
     @Override
     public void stopAtBottomBorder() {
-        y = Game.HEIGHT - INITIAL_HEIGHT - 40;
+        y = Game.HEIGHT - height - 40;
     }
 
     @Override
     public boolean willWallCollide() {
         double nextPos = y + vector.getY();
-        return nextPos < 0 || nextPos + INITIAL_HEIGHT + 40 > Game.HEIGHT;
+        return nextPos < 0 || nextPos + height + 40 > Game.HEIGHT;
     }
 
     @Override

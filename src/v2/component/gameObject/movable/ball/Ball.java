@@ -143,7 +143,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     @Override
     public void changeSpeed(Paddle paddle) {
         int topPaddleY = paddle.getY();
-        int paddleDiv = Paddle.INITIAL_HEIGHT/11;
+        int paddleDiv = paddle.getHeight()/11;
 
         // position:      0   1   2   3   4   5   6   7   8   9   10
         //              |   |   |   |   |   |   |   |   |   |   |   |
@@ -268,8 +268,8 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
         int paddleY = paddle.getY();
 
         return vector.getX() < 0 &&
-               paddleX <= x && x <= paddleX + Paddle.INITIAL_WIDTH &&
-               paddleY <= y + size && y <= paddleY + Paddle.INITIAL_HEIGHT;
+               paddleX <= x && x <= paddleX + paddle.getWidth() &&
+               paddleY <= y + size && y <= paddleY + paddle.getHeight();
     }
 
     @Override
@@ -278,8 +278,8 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
         int paddleY = paddle.getY();
 
         return vector.getX() > 0 &&
-               paddleX <= x + size && x + size < paddleX + Paddle.INITIAL_WIDTH &&
-               paddleY <= y + size && y <= paddleY + Paddle.INITIAL_HEIGHT;
+               paddleX <= x + size && x + size < paddleX + paddle.getWidth() &&
+               paddleY <= y + size && y <= paddleY + paddle.getHeight();
     }
 
     @Override
