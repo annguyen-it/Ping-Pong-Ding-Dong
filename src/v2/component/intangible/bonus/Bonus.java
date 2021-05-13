@@ -16,8 +16,9 @@ abstract public class Bonus {
             new AbstractMap.SimpleEntry<>(BonusType.bigBall, "resources/img/big-ball.png"),
             new AbstractMap.SimpleEntry<>(BonusType.multiBall, "resources/img/multi-ball.png"),
             new AbstractMap.SimpleEntry<>(BonusType.speedingBall, "resources/img/speed-up.png"),
-            new AbstractMap.SimpleEntry<>(BonusType.slowlyPaddle, "resources/img/speed-down.png")
-            // TODO: Implement increaseOwnPaddleSize and decreaseEnemyPaddleSize
+            new AbstractMap.SimpleEntry<>(BonusType.slowlyPaddle, "resources/img/speed-down.png"),
+            new AbstractMap.SimpleEntry<>(BonusType.increaseOwnPaddleSize, "resources/img/increase-own-paddle-size.png"),
+            new AbstractMap.SimpleEntry<>(BonusType.decreaseEnemyPaddleSize, "resources/img/decrease-enemy-paddle-size.png")
     );
 
     public static final int EXIST_TIME = 8800;
