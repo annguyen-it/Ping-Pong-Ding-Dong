@@ -16,6 +16,7 @@ abstract public class Bonus {
             new AbstractMap.SimpleEntry<>(BonusType.multiBall, "resources/img/multi-ball.png"),
             new AbstractMap.SimpleEntry<>(BonusType.speedingBall, "resources/img/speed-up.png"),
             new AbstractMap.SimpleEntry<>(BonusType.slowlyPaddle, "resources/img/speed-down.png")
+            // TODO: Implement increaseOwnPaddleSize and decreaseEnemyPaddleSize
     );
 
     public static final int EXIST_TIME = 8800;
@@ -41,6 +42,9 @@ abstract public class Bonus {
             case multiBall:
                 return new MultiBall();
 
+            case speedingBall:
+                return new SpeedingBall();
+
             case slowlyPaddle:
                 return new SlowlyPaddle();
 
@@ -48,7 +52,7 @@ abstract public class Bonus {
                 return new IncreaseOwnPaddleSize();
 
             default:
-                return new SpeedingBall();
+                return new DecreaseEnemyPaddleSize();
         }
     }
 

@@ -16,6 +16,7 @@ public class BonusProcessBar {
             new AbstractMap.SimpleEntry<>(BonusType.multiBall, Color.green),
             new AbstractMap.SimpleEntry<>(BonusType.speedingBall, Color.pink),
             new AbstractMap.SimpleEntry<>(BonusType.slowlyPaddle, Color.red)
+            // TODO: Implement increaseOwnPaddleSize and decreaseEnemyPaddleSize
     );
 
     public BonusProcessBar(Bonus bonus) {
