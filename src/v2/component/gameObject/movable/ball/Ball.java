@@ -1,7 +1,7 @@
 package v2.component.gameObject.movable.ball;
 
 import v2.Game;
-import v2.board.GameSide;
+import v2.board.GameSide.Side;
 import v2.component.gameObject.immovable.star.Star;
 import v2.component.gameObject.movable.AllDirectionMovableGameObject;
 import v2.component.gameObject.movable.paddle.LeftPaddle;
@@ -33,11 +33,11 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     private static final Vector INITIAL_TO_LEFT_VECTOR = new Vector(180);
     private static final Vector INITIAL_TO_RIGHT_VECTOR = new Vector(0);
 
-    public static final int SIZE = 24;
+    public static final int INITIAL_SIZE = 24;
 
-    private GameSide.Side lastTouch = GameSide.Side.unknown;
+    private Side lastTouch;
     private final GameSoundPlayer soundPlayer;
-    private int size = SIZE;
+    private int size;
 
     //#endregion
 
@@ -59,13 +59,12 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      * @param soundPlayer      Sound player of ball
      * @param initialDirection Initial direction of ball
      */
-    public Ball(GameSoundPlayer soundPlayer, GameSide.Side initialDirection) {
-        super(INITIAL_BALL_X, INITIAL_BALL_Y, getInitialVector(initialDirection), INITIAL_SPEED);
-        this.soundPlayer = soundPlayer;
-        speed = INITIAL_SPEED;
+    public Ball(GameSoundPlayer soundPlayer, Side initialDirection) {
+        this(soundPlayer, INITIAL_BALL_X, INITIAL_BALL_Y, INITIAL_SIZE, getInitialVector(initialDirection), INITIAL_SPEED,
+                Side.unknown);
     }
 
-    public Ball(GameSoundPlayer soundPlayer, int x, int y, int size, Vector vector, double speed, GameSide.Side lastTouch){
+    public Ball(GameSoundPlayer soundPlayer, int x, int y, int size, Vector vector, double speed, Side lastTouch) {
         super(x, y, vector, speed);
         this.soundPlayer = soundPlayer;
         this.size = size;
@@ -84,8 +83,8 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      *
      * @see v2.board.GameSide.Side
      */
-    private static GameSide.Side randomInitialSide() {
-        return (int) (Math.random()*2) == 0 ? GameSide.Side.left : GameSide.Side.right;
+    private static Side randomInitialSide() {
+        return (int) (Math.random()*2) == 0 ? Side.left : Side.right;
     }
 
     /**
@@ -99,8 +98,8 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      * @see #INITIAL_TO_LEFT_VECTOR
      * @see #INITIAL_TO_RIGHT_VECTOR
      */
-    private static Vector getInitialVector(GameSide.Side initialDirection) {
-        return initialDirection == GameSide.Side.left ? INITIAL_TO_LEFT_VECTOR : INITIAL_TO_RIGHT_VECTOR;
+    private static Vector getInitialVector(Side initialDirection) {
+        return initialDirection == Side.left ? INITIAL_TO_LEFT_VECTOR : INITIAL_TO_RIGHT_VECTOR;
     }
 
     /**
@@ -112,7 +111,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
         return size;
     }
 
-    public GameSide.Side getLastTouch() {
+    public Side getLastTouch() {
         return lastTouch;
     }
 
@@ -144,7 +143,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     @Override
     public void changeSpeed(Paddle paddle) {
         int topPaddleY = paddle.getY();
-        int paddleDiv = Paddle.INITIAL_PADDLE_HEIGHT/11;
+        int paddleDiv = Paddle.INITIAL_HEIGHT/11;
 
         // position:      0   1   2   3   4   5   6   7   8   9   10
         //              |   |   |   |   |   |   |   |   |   |   |   |
@@ -191,7 +190,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
 
     @Override
     public void returnInitialSpeed() {
-        if (speed >= BONUS_MIN_SPEED){
+        if (speed >= BONUS_MIN_SPEED) {
             speed -= 5;
         }
     }
@@ -218,31 +217,31 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     }
 
     @Override
-    public GameSide.Side isOutTheBoard() {
-        if (x < -SIZE) {
+    public Side isOutTheBoard() {
+        if (x < -INITIAL_SIZE) {
             soundPlayer.lostBall();
-            return GameSide.Side.left;
+            return Side.left;
         }
         else if (x > Game.WIDTH) {
             soundPlayer.lostBall();
-            return GameSide.Side.right;
+            return Side.right;
         }
 
-        return GameSide.Side.unknown;
+        return Side.unknown;
     }
     //#endregion
 
     //#region Transforms
     @Override
     public void sizeUp() {
-        if (size == SIZE) {
+        if (size == INITIAL_SIZE) {
             size += 10;
         }
     }
 
     @Override
     public void returnInitialSize() {
-        if (size > SIZE) {
+        if (size > INITIAL_SIZE) {
             size -= 10;
         }
     }
@@ -269,8 +268,8 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
         int paddleY = paddle.getY();
 
         return vector.getX() < 0 &&
-               paddleX <= x && x <= paddleX + Paddle.INITIAL_PADDLE_WIDTH &&
-               paddleY <= y + size && y <= paddleY + Paddle.INITIAL_PADDLE_HEIGHT;
+               paddleX <= x && x <= paddleX + Paddle.INITIAL_WIDTH &&
+               paddleY <= y + size && y <= paddleY + Paddle.INITIAL_HEIGHT;
     }
 
     @Override
@@ -279,13 +278,13 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
         int paddleY = paddle.getY();
 
         return vector.getX() > 0 &&
-               paddleX <= x + size && x + size < paddleX + Paddle.INITIAL_PADDLE_WIDTH &&
-               paddleY <= y + size && y <= paddleY + Paddle.INITIAL_PADDLE_HEIGHT;
+               paddleX <= x + size && x + size < paddleX + Paddle.INITIAL_WIDTH &&
+               paddleY <= y + size && y <= paddleY + Paddle.INITIAL_HEIGHT;
     }
 
     @Override
     public boolean willCollide(Star star) {
-        return getBallBound().intersects(star.getBound()) && lastTouch != GameSide.Side.unknown;
+        return getBallBound().intersects(star.getBound()) && lastTouch != Side.unknown;
     }
 
     private Rectangle getBallBound() {

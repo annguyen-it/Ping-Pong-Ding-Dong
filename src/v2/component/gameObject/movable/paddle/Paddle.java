@@ -12,12 +12,15 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
     private static final Vector INITIAL_VECTOR = new Vector();
     private static final double INITIAL_SPEED = 9;
 
-    public static final int INITIAL_PADDLE_WIDTH = 16;
-    public static final int INITIAL_PADDLE_HEIGHT = 100;
+    public static final int INITIAL_WIDTH = 16;
+    public static final int INITIAL_HEIGHT = 100;
     public static final int DISTANCE_TO_CROSS = 30;
-    public static final int INITIAL_PADDLE_Y = Game.HEIGHT/2 - INITIAL_PADDLE_HEIGHT/2;
+    public static final int INITIAL_Y = Game.HEIGHT/2 - INITIAL_HEIGHT/2;
 
-    private int height = INITIAL_PADDLE_HEIGHT;
+    private static final int MAX_HEIGHT = 175;
+    private static final int MIN_HEIGHT = 50;
+
+    private int height = INITIAL_HEIGHT;
 
     protected Score score = new Score();
     private final GameSide.Side side;
@@ -46,6 +49,21 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
     }
 
     @Override
+    public void sizeUp() {
+        height = MAX_HEIGHT;
+    }
+
+    @Override
+    public void sizeDown() {
+        height = MIN_HEIGHT;
+    }
+
+    @Override
+    public void returnInitialSize() {
+        height = INITIAL_HEIGHT;
+    }
+
+    @Override
     public void returnInitialSpeed() {
         if (speed < INITIAL_SPEED){
             speed = INITIAL_SPEED;
@@ -71,13 +89,13 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
 
     @Override
     public void stopAtBottomBorder() {
-        y = Game.HEIGHT - INITIAL_PADDLE_HEIGHT - 40;
+        y = Game.HEIGHT - INITIAL_HEIGHT - 40;
     }
 
     @Override
     public boolean willWallCollide() {
         double nextPos = y + vector.getY();
-        return nextPos < 0 || nextPos + INITIAL_PADDLE_HEIGHT + 40 > Game.HEIGHT;
+        return nextPos < 0 || nextPos + INITIAL_HEIGHT + 40 > Game.HEIGHT;
     }
 
     @Override

@@ -95,7 +95,7 @@ public class GameView extends View {
 
     private void paintPaddle(Graphics g, Paddle paddle) {
         g.setColor(Color.cyan);
-        g.fillRect(paddle.getX(), paddle.getY(), Paddle.INITIAL_PADDLE_WIDTH, Paddle.INITIAL_PADDLE_HEIGHT);
+        g.fillRect(paddle.getX(), paddle.getY(), Paddle.INITIAL_WIDTH, Paddle.INITIAL_HEIGHT);
     }
 
     private void paintBall(Graphics g) {
@@ -170,10 +170,10 @@ public class GameView extends View {
             // 7*5+4 = 39 part
             // 5 items and 4 spaces between them, item.width : space.width = 7 : 1
 
-            final int space = (Game.WIDTH - 2*(LeftPaddle.INITIAL_LEFT_PADDLE_X + Paddle.INITIAL_PADDLE_WIDTH))/39;
+            final int space = (Game.WIDTH - 2*(LeftPaddle.INITIAL_X + Paddle.INITIAL_WIDTH))/39;
             final int width = space*7;
             final int height = 12;
-            final int marginLeftOfFirstItem = LeftPaddle.INITIAL_LEFT_PADDLE_X;
+            final int marginLeftOfFirstItem = LeftPaddle.INITIAL_X;
             final int border = 1;
 
             final int x = marginLeftOfFirstItem + space*itemIndex + width*itemIndex;

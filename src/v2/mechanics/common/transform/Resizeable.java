@@ -13,6 +13,8 @@ public interface Resizeable extends Mechanic {
      */
     void sizeUp();
 
+    void sizeDown();
+
     /**
      * Decrease size
      */

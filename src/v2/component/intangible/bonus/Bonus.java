@@ -44,6 +44,9 @@ abstract public class Bonus {
             case slowlyPaddle:
                 return new SlowlyPaddle();
 
+            case increaseOwnPaddleSize:
+                return new IncreaseOwnPaddleSize();
+
             default:
                 return new SpeedingBall();
         }
