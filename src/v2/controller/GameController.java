@@ -222,6 +222,21 @@ public class GameController extends Controller<GameView, GameModel> implements A
                 "resources/img/replay.png",
         };
 
+        for (int i = 0; i < options.length; i++) {
+            options[i].setIcon(new ImageIcon(btnImagePath[i]));
+            options[i].setOpaque(false);
+            options[i].setBorderPainted(false);
+        }
+
+        btnHome.addActionListener(e -> {
+            switchToMenuController();
+            closeDialogByButton(btnHome);
+        });
+        btnNewGame.addActionListener(e -> {
+            restart();
+            closeDialogByButton(btnNewGame);
+        });
+
         int result = JOptionPane.showOptionDialog(
                 null,
                 new JLabel("Congratulations " + getNameWinner() + " !"),
