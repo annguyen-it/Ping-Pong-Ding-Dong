@@ -29,6 +29,6 @@ public class BonusProcessBar {
     }
 
     public int getWidth() {
-        return bonus.getTimeLeft()/45;
+        return bonus.getTimeLeft()/11;
     }
 }
