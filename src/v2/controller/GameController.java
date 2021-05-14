@@ -156,12 +156,12 @@ public class GameController extends Controller<GameView, GameModel> implements A
 
         JButton[] options = { btnHome, btnContinue, btnNewGame, btnMute };
         String[] btnImagePath = {
-                "resources/img/home.png",
-                "resources/img/continue.png",
-                "resources/img/replay.png",
+                "resources/img/home-icon.png",
+                "resources/img/continue-icon.png",
+                "resources/img/replay-icon.png",
                 model.getSoundPlayer().isMute()
-                        ? "resources/img/volume-mute.png"
-                        : "resources/img/volume-up.png"
+                        ? "resources/img/volume-off.png"
+                        : "resources/img/volume-on.png"
         };
 
         for (int i = 0; i < options.length; i++) {
@@ -186,8 +186,8 @@ public class GameController extends Controller<GameView, GameModel> implements A
             model.getSoundPlayer().toggle();
             btnMute.setIcon(new ImageIcon(
                     model.getSoundPlayer().isMute()
-                            ? "resources/img/volume-mute.png"
-                            : "resources/img/volume-up.png"));
+                            ? "resources/img/volume-off.png"
+                            : "resources/img/volume-on.png"));
         });
 
         int res = JOptionPane.showOptionDialog(
@@ -218,8 +218,8 @@ public class GameController extends Controller<GameView, GameModel> implements A
 
         JButton[] options = { btnHome, btnNewGame };
         String[] btnImagePath = {
-                "resources/img/home.png",
-                "resources/img/replay.png",
+                "resources/img/home-icon.png",
+                "resources/img/replay-icon.png",
         };
 
         for (int i = 0; i < options.length; i++) {
