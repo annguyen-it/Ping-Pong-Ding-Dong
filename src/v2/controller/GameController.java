@@ -245,15 +245,14 @@ public class GameController extends Controller<GameView, GameModel> implements A
                 JOptionPane.PLAIN_MESSAGE,
                 null,
                 options,
-                null
+                options[0]
         );
 
         if (result == 0) {
-            restart();
+            switchToMenuController();
         }
         else {
-            model.reset();
-            switchToMenuController();
+            restart();
         }
     }
 
