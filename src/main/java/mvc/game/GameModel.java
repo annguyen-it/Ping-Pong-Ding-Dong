@@ -20,7 +20,7 @@ public class GameModel implements Model {
 
     private GameController controller;
 
-    private final GameSoundPlayer soundPlayer = new GameSoundPlayer();
+    private GameSoundPlayer soundPlayer = new GameSoundPlayer();
 
     private LeftPaddle leftPaddle = new LeftPaddle();
     private RightPaddle rightPaddle = new RightPaddle();
@@ -104,6 +104,8 @@ public class GameModel implements Model {
         bonusController = new BonusController(this);
         ballFactory = new BallFactory(soundPlayer);
         starFactory = new StarFactory(bonusController);
+
+        soundPlayer = new GameSoundPlayer();
     }
 
     //#region Paddle

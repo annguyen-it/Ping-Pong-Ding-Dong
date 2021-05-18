@@ -139,7 +139,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
         }
     }
 
-    private void restart() {
+    private void reset() {
         isStarted = false;
 
         model.reset();
@@ -173,6 +173,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
         }
 
         btnHome.addActionListener(e -> {
+            reset();
             switchToMenuController();
             closeDialogByButton(btnHome);
         });
@@ -181,7 +182,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
             closeDialogByButton(btnContinue);
         });
         btnReplay.addActionListener(e -> {
-            restart();
+            reset();
             closeDialogByButton(btnReplay);
         });
         btnMute.addActionListener(e -> {
@@ -192,7 +193,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
                             : ImagePathProvider.Game.Dialog.volumeOn));
         });
 
-        int res = JOptionPane.showOptionDialog(
+        JOptionPane.showOptionDialog(
                 null,
                 "",
                 "",
@@ -203,9 +204,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
                 options[1]
         );
 
-        if (res == -1) {
-            resume();
-        }
+        resume();
     }
 
     private void closeDialogByButton(JButton button) {
@@ -235,7 +234,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
             closeDialogByButton(btnHome);
         });
         btnNewGame.addActionListener(e -> {
-            restart();
+            reset();
             closeDialogByButton(btnNewGame);
         });
 
@@ -254,7 +253,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
             switchToMenuController();
         }
         else {
-            restart();
+            reset();
         }
     }
 
