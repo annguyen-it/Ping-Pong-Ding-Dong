@@ -6,6 +6,7 @@ import main.java.mvc.common.flow.FlowController;
 import main.java.mvc.menu.MenuController;
 import main.java.utils.database.Database;
 import main.java.utils.database.dto.PlayerInfo;
+import main.java.utils.image.ImagePathProvider;
 
 import javax.swing.*;
 import java.awt.*;
@@ -43,7 +44,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
     }
 
     @Override
-    protected void drawUI() {
+    public void drawUI() {
         super.drawUI();
     }
 
@@ -152,17 +153,17 @@ public class GameController extends Controller<GameView, GameModel> implements A
     private void showPauseDialog() {
         JButton btnHome = new JButton();
         JButton btnContinue = new JButton();
-        JButton btnNewGame = new JButton();
+        JButton btnReplay = new JButton();
         JButton btnMute = new JButton();
 
-        JButton[] options = { btnHome, btnContinue, btnNewGame, btnMute };
+        JButton[] options = { btnHome, btnContinue, btnReplay, btnMute };
         String[] btnImagePath = {
-                "resources/img/home-icon.png",
-                "resources/img/continue-icon.png",
-                "resources/img/replay-icon.png",
+                ImagePathProvider.Game.Dialog.home,
+                ImagePathProvider.Game.Dialog.continue_,
+                ImagePathProvider.Game.Dialog.replay,
                 model.getSoundPlayer().isMute()
-                        ? "resources/img/volume-off.png"
-                        : "resources/img/volume-on.png"
+                        ? ImagePathProvider.Game.Dialog.volumeOff
+                        : ImagePathProvider.Game.Dialog.volumeOn
         };
 
         for (int i = 0; i < options.length; i++) {
@@ -179,16 +180,16 @@ public class GameController extends Controller<GameView, GameModel> implements A
             resume();
             closeDialogByButton(btnContinue);
         });
-        btnNewGame.addActionListener(e -> {
+        btnReplay.addActionListener(e -> {
             restart();
-            closeDialogByButton(btnNewGame);
+            closeDialogByButton(btnReplay);
         });
         btnMute.addActionListener(e -> {
             model.getSoundPlayer().toggle();
             btnMute.setIcon(new ImageIcon(
                     model.getSoundPlayer().isMute()
-                            ? "resources/img/volume-off.png"
-                            : "resources/img/volume-on.png"));
+                            ? ImagePathProvider.Game.Dialog.volumeOff
+                            : ImagePathProvider.Game.Dialog.volumeOn));
         });
 
         int res = JOptionPane.showOptionDialog(
@@ -219,8 +220,8 @@ public class GameController extends Controller<GameView, GameModel> implements A
 
         JButton[] options = { btnHome, btnNewGame };
         String[] btnImagePath = {
-                "resources/img/home-icon.png",
-                "resources/img/replay-icon.png",
+                ImagePathProvider.Game.Dialog.home,
+                ImagePathProvider.Game.Dialog.replay,
         };
 
         for (int i = 0; i < options.length; i++) {

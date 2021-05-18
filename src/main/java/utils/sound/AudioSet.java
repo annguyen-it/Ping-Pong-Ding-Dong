@@ -10,7 +10,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
 import java.io.IOException;
 
-public class AudioSet {
+class AudioSet {
     private final File file;
     private Clip clip;
 

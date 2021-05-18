@@ -5,6 +5,7 @@ import main.java.mvc.game.component.gameObject.movable.ball.Ball;
 import main.java.mvc.game.component.other.BonusProcessBar;
 import main.java.mvc.game.GameController;
 import main.java.mvc.game.GameModel;
+import main.java.utils.image.ImagePathProvider;
 
 import java.util.AbstractMap;
 import java.util.Map;
@@ -13,12 +14,12 @@ import java.util.Random;
 abstract public class Bonus {
 
     private static final Map<BonusType, String> IMAGE_MAP = Map.ofEntries(
-            new AbstractMap.SimpleEntry<>(BonusType.bigBall, "resources/img/big-ball.png"),
-            new AbstractMap.SimpleEntry<>(BonusType.multiBall, "resources/img/multi-ball.png"),
-            new AbstractMap.SimpleEntry<>(BonusType.speedingBall, "resources/img/speed-up.png"),
-            new AbstractMap.SimpleEntry<>(BonusType.slowlyPaddle, "resources/img/speed-down.png"),
-            new AbstractMap.SimpleEntry<>(BonusType.increaseOwnPaddleSize, "resources/img/increase-own-paddle-size.png"),
-            new AbstractMap.SimpleEntry<>(BonusType.decreaseEnemyPaddleSize, "resources/img/decrease-enemy-paddle-size.png")
+            new AbstractMap.SimpleEntry<>(BonusType.bigBall, ImagePathProvider.Game.bigBall),
+            new AbstractMap.SimpleEntry<>(BonusType.decreaseEnemyPaddleSize, ImagePathProvider.Game.decreaseEnemyPaddleSize),
+            new AbstractMap.SimpleEntry<>(BonusType.increaseOwnPaddleSize, ImagePathProvider.Game.increaseOwnPaddleSize),
+            new AbstractMap.SimpleEntry<>(BonusType.multiBall, ImagePathProvider.Game.multiBall),
+            new AbstractMap.SimpleEntry<>(BonusType.slowlyPaddle, ImagePathProvider.Game.slowlyPaddle),
+            new AbstractMap.SimpleEntry<>(BonusType.speedingBall, ImagePathProvider.Game.speedingBall)
     );
 
     public static final int EXIST_TIME = 2200;

@@ -9,11 +9,11 @@ public class GameSoundPlayer {
     private final Map<String, AudioSet> audioSets = new HashMap<>();
     private boolean isMute = false;
 
-    private static final File ballCollidePaddleAudioFile = new File("resources/audio/ball-collide-paddle.wav");
-    private static final File ballCollideWallAudioFile = new File("resources/audio/ball-collide-wall.wav");
-    private static final File lostBallFile = new File("resources/audio/lost-ball.wav");
-    private static final File joinGameAudioFile = new File("resources/audio/join-game.wav");
-    private static final File ballCollideStarAudioFile = new File("resources/audio/ball-collide-star.wav");
+    private static final File ballCollidePaddleAudioFile = new File("src/main/resources/audio/ball-collide-paddle.wav");
+    private static final File ballCollideWallAudioFile = new File("src/main/resources/audio/ball-collide-wall.wav");
+    private static final File lostBallFile = new File("src/main/resources/audio/lost-ball.wav");
+    private static final File joinGameAudioFile = new File("src/main/resources/audio/join-game.wav");
+    private static final File ballCollideStarAudioFile = new File("src/main/resources/audio/ball-collide-star.wav");
 
     public GameSoundPlayer() {
         loadAudioSets();

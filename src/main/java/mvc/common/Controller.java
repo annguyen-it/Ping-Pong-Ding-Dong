@@ -6,8 +6,8 @@ public abstract class Controller<V extends View, M extends Model> {
 
     protected final FlowController flowController;
 
-    private final V view;
-    private final M model;
+    protected final V view;
+    protected final M model;
 
     public Controller(FlowController flowController, V view, M model) {
         this.flowController = flowController;

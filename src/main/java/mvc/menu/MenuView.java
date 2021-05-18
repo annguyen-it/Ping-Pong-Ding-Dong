@@ -2,6 +2,7 @@ package main.java.mvc.menu;
 
 import main.java.App;
 import main.java.mvc.common.View;
+import main.java.utils.image.ImagePathProvider;
 
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
@@ -110,7 +111,7 @@ public class MenuView extends View {
     }
 
     private void setupBackground() {
-        ImageIcon image = new ImageIcon("resources/img/menu-background.jpg");
+        ImageIcon image = new ImageIcon(ImagePathProvider.Menu.background);
         background = new JLabel("", image, JLabel.CENTER);
         background.setBounds(0, 0, App.WIDTH, App.HEIGHT);
 
