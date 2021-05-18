@@ -10,7 +10,6 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 import java.awt.*;
-import java.util.Locale;
 
 public class MenuView extends View {
 
@@ -23,8 +22,8 @@ public class MenuView extends View {
     private final JButton exitButton = new JButton("EXIT");
 
     private final JPanel playDialog = new JPanel();
-    private final JTextField playerNameTextField1 = new JTextField(new PlayerNameTextFieldLimit(10), "Player 1", 10);
-    private final JTextField playerNameTextField2 = new JTextField(new PlayerNameTextFieldLimit(10), "Player 2", 10);
+    private final JTextField playerNameTextField1 = new JTextField(new PlayerNameTextFieldLimit(), "Player 1", 10);
+    private final JTextField playerNameTextField2 = new JTextField(new PlayerNameTextFieldLimit(), "Player 2", 10);
 
     private final JLabel helpDialog = new JLabel("Di chuyen Paddle de Ball khong bi roi ra ngoai");
 
@@ -121,18 +120,10 @@ public class MenuView extends View {
     //endregion
 
     public static class PlayerNameTextFieldLimit extends PlainDocument {
-
-        private final int limit;
-
-        public PlayerNameTextFieldLimit(int limit) {
-            this.limit = limit;
-        }
-
-
         public void insertString(int offset, String str, AttributeSet set) throws BadLocationException {
             if (str == null) {}
             else {
-                if ((getLength() + str.length()) <= limit) {
+                if ((getLength() + str.length()) <= 30) {
                     super.insertString(offset, str, set);
                 }
             }
