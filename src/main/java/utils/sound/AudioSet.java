@@ -10,7 +10,7 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 import java.io.File;
 import java.io.IOException;
 
-class AudioSet {
+public class AudioSet {
     private final File file;
     private Clip clip;
 
@@ -26,6 +26,7 @@ class AudioSet {
 
     public void stop(){
         clip.stop();
+        clip.setFramePosition(0);
     }
 
     public void playLoop(){

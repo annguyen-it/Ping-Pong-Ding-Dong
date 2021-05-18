@@ -8,7 +8,7 @@ import main.java.mvc.game.component.gameObject.movable.paddle.LeftPaddle;
 import main.java.mvc.game.component.gameObject.movable.paddle.Paddle;
 import main.java.mvc.game.component.gameObject.movable.paddle.RightPaddle;
 import main.java.mvc.game.mechanics.ball.BallMechanics;
-import main.java.utils.sound.GameSoundPlayer;
+import main.java.mvc.game.sound.GameSoundPlayer;
 import main.java.mvc.game.component.intangible.Vector;
 
 import java.awt.*;

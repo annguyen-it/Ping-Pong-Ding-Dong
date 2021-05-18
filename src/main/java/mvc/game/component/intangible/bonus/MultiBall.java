@@ -3,7 +3,7 @@ package main.java.mvc.game.component.intangible.bonus;
 import main.java.mvc.game.board.GameSide.Side;
 import main.java.mvc.game.component.gameObject.movable.ball.Ball;
 import main.java.mvc.game.component.intangible.Vector;
-import main.java.utils.sound.GameSoundPlayer;
+import main.java.mvc.game.sound.GameSoundPlayer;
 
 public class MultiBall extends Bonus {
 

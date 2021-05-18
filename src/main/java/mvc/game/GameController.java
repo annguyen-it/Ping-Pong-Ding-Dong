@@ -147,6 +147,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
     }
 
     private void switchToMenuController() {
+        model.getSoundPlayer().stopBackgroundAudio();
         switchController(new MenuController(flowController));
     }
 
@@ -173,8 +174,8 @@ public class GameController extends Controller<GameView, GameModel> implements A
         }
 
         btnHome.addActionListener(e -> {
-            reset();
             switchToMenuController();
+            reset();
             closeDialogByButton(btnHome);
         });
         btnContinue.addActionListener(e -> {
@@ -238,7 +239,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
             closeDialogByButton(btnNewGame);
         });
 
-        int result = JOptionPane.showOptionDialog(
+        JOptionPane.showOptionDialog(
                 null,
                 new JLabel("Congratulations " + getNameWinner() + " !"),
                 "",
@@ -249,12 +250,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
                 options[0]
         );
 
-        if (result == 0) {
-            switchToMenuController();
-        }
-        else {
-            reset();
-        }
+        reset();
     }
 
 

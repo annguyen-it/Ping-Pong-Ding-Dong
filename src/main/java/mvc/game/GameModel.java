@@ -10,7 +10,7 @@ import main.java.mvc.game.component.helper.factory.BallFactory;
 import main.java.mvc.game.component.helper.controller.BonusController;
 import main.java.mvc.game.component.helper.factory.StarFactory;
 import main.java.mvc.common.Model;
-import main.java.utils.sound.GameSoundPlayer;
+import main.java.mvc.game.sound.GameSoundPlayer;
 
 import java.util.List;
 
@@ -35,7 +35,7 @@ public class GameModel implements Model {
 
     public GameModel() {
         soundPlayer.joinGame();
-        soundPlayer.backgroundAudio();
+        soundPlayer.playBackgroundAudio();
     }
 
     //#endregion
