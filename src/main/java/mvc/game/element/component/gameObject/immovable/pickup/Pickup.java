@@ -1,4 +1,4 @@
-package main.java.mvc.game.element.component.gameObject.immovable.star;
+package main.java.mvc.game.element.component.gameObject.immovable.pickup;
 
 import main.java.App;
 import main.java.mvc.game.element.component.gameObject.immovable.ImmovableGameObject;
@@ -9,6 +9,7 @@ import java.awt.*;
 import java.util.Calendar;
 
 public class Pickup extends ImmovableGameObject {
+
     private static final int APPEAR_AREA_WIDTH = 650;
     private static final int APPEAR_AREA_HEIGHT = 600;
     private static final int PICKUP_SIZE = 50;

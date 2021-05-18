@@ -5,7 +5,7 @@ import main.java.mvc.game.element.function.intangible.Score;
 
 import main.java.mvc.game.element.component.gameObject.movable.paddle.LeftPaddle;
 import main.java.mvc.game.element.function.intangible.bonus.Bonus;
-import main.java.mvc.game.element.component.gameObject.immovable.star.Pickup;
+import main.java.mvc.game.element.component.gameObject.immovable.pickup.Pickup;
 import main.java.mvc.game.element.component.gameObject.movable.ball.Ball;
 import main.java.mvc.game.element.component.gameObject.movable.paddle.Paddle;
 

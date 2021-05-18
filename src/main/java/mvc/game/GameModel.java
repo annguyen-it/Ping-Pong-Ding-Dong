@@ -3,12 +3,12 @@ package main.java.mvc.game;
 import main.java.mvc.game.element.function.intangible.GameSide;
 import main.java.mvc.game.element.function.intangible.GameSide.Side;
 import main.java.mvc.game.element.function.intangible.bonus.Bonus;
-import main.java.mvc.game.element.component.gameObject.immovable.star.Pickup;
+import main.java.mvc.game.element.component.gameObject.immovable.pickup.Pickup;
 import main.java.mvc.game.element.component.gameObject.movable.ball.Ball;
 import main.java.mvc.game.element.component.gameObject.movable.paddle.*;
 import main.java.mvc.game.element.component.helper.factory.BallFactory;
 import main.java.mvc.game.element.component.helper.controller.BonusController;
-import main.java.mvc.game.element.component.helper.factory.StarFactory;
+import main.java.mvc.game.element.component.helper.factory.PickupFactory;
 import main.java.mvc.common.Model;
 import main.java.mvc.game.sound.GameSoundPlayer;
 
@@ -27,7 +27,7 @@ public class GameModel extends Model {
 
     private BonusController bonusController = new BonusController(this);
     private BallFactory ballFactory = new BallFactory(soundPlayer);
-    private StarFactory starFactory = new StarFactory(bonusController);
+    private PickupFactory pickupFactory = new PickupFactory(bonusController);
 
     //#endregion
 
@@ -71,7 +71,7 @@ public class GameModel extends Model {
     }
 
     public Pickup getStar() {
-        return starFactory.getPickup();
+        return pickupFactory.getPickup();
     }
 
     public List<Bonus> getBonus() {
@@ -104,7 +104,7 @@ public class GameModel extends Model {
 
         bonusController = new BonusController(this);
         ballFactory = new BallFactory(soundPlayer);
-        starFactory = new StarFactory(bonusController);
+        pickupFactory = new PickupFactory(bonusController);
 
         soundPlayer = new GameSoundPlayer();
     }
@@ -194,15 +194,15 @@ public class GameModel extends Model {
     //#region Pickup
 
     private void updatePickup() {
-        starFactory.update();
-        Pickup pickup = starFactory.getPickup();
+        pickupFactory.update();
+        Pickup pickup = pickupFactory.getPickup();
 
         if (pickup != null) {
             for (Ball ball : ballFactory.getBalls()) {
                 if (ball.willCollide(pickup)) {
                     ball.collide(pickup);
                     bonusController.receive(pickup.getBonusType(), ball.getLastTouchSide(), ball);
-                    starFactory.createStar();
+                    pickupFactory.createStar();
                     break;
                 }
             }

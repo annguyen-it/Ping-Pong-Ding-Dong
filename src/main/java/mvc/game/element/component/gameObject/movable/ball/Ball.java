@@ -2,7 +2,7 @@ package main.java.mvc.game.element.component.gameObject.movable.ball;
 
 import main.java.App;
 import main.java.mvc.game.element.function.intangible.GameSide.Side;
-import main.java.mvc.game.element.component.gameObject.immovable.star.Pickup;
+import main.java.mvc.game.element.component.gameObject.immovable.pickup.Pickup;
 import main.java.mvc.game.element.component.gameObject.movable.AllDirectionMovableGameObject;
 import main.java.mvc.game.element.component.gameObject.movable.paddle.LeftPaddle;
 import main.java.mvc.game.element.component.gameObject.movable.paddle.Paddle;

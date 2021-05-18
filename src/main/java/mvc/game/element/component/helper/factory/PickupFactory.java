@@ -1,19 +1,19 @@
 package main.java.mvc.game.element.component.helper.factory;
 
-import main.java.mvc.game.element.component.gameObject.immovable.star.Pickup;
+import main.java.mvc.game.element.component.gameObject.immovable.pickup.Pickup;
 import main.java.mvc.game.element.component.helper.controller.BonusController;
 import main.java.mvc.game.element.function.intangible.bonus.BonusType;
 
 import java.util.Calendar;
 
-public class StarFactory {
+public class PickupFactory {
 
     private static final int STAR_EXISTING_TIME = 10000;
 
     private final BonusController bonusController;
     private Pickup currentPickup;
 
-    public StarFactory(BonusController bonusController) {
+    public PickupFactory(BonusController bonusController) {
         this.bonusController = bonusController;
     }
 
@@ -30,8 +30,8 @@ public class StarFactory {
     }
 
     public void createStar() {
-        boolean duplicate;
         Pickup pickup;
+        boolean duplicate;
 
         do {
             pickup = new Pickup();

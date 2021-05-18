@@ -1,7 +1,7 @@
 package main.java.mvc.game.mechanics.ball;
 
 import main.java.mvc.game.element.component.gameObject.GameObject;
-import main.java.mvc.game.element.component.gameObject.immovable.star.Pickup;
+import main.java.mvc.game.element.component.gameObject.immovable.pickup.Pickup;
 import main.java.mvc.game.element.component.gameObject.movable.paddle.LeftPaddle;
 import main.java.mvc.game.element.component.gameObject.movable.paddle.Paddle;
 import main.java.mvc.game.element.component.gameObject.movable.paddle.RightPaddle;
@@ -48,7 +48,7 @@ public interface BallCollide extends GameObjectCollide {
      * Check whether if ball collides LeftPaddle
      *
      * @param pickup Pickup
-     * @return Ball and star collide or not
+     * @return Ball and pickup collide or not
      */
     boolean willCollide(Pickup pickup);
 
@@ -57,7 +57,7 @@ public interface BallCollide extends GameObjectCollide {
      *
      * @param causeObject Object which cause collision
      * @see main.java.mvc.game.element.component.gameObject.movable.paddle.Paddle
-     * @see main.java.mvc.game.element.component.gameObject.immovable.star.Pickup
+     * @see main.java.mvc.game.element.component.gameObject.immovable.pickup.Pickup
      */
     @Override
     default void collide(GameObject causeObject) {
@@ -75,7 +75,7 @@ public interface BallCollide extends GameObjectCollide {
      * @param object Object which needs to check
      * @see main.java.mvc.game.element.component.gameObject.movable.paddle.LeftPaddle
      * @see main.java.mvc.game.element.component.gameObject.movable.paddle.RightPaddle
-     * @see main.java.mvc.game.element.component.gameObject.immovable.star.Pickup
+     * @see main.java.mvc.game.element.component.gameObject.immovable.pickup.Pickup
      */
     @Override
     default boolean willCollide(GameObject object) {

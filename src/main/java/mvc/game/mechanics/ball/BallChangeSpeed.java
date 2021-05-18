@@ -1,7 +1,7 @@
 package main.java.mvc.game.mechanics.ball;
 
 import main.java.mvc.game.element.component.gameObject.GameObject;
-import main.java.mvc.game.element.component.gameObject.immovable.star.Pickup;
+import main.java.mvc.game.element.component.gameObject.immovable.pickup.Pickup;
 import main.java.mvc.game.element.component.gameObject.movable.paddle.Paddle;
 import main.java.mvc.game.mechanics.common.move.ChangeSpeed;
 
@@ -18,7 +18,7 @@ interface BallChangeSpeed extends ChangeSpeed<GameObject> {
      *
      * @param causeObject Object which makes ball change its speed
      * @see main.java.mvc.game.element.component.gameObject.movable.paddle.Paddle
-     * @see main.java.mvc.game.element.component.gameObject.immovable.star.Pickup
+     * @see main.java.mvc.game.element.component.gameObject.immovable.pickup.Pickup
      */
     @Override
     default void changeSpeed(GameObject causeObject) {
