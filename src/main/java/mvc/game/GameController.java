@@ -1,6 +1,6 @@
 package main.java.mvc.game;
 
-import main.java.mvc.game.board.GameAdapter;
+import main.java.mvc.game.keyListener.GameAdapter;
 import main.java.mvc.common.Controller;
 import main.java.mvc.common.flow.FlowController;
 import main.java.mvc.menu.MenuController;

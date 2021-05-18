@@ -1,10 +1,10 @@
 package main.java.mvc.game.mechanics.ball;
 
-import main.java.mvc.game.component.gameObject.GameObject;
-import main.java.mvc.game.component.gameObject.immovable.star.Pickup;
-import main.java.mvc.game.component.gameObject.movable.paddle.LeftPaddle;
-import main.java.mvc.game.component.gameObject.movable.paddle.Paddle;
-import main.java.mvc.game.component.gameObject.movable.paddle.RightPaddle;
+import main.java.mvc.game.element.component.gameObject.GameObject;
+import main.java.mvc.game.element.component.gameObject.immovable.star.Pickup;
+import main.java.mvc.game.element.component.gameObject.movable.paddle.LeftPaddle;
+import main.java.mvc.game.element.component.gameObject.movable.paddle.Paddle;
+import main.java.mvc.game.element.component.gameObject.movable.paddle.RightPaddle;
 import main.java.mvc.game.mechanics.common.collide.GameObjectCollide;
 
 /**
@@ -56,8 +56,8 @@ public interface BallCollide extends GameObjectCollide {
      * Receives a colliding object, then call to specific method to perform the collision.
      *
      * @param causeObject Object which cause collision
-     * @see main.java.mvc.game.component.gameObject.movable.paddle.Paddle
-     * @see main.java.mvc.game.component.gameObject.immovable.star.Pickup
+     * @see main.java.mvc.game.element.component.gameObject.movable.paddle.Paddle
+     * @see main.java.mvc.game.element.component.gameObject.immovable.star.Pickup
      */
     @Override
     default void collide(GameObject causeObject) {
@@ -73,9 +73,9 @@ public interface BallCollide extends GameObjectCollide {
      * Receives a colliding object, then call to specific method to check whether if ball collides GameObject
      *
      * @param object Object which needs to check
-     * @see main.java.mvc.game.component.gameObject.movable.paddle.LeftPaddle
-     * @see main.java.mvc.game.component.gameObject.movable.paddle.RightPaddle
-     * @see main.java.mvc.game.component.gameObject.immovable.star.Pickup
+     * @see main.java.mvc.game.element.component.gameObject.movable.paddle.LeftPaddle
+     * @see main.java.mvc.game.element.component.gameObject.movable.paddle.RightPaddle
+     * @see main.java.mvc.game.element.component.gameObject.immovable.star.Pickup
      */
     @Override
     default boolean willCollide(GameObject object) {

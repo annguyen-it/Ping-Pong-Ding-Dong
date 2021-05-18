@@ -1,3 +1,3 @@
 package main.java.mvc.common;
 
-public interface Model { }
+public abstract class Model { }

@@ -1,20 +1,20 @@
 package main.java.mvc.game;
 
-import main.java.mvc.game.board.GameSide;
-import main.java.mvc.game.board.GameSide.Side;
-import main.java.mvc.game.component.intangible.bonus.Bonus;
-import main.java.mvc.game.component.gameObject.immovable.star.Pickup;
-import main.java.mvc.game.component.gameObject.movable.ball.Ball;
-import main.java.mvc.game.component.gameObject.movable.paddle.*;
-import main.java.mvc.game.component.helper.factory.BallFactory;
-import main.java.mvc.game.component.helper.controller.BonusController;
-import main.java.mvc.game.component.helper.factory.StarFactory;
+import main.java.mvc.game.element.function.intangible.GameSide;
+import main.java.mvc.game.element.function.intangible.GameSide.Side;
+import main.java.mvc.game.element.function.intangible.bonus.Bonus;
+import main.java.mvc.game.element.component.gameObject.immovable.star.Pickup;
+import main.java.mvc.game.element.component.gameObject.movable.ball.Ball;
+import main.java.mvc.game.element.component.gameObject.movable.paddle.*;
+import main.java.mvc.game.element.component.helper.factory.BallFactory;
+import main.java.mvc.game.element.component.helper.controller.BonusController;
+import main.java.mvc.game.element.component.helper.factory.StarFactory;
 import main.java.mvc.common.Model;
 import main.java.mvc.game.sound.GameSoundPlayer;
 
 import java.util.List;
 
-public class GameModel implements Model {
+public class GameModel extends Model {
 
     //#region Properties
 
@@ -202,7 +202,7 @@ public class GameModel implements Model {
                 if (ball.willCollide(pickup)) {
                     ball.collide(pickup);
                     starFactory.createStar();
-                    bonusController.receive(pickup.getType(), ball.getLastTouch(), ball);
+                    bonusController.receive(pickup.getBonusType(), ball.getLastTouch(), ball);
                     break;
                 }
             }

@@ -1,15 +1,15 @@
 package main.java.mvc.game;
 
 import main.java.App;
-import main.java.mvc.game.board.Score;
+import main.java.mvc.game.element.function.intangible.Score;
 
-import main.java.mvc.game.component.gameObject.movable.paddle.LeftPaddle;
-import main.java.mvc.game.component.intangible.bonus.Bonus;
-import main.java.mvc.game.component.gameObject.immovable.star.Pickup;
-import main.java.mvc.game.component.gameObject.movable.ball.Ball;
-import main.java.mvc.game.component.gameObject.movable.paddle.Paddle;
+import main.java.mvc.game.element.component.gameObject.movable.paddle.LeftPaddle;
+import main.java.mvc.game.element.function.intangible.bonus.Bonus;
+import main.java.mvc.game.element.component.gameObject.immovable.star.Pickup;
+import main.java.mvc.game.element.component.gameObject.movable.ball.Ball;
+import main.java.mvc.game.element.component.gameObject.movable.paddle.Paddle;
 
-import main.java.mvc.common.model.PlayerNames;
+import main.java.mvc.common.model.PlayerNamesModel;
 import main.java.mvc.common.View;
 
 import java.awt.*;
@@ -27,11 +27,11 @@ public class GameView extends View {
 
     private GameController controller;
 
-    public GameView(PlayerNames playerNames) {
+    public GameView(PlayerNamesModel playerNamesModel) {
         super();
 
-        leftPlayerName = playerNames.getPlayerName1();
-        rightPlayerName = playerNames.getPlayerName2();
+        leftPlayerName = playerNamesModel.getPlayerName1();
+        rightPlayerName = playerNamesModel.getPlayerName2();
     }
 
     public void setController(GameController controller) {
