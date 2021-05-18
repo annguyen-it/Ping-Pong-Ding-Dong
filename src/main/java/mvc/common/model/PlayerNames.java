@@ -1,11 +1,11 @@
 package main.java.mvc.common.model;
 
-public class EnterNameDialogModel {
+public class PlayerNames {
 
     private final String playerName1;
     private final String playerName2;
 
-    public EnterNameDialogModel(String playerName1, String playerName2) {
+    public PlayerNames(String playerName1, String playerName2) {
         this.playerName1 = playerName1;
         this.playerName2 = playerName2;
     }

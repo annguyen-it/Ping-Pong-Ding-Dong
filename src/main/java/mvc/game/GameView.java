@@ -9,7 +9,7 @@ import main.java.mvc.game.component.gameObject.immovable.star.Pickup;
 import main.java.mvc.game.component.gameObject.movable.ball.Ball;
 import main.java.mvc.game.component.gameObject.movable.paddle.Paddle;
 
-import main.java.mvc.common.model.EnterNameDialogModel;
+import main.java.mvc.common.model.PlayerNames;
 import main.java.mvc.common.View;
 
 import java.awt.*;
@@ -27,11 +27,11 @@ public class GameView extends View {
 
     private GameController controller;
 
-    public GameView(EnterNameDialogModel enterNameDialogModel) {
+    public GameView(PlayerNames playerNames) {
         super();
 
-        leftPlayerName = enterNameDialogModel.getPlayerName1();
-        rightPlayerName = enterNameDialogModel.getPlayerName2();
+        leftPlayerName = playerNames.getPlayerName1();
+        rightPlayerName = playerNames.getPlayerName2();
     }
 
     public void setController(GameController controller) {

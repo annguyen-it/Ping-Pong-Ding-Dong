@@ -4,7 +4,7 @@ import main.java.mvc.game.GameController;
 import main.java.App;
 import main.java.mvc.common.Controller;
 import main.java.mvc.common.flow.FlowController;
-import main.java.mvc.common.model.EnterNameDialogModel;
+import main.java.mvc.common.model.PlayerNames;
 import main.java.mvc.game.GameModel;
 import main.java.utils.database.Database;
 import main.java.mvc.game.GameView;
@@ -64,7 +64,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
         playerName1 = view.getPlayerNameTextField1().getText();
         playerName2 = view.getPlayerNameTextField2().getText();
 
-        EnterNameDialogModel model = new EnterNameDialogModel(playerName1, playerName2);
+        PlayerNames model = new PlayerNames(playerName1, playerName2);
         GameView gameView = new GameView(model);
         GameModel gameModel = new GameModel();
 
