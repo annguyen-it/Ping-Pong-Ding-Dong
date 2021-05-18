@@ -120,17 +120,13 @@ public class MenuView extends View {
     //endregion
 
     public static class PlayerNameTextFieldLimit extends PlainDocument {
+
         public void insertString(int offset, String str, AttributeSet set) throws BadLocationException {
-            if (str == null) {}
-            else {
+            if (str != null) {
                 if ((getLength() + str.length()) <= 30) {
                     super.insertString(offset, str, set);
                 }
             }
         }
     }
-
-
-
-
 }

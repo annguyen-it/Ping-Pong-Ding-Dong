@@ -20,8 +20,4 @@ public interface BallMechanics extends
         BallCollide,
         OutTheBoard,
         WallCollide,
-        Resizeable {
-
-    @Override
-    default void sizeDown() { }
-}
+        BallResize { }

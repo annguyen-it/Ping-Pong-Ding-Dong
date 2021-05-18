@@ -7,7 +7,7 @@ public class GameSide {
         unknown
     }
 
-    public static Side opposite(Side side) {
+    public static Side getOpposite(Side side) {
         if (side == Side.left) {
             return Side.right;
         }

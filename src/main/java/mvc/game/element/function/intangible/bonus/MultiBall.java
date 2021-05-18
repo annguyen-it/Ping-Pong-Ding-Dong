@@ -17,7 +17,7 @@ public class MultiBall extends Bonus {
         int x = ball.getX();
         int y = ball.getY();
         int size = ball.getSize();
-        Side lastTouch = ball.getLastTouch();
+        Side lastTouch = ball.getLastTouchSide();
         Vector vector = ball.getVector();
         double speed = ball.getSpeed();
 

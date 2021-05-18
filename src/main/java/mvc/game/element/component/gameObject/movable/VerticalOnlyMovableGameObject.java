@@ -9,7 +9,6 @@ public abstract class VerticalOnlyMovableGameObject extends MovableGameObject im
         super(x, y, vector, speed);
     }
 
-    /// TODO: Will we need this?
     @Override
     public void tryMove() {
         if (vector.getX() != 0){

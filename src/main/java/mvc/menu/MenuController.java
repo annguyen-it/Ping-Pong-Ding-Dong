@@ -180,7 +180,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                         tabbedPane.add("Top Wins", getTopWinTab());
 
                         tabbedPane.setBackground(Color.yellow);
-                        tabbedPane.setPreferredSize(new Dimension(500,255));
+                        tabbedPane.setPreferredSize(new Dimension(500, 255));
                         tabbedPane.setFocusable(false);
 
                         showExhibition(tabbedPane);
@@ -263,12 +263,12 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                 return new JScrollPane(topWinTable);
             }
 
-            private void setupTable(JTable table){
+            private void setupTable(JTable table) {
                 table.setDefaultEditor(Object.class, null);
                 table.setFocusable(false);
             }
 
-            private void decorateTable(JTable table){
+            private void decorateTable(JTable table) {
 
                 table.setGridColor(Color.YELLOW);
                 table.setBackground(Color.YELLOW);

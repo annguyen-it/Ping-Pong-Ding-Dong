@@ -1,7 +1,7 @@
 package main.java.mvc.game.element.component.gameObject.movable.paddle;
 
 import main.java.App;
-import main.java.mvc.game.element.function.intangible.GameSide;
+import main.java.mvc.game.element.function.intangible.GameSide.Side;
 import main.java.mvc.game.element.function.intangible.Score;
 import main.java.mvc.game.element.component.gameObject.movable.VerticalOnlyMovableGameObject;
 import main.java.mvc.game.mechanics.paddle.PaddleMechanics;
@@ -9,13 +9,13 @@ import main.java.mvc.game.element.function.intangible.Vector;
 
 public abstract class Paddle extends VerticalOnlyMovableGameObject implements PaddleMechanics {
 
+    private static final int INITIAL_HEIGHT = 100;
+    protected static final int INITIAL_WIDTH = 16;
+    protected static final int DISTANCE_TO_CROSS = 30;
+    public static final int INITIAL_Y = App.HEIGHT/2 - INITIAL_HEIGHT/2;
+
     private static final Vector INITIAL_VECTOR = new Vector();
     private static final double INITIAL_SPEED = 9;
-
-    public static final int INITIAL_WIDTH = 16;
-    public static final int INITIAL_HEIGHT = 100;
-    public static final int DISTANCE_TO_CROSS = 30;
-    public static final int INITIAL_Y = App.HEIGHT/2 - INITIAL_HEIGHT/2;
 
     private static final int MAX_HEIGHT = 150;
     private static final int MIN_HEIGHT = 50;
@@ -23,12 +23,12 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
     private int height = INITIAL_HEIGHT;
 
     protected Score score = new Score();
-    private final GameSide.Side side;
+    private final Side side;
 
-    public Paddle(GameSide.Side side, int x, int y) {
-        super(x, y, INITIAL_VECTOR, INITIAL_SPEED);
+    public Paddle(Side side, int x) {
+        super(x, INITIAL_Y, INITIAL_VECTOR, INITIAL_SPEED);
+
         this.side = side;
-        speed = INITIAL_SPEED;
     }
 
     public int getHeight() {
@@ -69,14 +69,14 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
 
     @Override
     public void returnInitialSpeed() {
-        if (speed < INITIAL_SPEED){
+        if (speed < INITIAL_SPEED) {
             speed = INITIAL_SPEED;
         }
     }
 
     @Override
     public void speedDown() {
-        if (speed == INITIAL_SPEED){
+        if (speed == INITIAL_SPEED) {
             speed -= 4;
         }
     }
@@ -98,8 +98,8 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
 
     @Override
     public boolean willWallCollide() {
-        double nextPos = y + vector.getY();
-        return nextPos < 0 || nextPos + height + 40 > App.HEIGHT;
+        double nextPositionY = y + vector.getY();
+        return nextPositionY < 0 || nextPositionY + height + 40 > App.HEIGHT;
     }
 
     @Override
@@ -124,7 +124,7 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
         return score;
     }
 
-    public GameSide.Side getSide() {
+    public Side getSide() {
         return side;
     }
 }

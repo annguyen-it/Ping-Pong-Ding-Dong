@@ -26,7 +26,6 @@ public class GameController extends Controller<GameView, GameModel> implements A
     private static final int SPACE = KeyEvent.VK_SPACE;
 
     private Timer gameTimer;
-
     private boolean isStarted = false;
 
     public GameController(FlowController flowController, GameView view, GameModel model) {
@@ -252,7 +251,6 @@ public class GameController extends Controller<GameView, GameModel> implements A
 
         reset();
     }
-
 
     public String getNameWinner() {
         return model.getLeftPaddle().getScore() > model.getRightPaddle().getScore()

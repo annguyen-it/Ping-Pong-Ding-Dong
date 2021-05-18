@@ -13,7 +13,7 @@ public class SlowlyPaddle extends Bonus implements HasTimeLimit {
 
     @Override
     public void activate() {
-        affectedPaddle = gameModel.getPaddle(GameSide.opposite(receiveSide));
+        affectedPaddle = gameModel.getPaddle(GameSide.getOpposite(receiveSide));
         affectedPaddle.speedDown();
     }
 

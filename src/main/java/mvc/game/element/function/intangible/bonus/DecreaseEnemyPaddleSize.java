@@ -10,11 +10,11 @@ public class DecreaseEnemyPaddleSize extends Bonus implements HasTimeLimit {
 
     @Override
     public void activate() {
-        gameModel.getPaddle(GameSide.opposite(receiveSide)).sizeDown();
+        gameModel.getPaddle(GameSide.getOpposite(receiveSide)).sizeDown();
     }
 
     @Override
     public void deactivate() {
-        gameModel.getPaddle(GameSide.opposite(receiveSide)).returnInitialSize();
+        gameModel.getPaddle(GameSide.getOpposite(receiveSide)).returnInitialSize();
     }
 }

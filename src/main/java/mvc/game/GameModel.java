@@ -19,15 +19,14 @@ public class GameModel extends Model {
     //#region Properties
 
     private GameController controller;
-
     private GameSoundPlayer soundPlayer = new GameSoundPlayer();
 
     private LeftPaddle leftPaddle = new LeftPaddle();
     private RightPaddle rightPaddle = new RightPaddle();
 
     private BonusController bonusController = new BonusController(this);
-    private BallFactory ballFactory = new BallFactory(soundPlayer);
     private PickupFactory pickupFactory = new PickupFactory(bonusController);
+    private BallFactory ballFactory = new BallFactory(soundPlayer);
 
     //#endregion
 
@@ -66,15 +65,15 @@ public class GameModel extends Model {
         return null;
     }
 
-    public List<Ball> getBalls() {
-        return ballFactory.getBalls();
+    public List<Ball> getBallList() {
+        return ballFactory.getBallList();
     }
 
-    public Pickup getStar() {
+    public Pickup getPickup() {
         return pickupFactory.getPickup();
     }
 
-    public List<Bonus> getBonus() {
+    public List<Bonus> getBonusList() {
         return bonusController.getBonusList();
     }
 
@@ -115,7 +114,7 @@ public class GameModel extends Model {
         leftPaddle.tryMove();
         rightPaddle.tryMove();
 
-        for (Ball ball : ballFactory.getBalls()) {
+        for (Ball ball : ballFactory.getBallList()) {
             if (ball.willCollide(leftPaddle)) {
                 ball.collide(leftPaddle);
             }
@@ -130,7 +129,7 @@ public class GameModel extends Model {
     //#region Ball
 
     private void updateBall() {
-        List<Ball> balls = ballFactory.getBalls();
+        List<Ball> balls = ballFactory.getBallList();
 
         for (int i = 0; i < balls.size(); ) {
             balls.get(i).tryMove();
@@ -162,7 +161,7 @@ public class GameModel extends Model {
             removeActivatedBonus();
 
             if (shouldContinue()) {
-                createNewBall(GameSide.opposite(loseSide));
+                createNewBall(GameSide.getOpposite(loseSide));
             }
             else if (controller.isStarted()){
                 controller.over();
@@ -198,11 +197,11 @@ public class GameModel extends Model {
         Pickup pickup = pickupFactory.getPickup();
 
         if (pickup != null) {
-            for (Ball ball : ballFactory.getBalls()) {
+            for (Ball ball : ballFactory.getBallList()) {
                 if (ball.willCollide(pickup)) {
                     ball.collide(pickup);
                     bonusController.receive(pickup.getBonusType(), ball.getLastTouchSide(), ball);
-                    pickupFactory.createStar();
+                    pickupFactory.create();
                     break;
                 }
             }

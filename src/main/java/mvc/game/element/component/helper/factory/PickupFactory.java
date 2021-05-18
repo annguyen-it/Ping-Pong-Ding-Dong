@@ -8,7 +8,7 @@ import java.util.Calendar;
 
 public class PickupFactory {
 
-    private static final int STAR_EXISTING_TIME = 10000;
+    private static final int PICKUP_EXISTING_TIME = 10000;
 
     private final BonusController bonusController;
     private Pickup currentPickup;
@@ -24,12 +24,12 @@ public class PickupFactory {
     public void update() {
         long currentTime = Calendar.getInstance().getTimeInMillis();
 
-        if (currentPickup == null || currentTime - currentPickup.getAppearTime() >= STAR_EXISTING_TIME) {
-            createStar();
+        if (currentPickup == null || currentTime - currentPickup.getAppearTime() >= PICKUP_EXISTING_TIME) {
+            create();
         }
     }
 
-    public void createStar() {
+    public void create() {
         Pickup pickup;
         boolean duplicate;
 
@@ -37,7 +37,7 @@ public class PickupFactory {
             pickup = new Pickup();
             duplicate = false;
 
-            for (BonusType type : bonusController.getExcludeBonusType()) {
+            for (BonusType type : bonusController.getExcludeBonusTypeList()) {
                 if (pickup.getBonusType() == type) {
                     duplicate = true;
                     break;

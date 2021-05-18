@@ -22,21 +22,22 @@ import java.awt.*;
 public class Ball extends AllDirectionMovableGameObject implements BallMechanics {
 
     //#region Properties
-    private static final int INITIAL_BALL_X = 588;
-    private static final int INITIAL_BALL_Y = 388;
-    private static final int MAX_SPEED = 15;
-    private static final int MIN_SPEED = 8;
+    private static final int INITIAL_X = 588;
+    private static final int INITIAL_Y = 388;
+    private static final int INITIAL_SIZE = 24;
     private static final double INITIAL_SPEED = 9;
-    private static final int BONUS_MAX_SPEED = 20;
-    private static final int BONUS_MIN_SPEED = 13;
+
+    private static final double MAX_SPEED = 15;
+    private static final double MIN_SPEED = 8;
+    private static final double BONUS_MAX_SPEED = 20;
+    private static final double BONUS_MIN_SPEED = 13;
 
     private static final Vector INITIAL_TO_LEFT_VECTOR = new Vector(180);
     private static final Vector INITIAL_TO_RIGHT_VECTOR = new Vector(0);
 
-    public static final int INITIAL_SIZE = 24;
-
-    private Side lastTouch;
     private final GameSoundPlayer soundPlayer;
+
+    private Side lastTouchSide;
     private int size;
 
     //#endregion
@@ -49,7 +50,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      * @param soundPlayer Sound player of ball
      */
     public Ball(GameSoundPlayer soundPlayer) {
-        this(soundPlayer, randomInitialSide());
+        this(randomInitialSide(), soundPlayer);
     }
 
     /**
@@ -59,16 +60,17 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      * @param soundPlayer      Sound player of ball
      * @param initialDirection Initial direction of ball
      */
-    public Ball(GameSoundPlayer soundPlayer, Side initialDirection) {
-        this(soundPlayer, INITIAL_BALL_X, INITIAL_BALL_Y, INITIAL_SIZE, getInitialVector(initialDirection), INITIAL_SPEED,
-                Side.unknown);
+    public Ball(Side initialDirection, GameSoundPlayer soundPlayer) {
+        this(INITIAL_X, INITIAL_Y, getInitialVector(initialDirection), INITIAL_SPEED, INITIAL_SIZE,
+                Side.unknown, soundPlayer);
     }
 
-    public Ball(GameSoundPlayer soundPlayer, int x, int y, int size, Vector vector, double speed, Side lastTouch) {
+    public Ball(int x, int y, Vector vector, double speed, int size, Side lastTouchSide, GameSoundPlayer soundPlayer) {
         super(x, y, vector, speed);
-        this.soundPlayer = soundPlayer;
+
         this.size = size;
-        this.lastTouch = lastTouch;
+        this.lastTouchSide = lastTouchSide;
+        this.soundPlayer = soundPlayer;
     }
 
     //#endregion
@@ -113,12 +115,12 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
         return size;
     }
 
-    public Side getLastTouch() {
-        return lastTouch;
+    public Side getLastTouchSide() {
+        return lastTouchSide;
     }
 
     /**
-     * Get ratio of collision of ball to paddle (0% at top of paddle to 100% at bottom).
+     * Get ratio of collision of ball to paddle (0.0 at top of paddle to 1.0 at bottom).
      *
      * @param paddle Collided paddle
      *
@@ -200,22 +202,22 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     @Override
     public void changeDirection(LeftPaddle paddle) {
         double ratio = getRatioCollision(paddle);
-        double gamma = 45 - ratio*90;
+        double alpha = 45 - ratio*90;
 
-        if (gamma >= 0) {
-            vector = new Vector(gamma);
+        if (alpha >= 0) {
+            vector = new Vector(alpha);
         }
         else {
-            vector = new Vector(360 + gamma);
+            vector = new Vector(360 + alpha);
         }
     }
 
     @Override
     public void changeDirection(RightPaddle paddle) {
         double ratio = getRatioCollision(paddle);
-        double gamma = ratio*90 - 45;
+        double alpha = ratio*90 - 45;
 
-        vector = new Vector(180 + gamma);
+        vector = new Vector(180 + alpha);
     }
 
     @Override
@@ -253,9 +255,9 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     //#region Collide
     @Override
     public boolean willWallCollide() {
-        double nextPosY = y + vector.getY();
-        return (nextPosY < 0 && vector.getY() < 0) ||
-               (nextPosY + size + 40 > App.HEIGHT && vector.getY() > 0);
+        double nextPositionY = y + vector.getY();
+        return (nextPositionY < 0 && vector.getY() < 0) ||
+               (nextPositionY + size + 40 > App.HEIGHT && vector.getY() > 0);
     }
 
     @Override
@@ -267,13 +269,19 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     /**
      * @param paddle LeftPaddle
      *
-     * @return true if reach all below condition:
-     * (1) Ball is moving to the left.
-     * (2) Ball must be between paddle's width.
-     * (3) Ball must be between paddle's height.
-     * (4) If ball speed is larger than paddle's width, a serious bug will be caused: Ball goes through the paddle.
-     * Because in that case, ball's X coordinate will be increased immediately, large enough to reach out paddle's bound
-     * So, we must add this condition.
+     * @return <ul>
+     * <li>true if reach all below condition:
+     *      <ol>
+     *          <li>Ball is moving to the left.</li>
+     *          <li>Ball must be between paddle's width.</li>
+     *          <li>Ball must be between paddle's height.</li>
+     *          <li>If ball speed is larger than paddle's width, a serious bug will be caused: Ball goes through the paddle.
+     *              Because in that case, ball's X coordinate will be increased immediately, large enough to reach out paddle's bound
+     *              So, we must add this condition.</li>
+     *      </ol>
+     *  </li>
+     *  <li>else, return false</li>
+     *  </ul>
      */
     @Override
     public boolean willCollide(LeftPaddle paddle) {
@@ -289,13 +297,19 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     /**
      * @param paddle RightPaddle
      *
-     * @return true if reach all below condition:
-     * (1) Ball is moving to the right.
-     * (2) Ball must be between paddle's width.
-     * (3) Ball must be between paddle's height.
-     * (4) If ball speed is larger than paddle's width, a serious bug will be caused: Ball goes through the paddle.
-     * Because in that case, ball's X coordinate will be increased immediately, large enough to reach out paddle's bound
-     * So, we must add this condition.
+     * @return <ul>
+     * <li>true if reach all below condition:
+     *      <ol>
+     *          <li>Ball is moving to the right.</li>
+     *          <li>Ball must be between paddle's width.</li>
+     *          <li>Ball must be between paddle's height.</li>
+     *          <li>If ball speed is larger than paddle's width, a serious bug will be caused: Ball goes through the paddle.
+     *              Because in that case, ball's X coordinate will be increased immediately, large enough to reach out paddle's bound
+     *              So, we must add this condition.</li>
+     *      </ol>
+     *  </li>
+     *  <li>else, return false</li>
+     *  </ul>
      */
     @Override
     public boolean willCollide(RightPaddle paddle) {
@@ -310,7 +324,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
 
     @Override
     public boolean willCollide(Pickup pickup) {
-        return getBallBound().intersects(pickup.getBound()) && lastTouch != Side.unknown;
+        return getBallBound().intersects(pickup.getBound()) && lastTouchSide != Side.unknown;
     }
 
     private Rectangle getBallBound() {
@@ -319,7 +333,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
 
     @Override
     public void collide(Paddle paddle) {
-        lastTouch = paddle.getSide();
+        lastTouchSide = paddle.getSide();
 
         changeSpeed(paddle);
         changeDirection(paddle);
@@ -328,7 +342,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
 
     @Override
     public void collide(Pickup __) {
-        soundPlayer.ballCollideStar();
+        soundPlayer.ballCollidePickup();
     }
     //#endregion
 }

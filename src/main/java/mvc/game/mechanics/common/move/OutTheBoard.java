@@ -5,8 +5,7 @@ import main.java.mvc.game.mechanics.Mechanic;
 
 /**
  * Mechanic to determine implementation is out of the board.
- * <p>
- * We just care about horizontal axis
+ * <p>We just care about horizontal axis</p>
  *
  * @see main.java.mvc.game.mechanics.Mechanic
  */

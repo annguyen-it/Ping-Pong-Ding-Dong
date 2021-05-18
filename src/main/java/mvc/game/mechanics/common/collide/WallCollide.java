@@ -2,8 +2,7 @@ package main.java.mvc.game.mechanics.common.collide;
 
 /**
  * Mechanic to handle collision between implementation and wall.
- * <p>
- * We just care about vertical axis
+ * <p>We just care about vertical axis</p>
  *
  * @see main.java.mvc.game.mechanics.common.collide.Collide
  */
