@@ -21,7 +21,7 @@ abstract public class Bonus {
             new AbstractMap.SimpleEntry<>(BonusType.decreaseEnemyPaddleSize, "resources/img/decrease-enemy-paddle-size.png")
     );
 
-    public static final int EXIST_TIME = 8800;
+    public static final int EXIST_TIME = 2200;
 
     protected final BonusType bonusType;
     private final BonusProcessBar processBar = this instanceof HasTimeLimit ? new BonusProcessBar(this) : null;
