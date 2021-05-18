@@ -264,24 +264,48 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
         vector = vector.getReflection();
     }
 
+    /**
+     * @param paddle LeftPaddle
+     *
+     * @return true if reach all below condition:
+     * (1) Ball is moving to the left.
+     * (2) Ball must be between paddle's width.
+     * (3) Ball must be between paddle's height.
+     * (4) If ball speed is larger than paddle's width, a serious bug will be caused: Ball goes through the paddle.
+     * Because in that case, ball's X coordinate will be increased immediately, large enough to reach out paddle's bound
+     * So, we must add this condition.
+     */
     @Override
     public boolean willCollide(LeftPaddle paddle) {
         int paddleX = paddle.getX();
         int paddleY = paddle.getY();
 
-        return vector.getX() < 0 &&
-               paddleX <= x && x <= paddleX + paddle.getWidth() &&
-               paddleY <= y + size && y <= paddleY + paddle.getHeight();
+        return vector.getX() < 0 &&                                                 //  (1)
+               paddleX <= x && x <= paddleX + paddle.getWidth() &&                  //  (2)
+               paddleY <= y + size && y <= paddleY + paddle.getHeight() &&          //  (3)
+               (speed < paddle.getWidth() || paddleX <= x && x <= paddleX + speed); //  (4)
     }
 
+    /**
+     * @param paddle RightPaddle
+     *
+     * @return true if reach all below condition:
+     * (1) Ball is moving to the right.
+     * (2) Ball must be between paddle's width.
+     * (3) Ball must be between paddle's height.
+     * (4) If ball speed is larger than paddle's width, a serious bug will be caused: Ball goes through the paddle.
+     * Because in that case, ball's X coordinate will be increased immediately, large enough to reach out paddle's bound
+     * So, we must add this condition.
+     */
     @Override
     public boolean willCollide(RightPaddle paddle) {
         int paddleX = paddle.getX();
         int paddleY = paddle.getY();
 
-        return vector.getX() > 0 &&
-               paddleX <= x + size && x + size < paddleX + paddle.getWidth() &&
-               paddleY <= y + size && y <= paddleY + paddle.getHeight();
+        return vector.getX() > 0 &&                                                                 //  (1)
+               paddleX <= x + size && x + size <= paddleX + paddle.getWidth() &&                    //  (2)
+               paddleY <= y + size && y <= paddleY + paddle.getHeight() &&                          //  (3)
+               (speed < paddle.getWidth() || paddleX <= x + size && x + size <= paddleX + speed);   //  (4)
     }
 
     @Override
