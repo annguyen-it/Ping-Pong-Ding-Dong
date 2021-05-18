@@ -1,7 +1,7 @@
 package v2.mechanics.ball;
 
 import v2.component.gameObject.GameObject;
-import v2.component.gameObject.immovable.star.Star;
+import v2.component.gameObject.immovable.star.Pickup;
 import v2.component.gameObject.movable.paddle.Paddle;
 import v2.mechanics.common.move.ChangeSpeed;
 
@@ -18,15 +18,15 @@ interface BallChangeSpeed extends ChangeSpeed<GameObject> {
      *
      * @param causeObject Object which makes ball change its speed
      * @see v2.component.gameObject.movable.paddle.Paddle
-     * @see v2.component.gameObject.immovable.star.Star
+     * @see v2.component.gameObject.immovable.star.Pickup
      */
     @Override
     default void changeSpeed(GameObject causeObject) {
         if (causeObject instanceof Paddle) {
             changeSpeed((Paddle) causeObject);
         }
-        else if (causeObject instanceof Star) {
-            changeSpeed((Star) causeObject);
+        else if (causeObject instanceof Pickup) {
+            changeSpeed((Pickup) causeObject);
         }
     }
 
@@ -38,11 +38,11 @@ interface BallChangeSpeed extends ChangeSpeed<GameObject> {
     void changeSpeed(Paddle paddle);
 
     /**
-     * Ball is change by Star
+     * Ball is change by Pickup
      *
-     * @param star Star
+     * @param pickup Pickup
      */
-    default void changeSpeed(Star star){
+    default void changeSpeed(Pickup pickup){
         speedUp();
     }
 

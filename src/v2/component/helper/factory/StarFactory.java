@@ -1,6 +1,6 @@
 package v2.component.helper.factory;
 
-import v2.component.gameObject.immovable.star.Star;
+import v2.component.gameObject.immovable.star.Pickup;
 import v2.component.helper.controller.BonusController;
 import v2.component.intangible.bonus.BonusType;
 
@@ -11,34 +11,34 @@ public class StarFactory {
     private static final int STAR_EXISTING_TIME = 10000;
 
     private final BonusController bonusController;
-    private Star currentStar;
+    private Pickup currentPickup;
 
     public StarFactory(BonusController bonusController) {
         this.bonusController = bonusController;
     }
 
-    public Star getStar() {
-        return currentStar;
+    public Pickup getPickup() {
+        return currentPickup;
     }
 
     public void update() {
         long currentTime = Calendar.getInstance().getTimeInMillis();
 
-        if (currentStar == null || currentTime - currentStar.getAppearTime() >= STAR_EXISTING_TIME) {
+        if (currentPickup == null || currentTime - currentPickup.getAppearTime() >= STAR_EXISTING_TIME) {
             createStar();
         }
     }
 
     public void createStar() {
         boolean duplicate;
-        Star star;
+        Pickup pickup;
 
         do {
-            star = new Star();
+            pickup = new Pickup();
             duplicate = false;
 
             for (BonusType type : bonusController.getExcludeBonusType()) {
-                if (star.getType() == type) {
+                if (pickup.getType() == type) {
                     duplicate = true;
                     break;
                 }
@@ -46,6 +46,6 @@ public class StarFactory {
         }
         while (duplicate);
 
-        currentStar = star;
+        currentPickup = pickup;
     }
 }

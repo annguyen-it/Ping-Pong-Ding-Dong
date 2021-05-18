@@ -2,7 +2,7 @@ package v2.component.gameObject.movable.ball;
 
 import v2.Game;
 import v2.board.GameSide.Side;
-import v2.component.gameObject.immovable.star.Star;
+import v2.component.gameObject.immovable.star.Pickup;
 import v2.component.gameObject.movable.AllDirectionMovableGameObject;
 import v2.component.gameObject.movable.paddle.LeftPaddle;
 import v2.component.gameObject.movable.paddle.Paddle;
@@ -285,8 +285,8 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     }
 
     @Override
-    public boolean willCollide(Star star) {
-        return getBallBound().intersects(star.getBound()) && lastTouch != Side.unknown;
+    public boolean willCollide(Pickup pickup) {
+        return getBallBound().intersects(pickup.getBound()) && lastTouch != Side.unknown;
     }
 
     private Rectangle getBallBound() {
@@ -303,7 +303,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     }
 
     @Override
-    public void collide(Star __) {
+    public void collide(Pickup __) {
         soundPlayer.ballCollideStar();
     }
     //#endregion

@@ -3,7 +3,7 @@ package v2.model;
 import v2.board.GameSide;
 import v2.board.GameSide.Side;
 import v2.component.intangible.bonus.Bonus;
-import v2.component.gameObject.immovable.star.Star;
+import v2.component.gameObject.immovable.star.Pickup;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.*;
 import v2.component.helper.factory.BallFactory;
@@ -69,8 +69,8 @@ public class GameModel implements Model {
         return ballFactory.getBalls();
     }
 
-    public Star getStar() {
-        return starFactory.getStar();
+    public Pickup getStar() {
+        return starFactory.getPickup();
     }
 
     public List<Bonus> getBonus() {
@@ -90,7 +90,7 @@ public class GameModel implements Model {
     public void update() {
         updatePaddles();
         updateBall();
-        updateStar();
+        updatePickup();
         updateBonus();
     }
 
@@ -188,18 +188,18 @@ public class GameModel implements Model {
 
     //#endregion
 
-    //#region Star
+    //#region Pickup
 
-    private void updateStar() {
+    private void updatePickup() {
         starFactory.update();
-        Star star = starFactory.getStar();
+        Pickup pickup = starFactory.getPickup();
 
-        if (star != null) {
+        if (pickup != null) {
             for (Ball ball : ballFactory.getBalls()) {
-                if (ball.willCollide(star)) {
-                    ball.collide(star);
+                if (ball.willCollide(pickup)) {
+                    ball.collide(pickup);
                     starFactory.createStar();
-                    bonusController.receive(star.getType(), ball.getLastTouch(), ball);
+                    bonusController.receive(pickup.getType(), ball.getLastTouch(), ball);
                     break;
                 }
             }

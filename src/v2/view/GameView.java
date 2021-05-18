@@ -5,7 +5,7 @@ import v2.board.Score;
 
 import v2.component.gameObject.movable.paddle.LeftPaddle;
 import v2.component.intangible.bonus.Bonus;
-import v2.component.gameObject.immovable.star.Star;
+import v2.component.gameObject.immovable.star.Pickup;
 import v2.component.gameObject.movable.ball.Ball;
 import v2.component.gameObject.movable.paddle.Paddle;
 
@@ -143,13 +143,13 @@ public class GameView extends View {
     }
 
     private void paintStar(Graphics g) {
-        Star star = controller.getModel().getStar();
+        Pickup pickup = controller.getModel().getStar();
 
-        if (star != null) {
+        if (pickup != null) {
 
-            Image image = getToolkit().getImage(star.getImagePath());
+            Image image = getToolkit().getImage(pickup.getImagePath());
 
-            g.drawImage(image, star.getX(), star.getY(), null);
+            g.drawImage(image, pickup.getX(), pickup.getY(), null);
         }
     }
 

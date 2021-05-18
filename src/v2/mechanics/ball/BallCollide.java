@@ -1,7 +1,7 @@
 package v2.mechanics.ball;
 
 import v2.component.gameObject.GameObject;
-import v2.component.gameObject.immovable.star.Star;
+import v2.component.gameObject.immovable.star.Pickup;
 import v2.component.gameObject.movable.paddle.LeftPaddle;
 import v2.component.gameObject.movable.paddle.Paddle;
 import v2.component.gameObject.movable.paddle.RightPaddle;
@@ -24,9 +24,9 @@ public interface BallCollide extends GameObjectCollide {
     /**
      * Perform collision with Paddle
      *
-     * @param star Star
+     * @param pickup Pickup
      */
-    void collide(Star star);
+    void collide(Pickup pickup);
 
     /**
      * Check whether if ball collides LeftPaddle
@@ -47,25 +47,25 @@ public interface BallCollide extends GameObjectCollide {
     /**
      * Check whether if ball collides LeftPaddle
      *
-     * @param star Star
+     * @param pickup Pickup
      * @return Ball and star collide or not
      */
-    boolean willCollide(Star star);
+    boolean willCollide(Pickup pickup);
 
     /**
      * Receives a colliding object, then call to specific method to perform the collision.
      *
      * @param causeObject Object which cause collision
      * @see v2.component.gameObject.movable.paddle.Paddle
-     * @see v2.component.gameObject.immovable.star.Star
+     * @see v2.component.gameObject.immovable.star.Pickup
      */
     @Override
     default void collide(GameObject causeObject) {
         if (causeObject instanceof Paddle) {
             collide((Paddle) causeObject);
         }
-        else if (causeObject instanceof Star) {
-            collide((Star) causeObject);
+        else if (causeObject instanceof Pickup) {
+            collide((Pickup) causeObject);
         }
     }
 
@@ -75,7 +75,7 @@ public interface BallCollide extends GameObjectCollide {
      * @param object Object which needs to check
      * @see v2.component.gameObject.movable.paddle.LeftPaddle
      * @see v2.component.gameObject.movable.paddle.RightPaddle
-     * @see v2.component.gameObject.immovable.star.Star
+     * @see v2.component.gameObject.immovable.star.Pickup
      */
     @Override
     default boolean willCollide(GameObject object) {
@@ -85,8 +85,8 @@ public interface BallCollide extends GameObjectCollide {
         else if (object instanceof RightPaddle) {
             willCollide((RightPaddle) object);
         }
-        else if (object instanceof Star) {
-            willCollide((Star) object);
+        else if (object instanceof Pickup) {
+            willCollide((Pickup) object);
         }
 
         return false;

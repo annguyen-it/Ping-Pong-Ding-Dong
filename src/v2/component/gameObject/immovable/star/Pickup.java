@@ -8,13 +8,13 @@ import v2.component.intangible.bonus.BonusType;
 import java.awt.*;
 import java.util.Calendar;
 
-public class Star extends ImmovableGameObject {
+public class Pickup extends ImmovableGameObject {
 
     private final long appearTime;
     private final String imagePath;
     private final BonusType type;
 
-    public Star() {
+    public Pickup() {
         super(randomX(), randomY());
         appearTime = Calendar.getInstance().getTimeInMillis();
 
