@@ -132,7 +132,6 @@ public class MenuView extends View {
             if (str == null) {}
             else {
                 if ((getLength() + str.length()) <= limit) {
-                    str = str.toUpperCase(Locale.ROOT);
                     super.insertString(offset, str, set);
                 }
             }
