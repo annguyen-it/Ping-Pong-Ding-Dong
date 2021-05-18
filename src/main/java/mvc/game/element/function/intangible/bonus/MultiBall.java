@@ -21,7 +21,13 @@ public class MultiBall extends Bonus {
         Vector vector = ball.getVector();
         double speed = ball.getSpeed();
 
-        gameModel.addBall(new Ball(soundPlayer, x, y, size, vector.getReflection(), speed, lastTouch));
-        gameModel.addBall(new Ball(soundPlayer, x, y, size, vector.getOpposite(), speed, lastTouch));
+        gameModel.addBall(new Ball(x, y, vector.getOpposite(), speed, size, lastTouch, soundPlayer));
+
+        if (vector.isHorizontalVector()){
+            gameModel.addBall(new Ball(x, y, new Vector(vector.getAlpha() + 30), speed, size, lastTouch, soundPlayer));
+        }
+        else {
+            gameModel.addBall(new Ball(x, y, vector.getReflection(), speed, size, lastTouch, soundPlayer));
+        }
     }
 }

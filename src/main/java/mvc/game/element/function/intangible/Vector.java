@@ -19,6 +19,10 @@ public class Vector {
      */
 
     public Vector(double alpha) {
+        if (alpha >= 360) {
+            alpha = 359;
+        }
+
         if (alpha == 90) {
             x = 0;
             y = -1;
@@ -55,6 +59,10 @@ public class Vector {
         return y;
     }
 
+    public double getAlpha() {
+        return alpha;
+    }
+
     public Vector getReflection() {
         return new Vector(360 - alpha);
     }
@@ -67,34 +75,7 @@ public class Vector {
         return new Vector(alpha - 180);
     }
 
-    public int compareOpenAngle(Vector v) {
-        if (((0 <= alpha && alpha <= 90) || (270 <= alpha && alpha < 360)) &&
-            ((0 <= v.alpha && v.alpha <= 90) || (270 <= v.alpha && v.alpha < 360))) {
-
-            double a = alpha <= 90
-                    ? alpha
-                    : 360 - alpha;
-
-            double av = v.alpha <= 90
-                    ? v.alpha
-                    : 360 - v.alpha;
-
-            return Double.compare(a, av);
-        }
-        else if ((90 < alpha && alpha < 270) &&
-                 ((90 < v.alpha && v.alpha < 270))) {
-
-            double a = alpha <= 180
-                    ? 180 - alpha
-                    : alpha - 180;
-
-            double av = v.alpha <= 180
-                    ? 180 - v.alpha
-                    : v.alpha - 180;
-
-            return Double.compare(a, av);
-        }
-
-        return 0;
+    public boolean isHorizontalVector() {
+        return alpha == 0 || alpha == 180;
     }
 }
