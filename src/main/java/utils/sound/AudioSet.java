@@ -24,6 +24,16 @@ class AudioSet {
         clip.start();
     }
 
+    public void stop(){
+        clip.stop();
+    }
+
+    public void playLoop(){
+        loadClip();
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+        clip.start();
+    }
+
     private void loadClip(){
         try {
             AudioInputStream stream = getStream(file);

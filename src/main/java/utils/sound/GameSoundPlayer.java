@@ -14,6 +14,7 @@ public class GameSoundPlayer {
     private static final File lostBallFile = new File("src/main/resources/audio/lost-ball.wav");
     private static final File joinGameAudioFile = new File("src/main/resources/audio/join-game.wav");
     private static final File ballCollideStarAudioFile = new File("src/main/resources/audio/ball-collide-star.wav");
+    private static final File backgroundAudioFile = new File("src/main/resources/audio/game-background-audio.wav");
 
     public GameSoundPlayer() {
         loadAudioSets();
@@ -25,24 +26,32 @@ public class GameSoundPlayer {
         audioSets.put("lost-ball", new AudioSet(lostBallFile));
         audioSets.put("joinGame", new AudioSet(joinGameAudioFile));
         audioSets.put("ballCollideStar", new AudioSet(ballCollideStarAudioFile));
+        audioSets.put("gameBackgroundAudio", new AudioSet(backgroundAudioFile));
     }
 
-    public Boolean isMute(){
-        return  isMute;
+    public Boolean isMute() {
+        return isMute;
     }
 
-    public void toggle(){
+    public void toggle() {
         isMute = !isMute;
+
+        if (isMute) {
+            audioSets.get("gameBackgroundAudio").stop();
+        }
+        else {
+            audioSets.get("gameBackgroundAudio").play();
+        }
     }
 
     public void ballCollidePaddle() {
-        if(!isMute){
+        if (!isMute) {
             audioSets.get("ballCollidePaddle").play();
         }
     }
 
     public void ballCollideWall() {
-        if(!isMute) {
+        if (!isMute) {
             audioSets.get("ballCollideWall").play();
         }
     }
@@ -54,14 +63,20 @@ public class GameSoundPlayer {
     }
 
     public void ballCollideStar() {
-        if(!isMute) {
+        if (!isMute) {
             audioSets.get("ballCollideStar").play();
         }
     }
 
     public void joinGame() {
-        if(!isMute) {
+        if (!isMute) {
             audioSets.get("joinGame").play();
+        }
+    }
+
+    public void backgroundAudio() {
+        if (!isMute) {
+            audioSets.get("gameBackgroundAudio").playLoop();
         }
     }
 }

@@ -35,6 +35,7 @@ public class GameModel implements Model {
 
     public GameModel() {
         soundPlayer.joinGame();
+        soundPlayer.backgroundAudio();
     }
 
     //#endregion
