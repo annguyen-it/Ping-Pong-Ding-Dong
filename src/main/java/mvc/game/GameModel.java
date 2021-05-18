@@ -201,8 +201,8 @@ public class GameModel extends Model {
             for (Ball ball : ballFactory.getBalls()) {
                 if (ball.willCollide(pickup)) {
                     ball.collide(pickup);
+                    bonusController.receive(pickup.getBonusType(), ball.getLastTouchSide(), ball);
                     starFactory.createStar();
-                    bonusController.receive(pickup.getBonusType(), ball.getLastTouch(), ball);
                     break;
                 }
             }
