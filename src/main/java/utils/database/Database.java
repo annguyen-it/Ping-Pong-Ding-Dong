@@ -65,10 +65,10 @@ public class Database {
 
         private Connector() throws SQLException {
             Properties props = new Properties();
-            props.setProperty("user", "root");
-            props.setProperty("password", "");
+            props.setProperty("user", "Vu1lKgQdNh");
+            props.setProperty("password", "EBIgIy1mNx");
 
-            connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/ping-pong-db", props);
+            connection = DriverManager.getConnection("jdbc:mysql://remotemysql.com:3306/Vu1lKgQdNh", props);
         }
 
         private void disconnect() throws SQLException {
