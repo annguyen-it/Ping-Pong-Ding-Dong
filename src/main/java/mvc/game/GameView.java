@@ -160,7 +160,7 @@ public class GameView extends View {
         List<Bonus> bonusList = controller.getModel().getBonusList();
 
         for (int i = 0; i < bonusList.size(); i++) {
-            paintProcessBar(g, i++, bonusList.get(i));
+            paintProcessBar(g, i, bonusList.get(i++));
         }
     }
 
