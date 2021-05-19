@@ -27,7 +27,11 @@ public class MenuView extends View {
 
     private final JLabel helpDialog = new JLabel("Di chuyen Paddle de Ball khong bi roi ra ngoai");
 
-    public MenuView() { super(); }
+    private final Font buttonFont = new Font("Algerian", Font.PLAIN, 30);
+
+    public MenuView() {
+        super();
+    }
 
     //region getter
 
@@ -62,8 +66,8 @@ public class MenuView extends View {
 
 
     private void setupUI() {
-        UIManager.put("OptionPane.background", App.orangeColor);
-        UIManager.put("Panel.background", App.orangeColor);
+        UIManager.put("OptionPane.background", App.primaryColor);
+        UIManager.put("Panel.background", App.primaryColor);
         UIManager.put("Button.background", Color.ORANGE);
         UIManager.put("Button.focus", new ColorUIResource(new Color(0, 0, 0, 0)));
     }
@@ -76,15 +80,15 @@ public class MenuView extends View {
         setupButton(exitButton, 225);
     }
 
-    private void setupButton(JButton button, int yb) {
+    private void setupButton(JButton button, int y) {
         buttonsWrapper.add(button);
 
-        button.setBounds(0, yb, 300, 50);
+        button.setBounds(0, y, 300, 50);
 
-        button.setBorder(BorderFactory.createLineBorder(App.blueColor, 2));
-        button.setFont(new Font("Algerian", Font.PLAIN, 30));
-        button.setForeground(App.blueColor);
-        button.setBackground(App.orangeColor);
+        button.setBorder(BorderFactory.createLineBorder(App.secondaryColor, 2));
+        button.setFont(buttonFont);
+        button.setForeground(App.secondaryColor);
+        button.setBackground(App.primaryColor);
 
         add(buttonsWrapper);
     }
@@ -101,7 +105,7 @@ public class MenuView extends View {
         playDialog.add(Box.createHorizontalStrut(15)); // a spacer
         playDialog.add(new JLabel("Player 2:"));
         playDialog.add(playerNameTextField2);
-        playDialog.setBackground(App.orangeColor);
+        playDialog.setBackground(App.primaryColor);
     }
 
     private void setupHelpDialog() {

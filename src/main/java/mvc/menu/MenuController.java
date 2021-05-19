@@ -278,7 +278,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
                 JTableHeader tableHeader = table.getTableHeader();
                 tableHeader.setBackground(Color.orange);
-                tableHeader.setBorder(BorderFactory.createLineBorder(App.orangeColor, 2));
+                tableHeader.setBorder(BorderFactory.createLineBorder(App.primaryColor, 2));
                 tableHeader.setFont(new Font("Sans Serif", Font.PLAIN, 15));
                 tableHeader.setForeground(Color.blue);
                 tableHeader.setEnabled(false);
