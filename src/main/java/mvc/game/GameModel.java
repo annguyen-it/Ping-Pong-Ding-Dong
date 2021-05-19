@@ -164,6 +164,7 @@ public class GameModel extends Model {
                 createNewBall(GameSide.getOpposite(loseSide));
             }
             else if (controller.isStarted()){
+                controller.getView().repaint();
                 controller.over();
             }
         }
