@@ -1,5 +1,8 @@
 package main.java.mvc.common.model;
 
+/**
+ * Class {@code PlayerNamesModel} is a model, used to pass players' name from Menu to Game
+ */
 public class PlayerNamesModel {
 
     private final String playerName1;
