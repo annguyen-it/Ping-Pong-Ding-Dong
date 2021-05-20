@@ -11,7 +11,7 @@ public interface WallCollide extends Collide {
     /**
      * Check if implementing object collides the wall or not
      */
-    boolean willWallCollide();
+    Side willWallCollide();
 
     /**
      * Perform collision to wall

@@ -103,9 +103,18 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
     }
 
     @Override
-    public boolean willWallCollide() {
+    public Side willWallCollide() {
         double nextPositionY = y + vector.getY();
-        return nextPositionY < 0 || nextPositionY + height + 40 > App.HEIGHT;
+
+        if (nextPositionY < 0) {
+            return Side.top;
+        }
+
+        if (nextPositionY + height + 40 > App.HEIGHT) {
+            return Side.bottom;
+        }
+
+        return Side.unknown;
     }
 
     @Override

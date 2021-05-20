@@ -159,7 +159,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     public void tryMove() {
         x += vector.getX();
 
-        if (willWallCollide()) {
+        if (willWallCollide() != Side.unknown) {
             wallCollide();
         }
         else {
@@ -282,10 +282,18 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
 
     //#region Collide
     @Override
-    public boolean willWallCollide() {
+    public Side willWallCollide() {
         double nextPositionY = y + vector.getY();
-        return (nextPositionY < 0 && vector.getY() < 0) ||
-               (nextPositionY + size + 40 > App.HEIGHT && vector.getY() > 0);
+
+        if (nextPositionY < 0 && vector.getY() < 0) {
+            return Side.top;
+        }
+
+        if (nextPositionY + size + 40 > App.HEIGHT && vector.getY() > 0) {
+            return Side.bottom;
+        }
+
+        return Side.unknown;
     }
 
     @Override
