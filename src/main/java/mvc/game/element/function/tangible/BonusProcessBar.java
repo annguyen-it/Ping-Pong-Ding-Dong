@@ -17,7 +17,7 @@ public class BonusProcessBar {
             new AbstractMap.SimpleEntry<>(BonusType.speedingBall, Color.pink),
             new AbstractMap.SimpleEntry<>(BonusType.slowlyPaddle, Color.yellow),
             new AbstractMap.SimpleEntry<>(BonusType.increaseOwnPaddleSize, Color.red),
-            new AbstractMap.SimpleEntry<>(BonusType.decreaseEnemyPaddleSize, Color.magenta)
+            new AbstractMap.SimpleEntry<>(BonusType.decreaseOpponentPaddleSize, Color.magenta)
     );
 
     public BonusProcessBar(Bonus bonus) {

@@ -6,5 +6,5 @@ public enum BonusType {
     speedingBall,
     slowlyPaddle,
     increaseOwnPaddleSize,
-    decreaseEnemyPaddleSize
+    decreaseOpponentPaddleSize
 }

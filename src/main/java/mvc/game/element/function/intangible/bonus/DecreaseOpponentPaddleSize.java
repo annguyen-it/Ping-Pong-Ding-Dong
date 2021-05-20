@@ -2,10 +2,10 @@ package main.java.mvc.game.element.function.intangible.bonus;
 
 import main.java.mvc.game.element.function.intangible.GameSide;
 
-public class DecreaseEnemyPaddleSize extends Bonus implements HasTimeLimit {
+public class DecreaseOpponentPaddleSize extends Bonus implements HasTimeLimit {
 
-    public DecreaseEnemyPaddleSize() {
-        super(BonusType.decreaseEnemyPaddleSize);
+    public DecreaseOpponentPaddleSize() {
+        super(BonusType.decreaseOpponentPaddleSize);
     }
 
     @Override

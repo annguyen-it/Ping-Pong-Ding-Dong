@@ -15,7 +15,7 @@ abstract public class Bonus {
 
     private static final Map<BonusType, String> IMAGE_MAP = Map.ofEntries(
             new AbstractMap.SimpleEntry<>(BonusType.bigBall, ImagePathProvider.Game.bigBall),
-            new AbstractMap.SimpleEntry<>(BonusType.decreaseEnemyPaddleSize, ImagePathProvider.Game.decreaseEnemyPaddleSize),
+            new AbstractMap.SimpleEntry<>(BonusType.decreaseOpponentPaddleSize, ImagePathProvider.Game.decreaseOpponentPaddleSize),
             new AbstractMap.SimpleEntry<>(BonusType.increaseOwnPaddleSize, ImagePathProvider.Game.increaseOwnPaddleSize),
             new AbstractMap.SimpleEntry<>(BonusType.multiBall, ImagePathProvider.Game.multiBall),
             new AbstractMap.SimpleEntry<>(BonusType.slowlyPaddle, ImagePathProvider.Game.slowlyPaddle),
@@ -55,7 +55,7 @@ abstract public class Bonus {
                 return new IncreaseOwnPaddleSize();
 
             default:
-                return new DecreaseEnemyPaddleSize();
+                return new DecreaseOpponentPaddleSize();
         }
     }
 
