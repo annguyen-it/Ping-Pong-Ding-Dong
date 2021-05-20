@@ -1,5 +1,7 @@
 package main.java.mvc.game.mechanics.common.collide;
 
+import main.java.mvc.game.element.function.intangible.GameSide.Side;
+
 /**
  * Mechanic to handle collision between implementation and wall.
  * <p>We just care about vertical axis</p>
