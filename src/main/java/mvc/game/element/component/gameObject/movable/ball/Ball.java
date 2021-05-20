@@ -202,7 +202,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
                 break;
 
             default:
-                speed += 2.5;
+                speed += 2;
                 break;
         }
 
