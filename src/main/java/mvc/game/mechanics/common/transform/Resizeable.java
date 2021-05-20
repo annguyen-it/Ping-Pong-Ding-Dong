@@ -3,7 +3,7 @@ package main.java.mvc.game.mechanics.common.transform;
 import main.java.mvc.game.mechanics.Mechanic;
 
 /**
- * Resizing mechanic
+ * Resizing mechanic for {@code GameObject} instance
  *
  * @see main.java.mvc.game.mechanics.Mechanic
  */
@@ -14,6 +14,9 @@ public interface Resizeable extends Mechanic {
      */
     void sizeUp();
 
+    /**
+     * Decrease size
+     */
     void sizeDown();
 
     /**

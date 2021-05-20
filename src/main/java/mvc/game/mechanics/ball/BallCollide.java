@@ -8,39 +8,41 @@ import main.java.mvc.game.element.component.gameObject.movable.paddle.RightPaddl
 import main.java.mvc.game.mechanics.common.collide.GameObjectCollide;
 
 /**
- * Colliding mechanic of ball
+ * Colliding mechanic of {@code Ball}
  *
- * @see main.java.mvc.game.mechanics.common.collide.Collide
+ * @see main.java.mvc.game.element.component.gameObject.movable.ball.Ball
  */
 public interface BallCollide extends GameObjectCollide {
 
     /**
-     * Perform collision with Paddle
+     * Perform collision with {@code Paddle}
      *
-     * @param paddle Paddle
+     * @param paddle {@code Paddle}
      */
     void collide(Paddle paddle);
 
     /**
-     * Perform collision with Paddle
+     * Perform collision with {@code Pickup}
      *
-     * @param pickup Pickup
+     * @param pickup {@code Pickup}
      */
     void collide(Pickup pickup);
 
     /**
-     * Check whether if ball collides LeftPaddle
+     * Check whether if ball collides {@code LeftPaddle}
      *
-     * @param paddle LeftPaddle
-     * @return Ball and paddle collide or not
+     * @param paddle {@code LeftPaddle}
+     *
+     * @return {@code Ball} and param collide or not
      */
     boolean willCollide(LeftPaddle paddle);
 
     /**
-     * Check whether if ball collides RightPaddle
+     * Check whether if ball collides {@code RightPaddle}
      *
-     * @param paddle RightPaddle
-     * @return Ball and paddle collide or not
+     * @param paddle {@code RightPaddle}
+     *
+     * @return {@code Ball} and param collide or not
      */
     boolean willCollide(RightPaddle paddle);
 
@@ -48,6 +50,7 @@ public interface BallCollide extends GameObjectCollide {
      * Check whether if ball collides LeftPaddle
      *
      * @param pickup Pickup
+     *
      * @return Ball and pickup collide or not
      */
     boolean willCollide(Pickup pickup);
@@ -55,7 +58,8 @@ public interface BallCollide extends GameObjectCollide {
     /**
      * Receives a colliding object, then call to specific method to perform the collision.
      *
-     * @param causeObject Object which cause collision
+     * @param causeObject {@code GameObject} which cause collision
+     *
      * @see main.java.mvc.game.element.component.gameObject.movable.paddle.Paddle
      * @see main.java.mvc.game.element.component.gameObject.immovable.pickup.Pickup
      */
@@ -70,9 +74,10 @@ public interface BallCollide extends GameObjectCollide {
     }
 
     /**
-     * Receives a colliding object, then call to specific method to check whether if ball collides GameObject
+     * Receives a {@code GameObject}, then call to specific method to check whether if ball collides GameObject
      *
-     * @param object Object which needs to check
+     * @param object {@code GameObject} which needs to check
+     *
      * @see main.java.mvc.game.element.component.gameObject.movable.paddle.LeftPaddle
      * @see main.java.mvc.game.element.component.gameObject.movable.paddle.RightPaddle
      * @see main.java.mvc.game.element.component.gameObject.immovable.pickup.Pickup

@@ -6,23 +6,23 @@ import main.java.mvc.game.element.component.gameObject.movable.paddle.RightPaddl
 import main.java.mvc.game.mechanics.common.move.ChangeDirection;
 
 /**
- * Mechanic to change direction of ball.
+ * Mechanic to change direction of {@code Ball}.
  *
- * @see main.java.mvc.game.mechanics.common.move.ChangeDirection
- * @see main.java.mvc.game.element.component.gameObject.movable.paddle.Paddle
+ * @see main.java.mvc.game.element.component.gameObject.movable.ball.Ball
  */
 public interface BallChangeDirection extends ChangeDirection<Paddle> {
 
     /**
-     * Receives a paddle, then call to specific method to change the speed of ball.
+     * Receives a {@code Paddle}, then call to specific method to change the direction of {@code Ball}.
      *
-     * @param paddle Object which makes ball change its speed
+     * @param paddle The {@code Paddle} that makes ball change its direction
+     *
+     * @see main.java.mvc.game.element.component.gameObject.movable.paddle.Paddle
      * @see main.java.mvc.game.element.component.gameObject.movable.paddle.LeftPaddle
      * @see main.java.mvc.game.element.component.gameObject.movable.paddle.RightPaddle
      */
     @Override
     default void changeDirection(Paddle paddle) {
-
         if (paddle instanceof LeftPaddle) {
             changeDirection((LeftPaddle) paddle);
         }
@@ -32,16 +32,16 @@ public interface BallChangeDirection extends ChangeDirection<Paddle> {
     }
 
     /**
-     * Ball speed is changed by LeftPaddle.
+     * Perform the change of direction of {@code Ball} cause by {@code LeftPaddle}.
      *
-     * @param paddle LeftPaddle
+     * @param paddle {@code LeftPaddle}
      */
     void changeDirection(LeftPaddle paddle);
 
     /**
-     * Ball speed is changed by RightPaddle.
+     * Perform the change of direction of {@code Ball} cause by {@code RightPaddle}.
      *
-     * @param paddle RightPaddle
+     * @param paddle {@code RightPaddle}
      */
     void changeDirection(RightPaddle paddle);
 }

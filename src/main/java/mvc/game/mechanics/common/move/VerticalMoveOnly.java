@@ -1,9 +1,13 @@
 package main.java.mvc.game.mechanics.common.move;
 
+/**
+ * Mechanic to control moving direction of {@code VerticalOnlyMovableGameObject} implementation
+ * @see main.java.mvc.game.element.component.gameObject.movable.VerticalOnlyMovableGameObject
+ */
 public interface VerticalMoveOnly extends Movable {
 
     /**
-     * Control instance to move up
+     * Control implementation to move up
      * <p>
      * Only if it does not collides top wall
      * </p>
@@ -11,7 +15,7 @@ public interface VerticalMoveOnly extends Movable {
     void willMoveUp();
 
     /**
-     * Control instance to move down
+     * Control implementation to move down
      * <p>
      * Only if it does not collides bottom wall
      * </p>
@@ -19,16 +23,12 @@ public interface VerticalMoveOnly extends Movable {
     void willMoveDown();
 
     /**
-     * <p>
      * Make sure inheritance always in playground when it tries to overlaps top border
-     * </p>
      */
     void stopAtTopBorder();
 
     /**
-     * <p>
      * Make sure inheritance always in playground when it tries to overlaps bottom border
-     * </p>
      */
     void stopAtBottomBorder();
 }

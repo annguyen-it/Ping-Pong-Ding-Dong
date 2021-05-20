@@ -4,18 +4,18 @@ import main.java.mvc.game.element.component.gameObject.GameObject;
 import main.java.mvc.game.mechanics.Mechanic;
 
 /**
- * Mechanic to change direction of GameObject.
+ * Mechanic to change direction of {@code GameObject}.
  *
- * @param <T> GameObject which caused the changing
+ * @param <T> {@code GameObject} which caused the changing
+ *
  * @see main.java.mvc.game.element.component.gameObject.GameObject
- * @see main.java.mvc.game.mechanics.Mechanic
  */
 public interface ChangeDirection<T extends GameObject> extends Mechanic {
 
     /**
-     * Ball direction is changed by GameObject
+     * Perform change of {@code Ball} direction by {@code GameObject}
      *
-     * @param causeObject implementation of GameObject
+     * @param causeObject implementation of {@code GameObject}
      */
     void changeDirection(T causeObject);
 }

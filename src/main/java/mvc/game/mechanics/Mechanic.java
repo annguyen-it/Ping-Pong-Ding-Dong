@@ -1,6 +1,6 @@
 package main.java.mvc.game.mechanics;
 
 /**
- * Mechanic of game
+ * Interface {@code Mechanic} represents mechanics of game
  */
 public interface Mechanic { }

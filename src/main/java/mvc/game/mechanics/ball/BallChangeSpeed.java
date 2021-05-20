@@ -4,13 +4,13 @@ import main.java.mvc.game.element.component.gameObject.movable.paddle.Paddle;
 import main.java.mvc.game.mechanics.common.move.ChangeSpeed;
 
 /**
- * Mechanic to change speed of ball
- *
- * @see main.java.mvc.game.mechanics.common.move.ChangeSpeed
- * @see main.java.mvc.game.element.component.gameObject.GameObject
+ * Mechanic to change speed of {@code Ball}
+ * <p>
+ * {@code Ball} is only being decrease speed, so we don't need to implement speedDown()
+ * </p>
  */
 interface BallChangeSpeed extends ChangeSpeed<Paddle> {
 
     @Override
-    default void speedDown(){ }
+    default void speedDown() { }
 }
