@@ -104,8 +104,6 @@ public class GameModel extends Model {
         bonusController = new BonusController(this);
         ballFactory = new BallFactory(soundPlayer);
         pickupFactory = new PickupFactory(bonusController);
-
-        soundPlayer = new GameSoundPlayer();
     }
 
     //#region Paddle
