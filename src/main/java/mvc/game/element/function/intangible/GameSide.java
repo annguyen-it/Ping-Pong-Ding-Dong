@@ -1,9 +1,12 @@
 package main.java.mvc.game.element.function.intangible;
 
 public class GameSide {
+
     public enum Side {
         left,
         right,
+        top,
+        bottom,
         unknown
     }
 
