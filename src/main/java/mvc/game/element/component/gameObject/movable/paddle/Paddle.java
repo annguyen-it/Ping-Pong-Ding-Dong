@@ -22,7 +22,13 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
 
     private int height = INITIAL_HEIGHT;
 
-    protected Score score = new Score();
+    /**
+     * Score of instance
+     *
+     */
+    protected int score = 0;
+
+//    protected Score score = new Score();
     private final Side side;
 
     public Paddle(Side side, int x) {

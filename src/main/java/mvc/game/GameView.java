@@ -1,7 +1,6 @@
 package main.java.mvc.game;
 
 import main.java.App;
-import main.java.mvc.game.element.function.intangible.Score;
 
 import main.java.mvc.game.element.function.intangible.bonus.Bonus;
 import main.java.mvc.game.element.component.gameObject.immovable.pickup.Pickup;
@@ -134,17 +133,15 @@ public class GameView extends View {
     private void paintScore(Graphics g) {
         GameModel model = controller.getModel();
 
-        Score scoreObj1 = model.getLeftPaddle().getScoreObject();
-        Score scoreObj2 = model.getRightPaddle().getScoreObject();
-        String displayScore1 = Integer.toString(scoreObj1.getScore());
-        String displayScore2 = Integer.toString(scoreObj2.getScore());
+        String leftScore = Integer.toString(model.getLeftPaddle().getScore());
+        String rightScore = Integer.toString(model.getRightPaddle().getScore());
 
-        final int leftPlayerScoreWidth = g.getFontMetrics().stringWidth(displayScore1);
+        final int leftPlayerScoreWidth = g.getFontMetrics().stringWidth(leftScore);
 
         g.setFont(scoreFont);
         g.setColor(Color.gray);
-        g.drawString(displayScore1, App.WIDTH/2 - SCORES_DISTANCE/2 - leftPlayerScoreWidth, SCORE_MARGIN_TOP);
-        g.drawString(displayScore2, App.WIDTH/2 + SCORES_DISTANCE/2, SCORE_MARGIN_TOP);
+        g.drawString(leftScore, App.WIDTH/2 - SCORES_DISTANCE/2 - leftPlayerScoreWidth, SCORE_MARGIN_TOP);
+        g.drawString(rightScore, App.WIDTH/2 + SCORES_DISTANCE/2, SCORE_MARGIN_TOP);
     }
 
     private void paintPickup(Graphics g) {
