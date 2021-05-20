@@ -1,3 +1,6 @@
 package main.java.mvc.common;
 
-public interface Model { }
+/**
+ * Class {@code Model} manages all available model and its logic in "MVC Block"
+ */
+public abstract class Model { }

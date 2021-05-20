@@ -13,7 +13,7 @@ public class GameSoundPlayer extends SoundPlayer {
     private static final Map<String, String> SOUND_MAP = Map.ofEntries(
             new AbstractMap.SimpleEntry<>("background", SoundPathProvider.Game.background),
             new AbstractMap.SimpleEntry<>("ballCollidePaddle", SoundPathProvider.Game.ballCollidePaddle),
-            new AbstractMap.SimpleEntry<>("ballCollideStar", SoundPathProvider.Game.ballCollideStar),
+            new AbstractMap.SimpleEntry<>("ballCollidePickup", SoundPathProvider.Game.ballCollidePickup),
             new AbstractMap.SimpleEntry<>("ballCollideWall", SoundPathProvider.Game.ballCollideWall),
             new AbstractMap.SimpleEntry<>("joinGame", SoundPathProvider.Game.joinGame),
             new AbstractMap.SimpleEntry<>("lostBall", SoundPathProvider.Game.lostBall)
@@ -56,9 +56,9 @@ public class GameSoundPlayer extends SoundPlayer {
         }
     }
 
-    public void ballCollideStar() {
+    public void ballCollidePickup() {
         if (!isMute) {
-            audioSets.get("ballCollideStar").play();
+            audioSets.get("ballCollidePickup").play();
         }
     }
 

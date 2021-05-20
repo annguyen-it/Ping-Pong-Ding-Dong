@@ -149,10 +149,11 @@ public class Database {
                 ResultSet resultSet = statement
                         .executeQuery(
                                 "SELECT player.name, player.join_date, sum(player_game.score) as score " +
-                                "FROM player, player_game " +
-                                "WHERE player.id = player_game.id_player " +
-                                "GROUP BY player_game.id_player " +
-                                "ORDER BY score DESC"
+                                " FROM player, player_game" +
+                                " WHERE player.id = player_game.id_player" +
+                                " GROUP BY player_game.id_player" +
+                                " ORDER BY score DESC" +
+                                " LIMIT 10"
                         );
 
                 int rank = 1;
@@ -198,7 +199,8 @@ public class Database {
                                 " FROM player, player_game" +
                                 " WHERE player.id = player_game.id_player" +
                                 " GROUP BY player_game.id_player" +
-                                " ORDER BY win DESC"
+                                " ORDER BY win DESC" +
+                                " LIMIT 10"
                         );
 
                 int rank = 1;

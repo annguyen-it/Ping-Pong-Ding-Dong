@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class AudioSet {
+
     private final File file;
     private Clip clip;
 
@@ -24,24 +25,25 @@ public class AudioSet {
         clip.start();
     }
 
-    public void stop(){
+    public void stop() {
         clip.stop();
         clip.setFramePosition(0);
     }
 
-    public void playLoop(){
+    public void playLoop() {
         loadClip();
         clip.loop(Clip.LOOP_CONTINUOUSLY);
         clip.start();
     }
 
-    private void loadClip(){
+    private void loadClip() {
         try {
             AudioInputStream stream = getStream(file);
             DataLine.Info info = getInfo(stream);
             clip = (Clip) AudioSystem.getLine(info);
             clip.open(stream);
-        } catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
+        }
+        catch (LineUnavailableException | IOException | UnsupportedAudioFileException e) {
             e.printStackTrace();
         }
     }

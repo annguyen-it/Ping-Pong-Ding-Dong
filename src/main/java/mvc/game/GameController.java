@@ -1,6 +1,6 @@
 package main.java.mvc.game;
 
-import main.java.mvc.game.board.GameAdapter;
+import main.java.mvc.game.keyListener.GameAdapter;
 import main.java.mvc.common.Controller;
 import main.java.mvc.common.flow.FlowController;
 import main.java.mvc.menu.MenuController;
@@ -25,8 +25,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
     private static final int ESC = KeyEvent.VK_ESCAPE;
     private static final int SPACE = KeyEvent.VK_SPACE;
 
-    private Timer gameTimer;
-
+    private final Timer gameTimer = new Timer(GAME_DELAY, this);
     private boolean isStarted = false;
 
     public GameController(FlowController flowController, GameView view, GameModel model) {
@@ -40,7 +39,6 @@ public class GameController extends Controller<GameView, GameModel> implements A
     @Override
     public void initEvent() {
         view.addKeyListener(new GameAdapter(this));
-        gameTimer = new Timer(GAME_DELAY, this);
     }
 
     @Override
@@ -252,7 +250,6 @@ public class GameController extends Controller<GameView, GameModel> implements A
 
         reset();
     }
-
 
     public String getNameWinner() {
         return model.getLeftPaddle().getScore() > model.getRightPaddle().getScore()

@@ -1,6 +1,7 @@
 package main.java.utils.database.dto;
 
 public class PlayerInfo {
+
     private final String name;
     private final int Score;
     private final boolean isWinner;

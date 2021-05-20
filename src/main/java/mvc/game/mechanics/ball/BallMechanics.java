@@ -2,17 +2,9 @@ package main.java.mvc.game.mechanics.ball;
 
 import main.java.mvc.game.mechanics.common.move.OutTheBoard;
 import main.java.mvc.game.mechanics.common.collide.WallCollide;
-import main.java.mvc.game.mechanics.common.transform.Resizeable;
 
 /**
- * List all mechanics of ball.
- *
- * @see BallChangeSpeed
- * @see BallChangeSpeed
- * @see BallCollide
- * @see main.java.mvc.game.mechanics.common.move.OutTheBoard
- * @see main.java.mvc.game.mechanics.common.collide.WallCollide
- * @see main.java.mvc.game.mechanics.common.transform.Resizeable
+ * List all mechanics of {@code Ball}
  */
 public interface BallMechanics extends
         BallChangeSpeed,
@@ -20,8 +12,4 @@ public interface BallMechanics extends
         BallCollide,
         OutTheBoard,
         WallCollide,
-        Resizeable {
-
-    @Override
-    default void sizeDown() { }
-}
+        BallResize { }

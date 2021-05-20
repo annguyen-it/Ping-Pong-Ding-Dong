@@ -4,7 +4,7 @@ import main.java.mvc.game.GameController;
 import main.java.App;
 import main.java.mvc.common.Controller;
 import main.java.mvc.common.flow.FlowController;
-import main.java.mvc.common.model.PlayerNames;
+import main.java.mvc.common.model.PlayerNamesModel;
 import main.java.mvc.game.GameModel;
 import main.java.utils.database.Database;
 import main.java.mvc.game.GameView;
@@ -64,7 +64,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
         playerName1 = view.getPlayerNameTextField1().getText();
         playerName2 = view.getPlayerNameTextField2().getText();
 
-        PlayerNames model = new PlayerNames(playerName1, playerName2);
+        PlayerNamesModel model = new PlayerNamesModel(playerName1, playerName2);
         GameView gameView = new GameView(model);
         GameModel gameModel = new GameModel();
 
@@ -180,7 +180,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                         tabbedPane.add("Top Wins", getTopWinTab());
 
                         tabbedPane.setBackground(Color.yellow);
-                        tabbedPane.setPreferredSize(new Dimension(500,255));
+                        tabbedPane.setPreferredSize(new Dimension(500, 255));
                         tabbedPane.setFocusable(false);
 
                         showExhibition(tabbedPane);
@@ -263,12 +263,12 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                 return new JScrollPane(topWinTable);
             }
 
-            private void setupTable(JTable table){
+            private void setupTable(JTable table) {
                 table.setDefaultEditor(Object.class, null);
                 table.setFocusable(false);
             }
 
-            private void decorateTable(JTable table){
+            private void decorateTable(JTable table) {
 
                 table.setGridColor(Color.YELLOW);
                 table.setBackground(Color.YELLOW);
@@ -278,7 +278,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
                 JTableHeader tableHeader = table.getTableHeader();
                 tableHeader.setBackground(Color.orange);
-                tableHeader.setBorder(BorderFactory.createLineBorder(App.orangeColor, 2));
+                tableHeader.setBorder(BorderFactory.createLineBorder(App.primaryColor, 2));
                 tableHeader.setFont(new Font("Sans Serif", Font.PLAIN, 15));
                 tableHeader.setForeground(Color.blue);
                 tableHeader.setEnabled(false);

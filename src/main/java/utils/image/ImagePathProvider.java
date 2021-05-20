@@ -10,7 +10,7 @@ public class ImagePathProvider {
     public static class Game {
 
         public static final String bigBall = "src/main/resources/img/big-ball.png";
-        public static final String decreaseEnemyPaddleSize = "src/main/resources/img/decrease-enemy-paddle-size.png";
+        public static final String decreaseOpponentPaddleSize = "src/main/resources/img/decrease-opponent-paddle-size.png";
         public static final String increaseOwnPaddleSize = "src/main/resources/img/increase-own-paddle-size.png";
         public static final String multiBall = "src/main/resources/img/multi-ball.png";
         public static final String slowlyPaddle = "src/main/resources/img/speed-down.png";

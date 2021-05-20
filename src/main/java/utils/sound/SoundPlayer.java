@@ -14,7 +14,8 @@ abstract public class SoundPlayer {
 
     public void loadAudioSets(Map<String, String> soundMap) {
         for (var item : soundMap.entrySet()) {
-            audioSets.put(item.getKey(), new AudioSet(new File(item.getValue())));
+            File audioFile = new File(item.getValue());
+            audioSets.put(item.getKey(), new AudioSet(audioFile));
         }
     }
 }

@@ -14,8 +14,8 @@ public class App extends JFrame {
 
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;
-    public static final Color orangeColor = new Color(251, 111, 0);
-    public static final Color blueColor = new Color(0, 21, 232);
+    public static final Color primaryColor = new Color(251, 111, 0);
+    public static final Color secondaryColor = new Color(0, 21, 232);
 
     public App() {
         setupGame();

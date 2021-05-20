@@ -10,7 +10,6 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.PlainDocument;
 import java.awt.*;
-import java.util.Locale;
 
 public class MenuView extends View {
 
@@ -23,12 +22,16 @@ public class MenuView extends View {
     private final JButton exitButton = new JButton("EXIT");
 
     private final JPanel playDialog = new JPanel();
-    private final JTextField playerNameTextField1 = new JTextField(new PlayerNameTextFieldLimit(10), "Player 1", 10);
-    private final JTextField playerNameTextField2 = new JTextField(new PlayerNameTextFieldLimit(10), "Player 2", 10);
+    private final JTextField playerNameTextField1 = new JTextField(new PlayerNameTextFieldLimit(), "Player 1", 10);
+    private final JTextField playerNameTextField2 = new JTextField(new PlayerNameTextFieldLimit(), "Player 2", 10);
 
     private final JLabel helpDialog = new JLabel("Di chuyen Paddle de Ball khong bi roi ra ngoai");
 
-    public MenuView() { super(); }
+    private final Font buttonFont = new Font("Algerian", Font.PLAIN, 30);
+
+    public MenuView() {
+        super();
+    }
 
     //region getter
 
@@ -63,8 +66,8 @@ public class MenuView extends View {
 
 
     private void setupUI() {
-        UIManager.put("OptionPane.background", App.orangeColor);
-        UIManager.put("Panel.background", App.orangeColor);
+        UIManager.put("OptionPane.background", App.primaryColor);
+        UIManager.put("Panel.background", App.primaryColor);
         UIManager.put("Button.background", Color.ORANGE);
         UIManager.put("Button.focus", new ColorUIResource(new Color(0, 0, 0, 0)));
     }
@@ -77,15 +80,15 @@ public class MenuView extends View {
         setupButton(exitButton, 225);
     }
 
-    private void setupButton(JButton button, int yb) {
+    private void setupButton(JButton button, int y) {
         buttonsWrapper.add(button);
 
-        button.setBounds(0, yb, 300, 50);
+        button.setBounds(0, y, 300, 50);
 
-        button.setBorder(BorderFactory.createLineBorder(App.blueColor, 2));
-        button.setFont(new Font("Algerian", Font.PLAIN, 30));
-        button.setForeground(App.blueColor);
-        button.setBackground(App.orangeColor);
+        button.setBorder(BorderFactory.createLineBorder(App.secondaryColor, 2));
+        button.setFont(buttonFont);
+        button.setForeground(App.secondaryColor);
+        button.setBackground(App.primaryColor);
 
         add(buttonsWrapper);
     }
@@ -102,7 +105,7 @@ public class MenuView extends View {
         playDialog.add(Box.createHorizontalStrut(15)); // a spacer
         playDialog.add(new JLabel("Player 2:"));
         playDialog.add(playerNameTextField2);
-        playDialog.setBackground(App.orangeColor);
+        playDialog.setBackground(App.primaryColor);
     }
 
     private void setupHelpDialog() {
@@ -122,24 +125,12 @@ public class MenuView extends View {
 
     public static class PlayerNameTextFieldLimit extends PlainDocument {
 
-        private final int limit;
-
-        public PlayerNameTextFieldLimit(int limit) {
-            this.limit = limit;
-        }
-
-
         public void insertString(int offset, String str, AttributeSet set) throws BadLocationException {
-            if (str == null) {}
-            else {
-                if ((getLength() + str.length()) <= limit) {
+            if (str != null) {
+                if ((getLength() + str.length()) <= 30) {
                     super.insertString(offset, str, set);
                 }
             }
         }
     }
-
-
-
-
 }
