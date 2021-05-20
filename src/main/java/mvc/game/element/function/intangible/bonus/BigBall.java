@@ -2,6 +2,12 @@ package main.java.mvc.game.element.function.intangible.bonus;
 
 import main.java.mvc.game.element.component.gameObject.movable.ball.Ball;
 
+/**
+ * Class {@code BigBall} is a implementation of Bonus. It makes {@code Ball}(s) in playground become bigger
+ * <p>
+ * {@code BigBall} has time limit and can appear again when it activates.
+ * </p>
+ */
 public class BigBall extends Bonus implements HasTimeLimit, CanAppearWhenActivated {
 
     public BigBall() {

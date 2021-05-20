@@ -5,6 +5,10 @@ import main.java.mvc.game.element.component.gameObject.movable.ball.Ball;
 import main.java.mvc.game.element.function.intangible.Vector;
 import main.java.mvc.game.sound.GameSoundPlayer;
 
+/**
+ * Class {@code MultiBall} is a implementation of Bonus.
+ * It add 2 more {@code Ball}s to the playground and they fall to both two sides
+ */
 public class MultiBall extends Bonus {
 
     public MultiBall() {
@@ -23,7 +27,7 @@ public class MultiBall extends Bonus {
 
         gameModel.addBall(new Ball(x, y, vector.getOpposite(), speed, size, lastTouch, soundPlayer));
 
-        if (vector.isHorizontalVector()){
+        if (vector.isHorizontalVector()) {
             gameModel.addBall(new Ball(x, y, new Vector(vector.getAlpha() + 30), speed, size, lastTouch, soundPlayer));
         }
         else {

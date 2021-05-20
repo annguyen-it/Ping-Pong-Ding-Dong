@@ -2,6 +2,13 @@ package main.java.mvc.game.element.function.intangible.bonus;
 
 import main.java.mvc.game.element.function.intangible.GameSide;
 
+/**
+ * Class {@code DecreaseOpponentPaddleSize} is a implementation of Bonus.
+ * It makes size of opponent's {@code Paddle} becomes smaller
+ * <p>
+ * {@code DecreaseOpponentPaddleSize} has time limit.
+ * </p>
+ */
 public class DecreaseOpponentPaddleSize extends Bonus implements HasTimeLimit {
 
     public DecreaseOpponentPaddleSize() {
