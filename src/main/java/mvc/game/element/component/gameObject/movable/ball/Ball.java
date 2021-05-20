@@ -40,6 +40,29 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
     private Side lastTouchSide;
     private int size;
 
+    /**
+     * Maximum speed of instance can move
+     *
+     * <p>
+     * This can be {@code MAX_SPEED} or {@code BONUS_MAX_SPEED}
+     * </p>
+     *
+     * @see Ball#MAX_SPEED
+     * @see Ball#BONUS_MAX_SPEED
+     */
+    private double maxSpeed = MAX_SPEED;
+
+    /**
+     * Minimum speed of instance can move
+     * <p>
+     * This can be {@code MIN_SPEED} or {@code BONUS_MIN_SPEED}
+     * </p>
+     *
+     * @see Ball#MIN_SPEED
+     * @see Ball#BONUS_MIN_SPEED
+     */
+    private double minSpeed = MIN_SPEED;
+
     //#endregion
 
     //#region Constructors
@@ -183,13 +206,15 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
                 break;
         }
 
-        speed = Math.max(speed, MIN_SPEED);
-        speed = Math.min(speed, MAX_SPEED);
+        speed = Math.max(speed, minSpeed);
+        speed = Math.min(speed, maxSpeed);
     }
 
     @Override
     public void speedUp() {
         speed = Math.min(speed + 5, BONUS_MAX_SPEED);
+        minSpeed = BONUS_MIN_SPEED;
+        maxSpeed = BONUS_MAX_SPEED;
     }
 
     @Override
@@ -197,6 +222,9 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
         if (speed >= BONUS_MIN_SPEED) {
             speed -= 5;
         }
+
+        minSpeed = MIN_SPEED;
+        maxSpeed = MAX_SPEED;
     }
 
     @Override
