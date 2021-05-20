@@ -5,8 +5,14 @@ import main.java.mvc.game.GameController;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+/**
+ * This class is used to listen to the player's interaction with computer, then execute function as they want
+ */
 public class GameAdapter extends KeyAdapter {
 
+    /**
+     * {@code GameController} of Game
+     */
     private final GameController controller;
 
     public GameAdapter(GameController controller) {
