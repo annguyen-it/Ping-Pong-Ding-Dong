@@ -19,4 +19,8 @@ public class MenuSoundPlayer extends SoundPlayer {
     public void playBackgroundAudio() {
         audioSets.get("background").playLoop();
     }
+
+    public void stopBackgroundAudio() {
+        audioSets.get("background").stop();
+    }
 }

@@ -56,7 +56,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
     }
 
     private void switchToGameController() {
-        model.soundPlayer.stopBackgroundAudio();
+        model.getSoundPlayer().stopBackgroundAudio();
 
         final String playerName1 = view.getPlayerNameTextField1().getText();
         final String playerName2 = view.getPlayerNameTextField2().getText();
