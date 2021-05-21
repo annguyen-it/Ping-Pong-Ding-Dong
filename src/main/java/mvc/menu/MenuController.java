@@ -22,9 +22,6 @@ import java.util.List;
 
 public class MenuController extends Controller<MenuView, MenuModel> {
 
-    public static String playerName1;
-    public static String playerName2;
-
     public MenuController(FlowController flowController) {
         super(flowController, new MenuView(), new MenuModel());
     }
@@ -61,8 +58,8 @@ public class MenuController extends Controller<MenuView, MenuModel> {
     private void switchToGameController() {
         model.soundPlayer.stopBackgroundAudio();
 
-        playerName1 = view.getPlayerNameTextField1().getText();
-        playerName2 = view.getPlayerNameTextField2().getText();
+        final String playerName1 = view.getPlayerNameTextField1().getText();
+        final String playerName2 = view.getPlayerNameTextField2().getText();
 
         PlayerNamesModel model = new PlayerNamesModel(playerName1, playerName2);
         GameView gameView = new GameView(model);
@@ -183,7 +180,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                         tabbedPane.setPreferredSize(new Dimension(500, 255));
                         tabbedPane.setFocusable(false);
 
-                        showExhibition(tabbedPane);
+                        showRanking(tabbedPane);
                     }
                 }
             }
@@ -202,7 +199,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                 );
             }
 
-            private void showExhibition(JTabbedPane tabbedPane) {
+            private void showRanking(JTabbedPane tabbedPane) {
                 JOptionPane.showOptionDialog(
                         null,
                         tabbedPane,
