@@ -102,7 +102,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
         showGameOverDialog();
     }
 
-    public void saveResultToDatabase() {
+    private void saveResultToDatabase() {
         if (Database.connected()) {
             int leftPaddleScore = model.getLeftPaddle().getScore();
             int rightPaddleScore = model.getRightPaddle().getScore();
@@ -239,7 +239,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
 
         JOptionPane.showOptionDialog(
                 null,
-                new JLabel("Congratulations " + getNameWinner() + " !"),
+                new JLabel("Congratulations " + getWinnerName() + " !"),
                 "",
                 JOptionPane.OK_CANCEL_OPTION,
                 JOptionPane.PLAIN_MESSAGE,
@@ -251,7 +251,7 @@ public class GameController extends Controller<GameView, GameModel> implements A
         reset();
     }
 
-    public String getNameWinner() {
+    private String getWinnerName() {
         return model.getLeftPaddle().getScore() > model.getRightPaddle().getScore()
                 ? getView().getLeftPlayerName()
                 : getView().getRightPlayerName();

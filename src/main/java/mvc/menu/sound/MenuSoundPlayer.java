@@ -8,7 +8,6 @@ import java.util.Map;
 
 public class MenuSoundPlayer extends SoundPlayer {
 
-
     private static final Map<String, String> SOUND_MAP = Map.ofEntries(
             new AbstractMap.SimpleEntry<>("background", SoundPathProvider.Menu.background)
     );
@@ -19,9 +18,5 @@ public class MenuSoundPlayer extends SoundPlayer {
 
     public void playBackgroundAudio() {
         audioSets.get("background").playLoop();
-    }
-
-    public void stopBackgroundAudio() {
-        audioSets.get("background").stop();
     }
 }

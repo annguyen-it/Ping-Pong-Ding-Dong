@@ -9,7 +9,7 @@ import main.java.mvc.game.mechanics.common.transform.Resizeable;
  * {@code Ball} is only being increase speed, so we don't need to implement sizeDown()
  * </p>
  *
- * @see main.java.mvc.game.element.component.gameObject.movable.ball.Ball
+ * @see main.java.mvc.game.elements.component.gameObject.movable.ball.Ball
  */
 public interface BallResize extends Resizeable {
 

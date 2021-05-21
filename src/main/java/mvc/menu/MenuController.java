@@ -244,7 +244,6 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
                 JTable topWinTable = new JTable(topWinTableModel);
 
-
                 topWinTable.getColumnModel().getColumn(0).setCellRenderer(align);
                 topWinTable.getColumnModel().getColumn(1).setCellRenderer(align);
                 topWinTable.getColumnModel().getColumn(2).setCellRenderer(align);
@@ -279,7 +278,6 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                 tableHeader.setFont(new Font("Sans Serif", Font.PLAIN, 15));
                 tableHeader.setForeground(Color.blue);
                 tableHeader.setEnabled(false);
-
             }
         }
     }

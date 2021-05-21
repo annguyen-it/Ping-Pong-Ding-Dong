@@ -5,9 +5,8 @@ import main.java.mvc.menu.sound.MenuSoundPlayer;
 
 public class MenuModel extends Model {
 
-    MenuSoundPlayer soundPlayer = new MenuSoundPlayer();
-
     public MenuModel() {
+        MenuSoundPlayer soundPlayer = new MenuSoundPlayer();
         soundPlayer.playBackgroundAudio();
     }
 }

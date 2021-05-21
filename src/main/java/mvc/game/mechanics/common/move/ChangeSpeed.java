@@ -1,6 +1,6 @@
 package main.java.mvc.game.mechanics.common.move;
 
-import main.java.mvc.game.element.component.gameObject.GameObject;
+import main.java.mvc.game.elements.component.gameObject.GameObject;
 import main.java.mvc.game.mechanics.Mechanic;
 
 /**
@@ -8,7 +8,7 @@ import main.java.mvc.game.mechanics.Mechanic;
  *
  * @param <T> {@code GameObject} implementation which caused the changing
  *
- * @see main.java.mvc.game.element.component.gameObject.GameObject
+ * @see main.java.mvc.game.elements.component.gameObject.GameObject
  */
 public interface ChangeSpeed<T extends GameObject> extends Mechanic {
 
