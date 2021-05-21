@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class App extends JFrame {
 
-    JLayeredPane layer = new JLayeredPane();
+    private final JLayeredPane layer = new JLayeredPane();
 
     public static final int WIDTH = 1200;
     public static final int HEIGHT = 800;

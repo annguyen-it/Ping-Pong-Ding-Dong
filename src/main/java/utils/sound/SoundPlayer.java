@@ -12,7 +12,7 @@ abstract public class SoundPlayer {
         loadAudioSets(soundMap);
     }
 
-    public void loadAudioSets(Map<String, String> soundMap) {
+    private void loadAudioSets(Map<String, String> soundMap) {
         for (var item : soundMap.entrySet()) {
             File audioFile = new File(item.getValue());
             audioSets.put(item.getKey(), new AudioSet(audioFile));

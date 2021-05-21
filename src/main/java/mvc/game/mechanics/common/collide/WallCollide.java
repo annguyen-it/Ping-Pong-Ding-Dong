@@ -1,6 +1,6 @@
 package main.java.mvc.game.mechanics.common.collide;
 
-import main.java.mvc.game.element.function.intangible.GameSide.Side;
+import main.java.mvc.game.elements.function.intangible.GameSide.Side;
 
 /**
  * Mechanic to handle collision between implementation and wall.

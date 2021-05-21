@@ -13,8 +13,13 @@ import java.awt.*;
 
 public class MenuView extends View {
 
-    JLabel background;
-    JLabel buttonsWrapper = new JLabel();
+    private final JLabel background = new JLabel(
+            "",
+            new ImageIcon(ImagePathProvider.Menu.background),
+            JLabel.CENTER
+    );
+
+    private final JLabel buttonsWrapper = new JLabel();
 
     private final JButton playButton = new JButton("PLAY");
     private final JButton helpButton = new JButton("HELP");
@@ -74,6 +79,7 @@ public class MenuView extends View {
 
     private void setupButtons() {
         buttonsWrapper.setBounds(450, 370, 300, 300);
+
         setupButton(playButton, 0);
         setupButton(helpButton, 75);
         setupButton(rankingButton, 150);
@@ -114,17 +120,15 @@ public class MenuView extends View {
     }
 
     private void setupBackground() {
-        ImageIcon image = new ImageIcon(ImagePathProvider.Menu.background);
-        background = new JLabel("", image, JLabel.CENTER);
         background.setBounds(0, 0, App.WIDTH, App.HEIGHT);
-
         add(background);
     }
 
     //endregion
 
-    public static class PlayerNameTextFieldLimit extends PlainDocument {
+    private static class PlayerNameTextFieldLimit extends PlainDocument {
 
+        @Override
         public void insertString(int offset, String str, AttributeSet set) throws BadLocationException {
             if (str != null) {
                 if ((getLength() + str.length()) <= 30) {

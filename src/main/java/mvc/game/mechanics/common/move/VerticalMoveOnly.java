@@ -2,7 +2,7 @@ package main.java.mvc.game.mechanics.common.move;
 
 /**
  * Mechanic to control moving direction of {@code VerticalOnlyMovableGameObject} implementation
- * @see main.java.mvc.game.element.component.gameObject.movable.VerticalOnlyMovableGameObject
+ * @see main.java.mvc.game.elements.component.gameObject.movable.VerticalOnlyMovableGameObject
  */
 public interface VerticalMoveOnly extends Movable {
 

@@ -23,7 +23,7 @@ public class GameSoundPlayer extends SoundPlayer {
         super(SOUND_MAP);
     }
 
-    public Boolean isMute() {
+    public boolean isMute() {
         return isMute;
     }
 

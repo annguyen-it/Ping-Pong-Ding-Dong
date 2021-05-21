@@ -1,6 +1,6 @@
 package main.java.mvc.game.mechanics.common.collide;
 
-import main.java.mvc.game.element.component.gameObject.GameObject;
+import main.java.mvc.game.elements.component.gameObject.GameObject;
 
 /**
  * Colliding mechanic for {@code GameObject}

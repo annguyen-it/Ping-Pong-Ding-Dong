@@ -2,10 +2,10 @@ package main.java.mvc.game;
 
 import main.java.App;
 
-import main.java.mvc.game.element.function.intangible.bonus.Bonus;
-import main.java.mvc.game.element.component.gameObject.immovable.pickup.Pickup;
-import main.java.mvc.game.element.component.gameObject.movable.ball.Ball;
-import main.java.mvc.game.element.component.gameObject.movable.paddle.Paddle;
+import main.java.mvc.game.elements.function.intangible.bonus.Bonus;
+import main.java.mvc.game.elements.component.gameObject.immovable.pickup.Pickup;
+import main.java.mvc.game.elements.component.gameObject.movable.ball.Ball;
+import main.java.mvc.game.elements.component.gameObject.movable.paddle.Paddle;
 
 import main.java.mvc.common.model.PlayerNamesModel;
 import main.java.mvc.common.View;
@@ -112,7 +112,7 @@ public class GameView extends View {
         }
     }
 
-    private void paintStartingText(Graphics g) {
+        private void paintStartingText(Graphics g) {
         String info = "Press Space To Start Game";
 
         g.setColor(Color.gray);

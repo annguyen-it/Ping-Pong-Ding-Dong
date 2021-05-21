@@ -1,14 +1,14 @@
 package main.java.mvc.game;
 
-import main.java.mvc.game.element.function.intangible.GameSide;
-import main.java.mvc.game.element.function.intangible.GameSide.Side;
-import main.java.mvc.game.element.function.intangible.bonus.Bonus;
-import main.java.mvc.game.element.component.gameObject.immovable.pickup.Pickup;
-import main.java.mvc.game.element.component.gameObject.movable.ball.Ball;
-import main.java.mvc.game.element.component.gameObject.movable.paddle.*;
-import main.java.mvc.game.element.component.helper.factory.BallFactory;
-import main.java.mvc.game.element.component.helper.controller.BonusController;
-import main.java.mvc.game.element.component.helper.factory.PickupFactory;
+import main.java.mvc.game.elements.function.intangible.GameSide;
+import main.java.mvc.game.elements.function.intangible.GameSide.Side;
+import main.java.mvc.game.elements.function.intangible.bonus.Bonus;
+import main.java.mvc.game.elements.component.gameObject.immovable.pickup.Pickup;
+import main.java.mvc.game.elements.component.gameObject.movable.ball.Ball;
+import main.java.mvc.game.elements.component.gameObject.movable.paddle.*;
+import main.java.mvc.game.elements.component.helper.factory.BallFactory;
+import main.java.mvc.game.elements.component.helper.controller.BonusController;
+import main.java.mvc.game.elements.component.helper.factory.PickupFactory;
 import main.java.mvc.common.Model;
 import main.java.mvc.game.sound.GameSoundPlayer;
 
