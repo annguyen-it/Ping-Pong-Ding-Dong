@@ -19,7 +19,7 @@ public class GameModel extends Model {
     //#region Properties
 
     private GameController controller;
-    private GameSoundPlayer soundPlayer = new GameSoundPlayer();
+    private final GameSoundPlayer soundPlayer = new GameSoundPlayer();
 
     private LeftPaddle leftPaddle = new LeftPaddle();
     private RightPaddle rightPaddle = new RightPaddle();
@@ -98,7 +98,6 @@ public class GameModel extends Model {
         leftPaddle = new LeftPaddle();
         rightPaddle = new RightPaddle();
 
-        bonusController.clear();
         ballFactory.clear();
 
         bonusController = new BonusController(this);
