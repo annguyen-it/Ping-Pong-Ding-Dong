@@ -58,7 +58,6 @@ public class GameView extends View {
 
     @Override
     public void initUI() {
-        setBackground(Color.BLACK);
         setFocusable(true);
     }
 
