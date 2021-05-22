@@ -3,12 +3,12 @@ package main.java.utils.database.dto;
 public class PlayerInfo {
 
     private final String name;
-    private final int Score;
+    private final int score;
     private final boolean isWinner;
 
     public PlayerInfo(String name, int score, boolean isWinner) {
         this.name = name;
-        Score = score;
+        this.score = score;
         this.isWinner = isWinner;
     }
 
@@ -17,7 +17,7 @@ public class PlayerInfo {
     }
 
     public int getScore() {
-        return Score;
+        return score;
     }
 
     public boolean isWinner() {

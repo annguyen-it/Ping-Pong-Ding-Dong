@@ -40,7 +40,6 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      */
     private static final int INITIAL_Y = 388;
 
-
     /**
      * The initial size of {@code Ball}
      * <p>
@@ -577,7 +576,8 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      */
     @Override
     public boolean willCollide(Pickup pickup) {
-        return getbound().intersects(pickup.getBound()) && lastTouchSide != Side.unknown;
+        return getbound().intersects(pickup.getBound()) &&
+               lastTouchSide != Side.unknown;
     }
 
     /**
