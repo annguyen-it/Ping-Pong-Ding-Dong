@@ -106,10 +106,13 @@ public class MenuView extends View {
 
     private void setupPlayDialog() {
         playDialog.setPreferredSize(new Dimension(400, 50));
+
         playDialog.add(new JLabel("Player 1:"));
         playDialog.add(playerNameTextField1);
+
         playDialog.add(Box.createHorizontalStrut(15)); // a spacer
         playDialog.add(new JLabel("Player 2:"));
+
         playDialog.add(playerNameTextField2);
         playDialog.setBackground(App.primaryColor);
     }

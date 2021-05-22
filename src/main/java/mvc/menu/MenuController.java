@@ -255,13 +255,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                 return new JScrollPane(topWinTable);
             }
 
-            private void setupTable(JTable table) {
-                table.setDefaultEditor(Object.class, null);
-                table.setFocusable(false);
-            }
-
             private void decorateTable(JTable table) {
-
                 table.setGridColor(Color.YELLOW);
                 table.setBackground(Color.YELLOW);
                 table.setSelectionBackground(Color.orange);
@@ -274,6 +268,11 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                 tableHeader.setFont(new Font("Sans Serif", Font.PLAIN, 15));
                 tableHeader.setForeground(Color.blue);
                 tableHeader.setEnabled(false);
+            }
+
+            private void setupTable(JTable table) {
+                table.setDefaultEditor(Object.class, null);
+                table.setFocusable(false);
             }
         }
     }
