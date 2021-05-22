@@ -51,7 +51,8 @@ public class MenuController extends Controller<MenuView, MenuModel> {
                 null,
                 view.getPlayDialog(),
                 "Fill in your names",
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.PLAIN_MESSAGE
+                JOptionPane.OK_CANCEL_OPTION,
+                JOptionPane.PLAIN_MESSAGE
         );
     }
 
@@ -116,19 +117,19 @@ public class MenuController extends Controller<MenuView, MenuModel> {
         public void actionPerformed(ActionEvent e) {
             RankingButtonWorker worker = new RankingButtonWorker();
             Window window = SwingUtilities.getWindowAncestor((AbstractButton) e.getSource());
-            final JDialog dialog = new JDialog(window, "Information", Dialog.ModalityType.APPLICATION_MODAL);
+            final JDialog loadingDialog = new JDialog(window, "Information", Dialog.ModalityType.APPLICATION_MODAL);
 
-            worker.addPropertyChangeListener(new RankingButtonPropertyChangeListener(dialog));
+            worker.addPropertyChangeListener(new RankingButtonPropertyChangeListener(loadingDialog));
             worker.execute();
 
             progressBar.setIndeterminate(true);
             panel.add(progressBar, BorderLayout.CENTER);
             panel.add(new JLabel("Connecting to database......."), BorderLayout.PAGE_START);
 
-            dialog.add(panel);
-            dialog.pack();
-            dialog.setLocationRelativeTo(window);
-            dialog.setVisible(true);
+            loadingDialog.add(panel);
+            loadingDialog.pack();
+            loadingDialog.setLocationRelativeTo(window);
+            loadingDialog.setVisible(true);
         }
 
         static class RankingButtonWorker extends SwingWorker<Void, Void> {
@@ -148,7 +149,7 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
         static class RankingButtonPropertyChangeListener implements PropertyChangeListener {
 
-            private final JDialog dialog;
+            private final JDialog loadingDialog;
             private final JTabbedPane tabbedPane = new JTabbedPane();
             private final DefaultTableCellRenderer align = new DefaultTableCellRenderer();
 
@@ -156,35 +157,35 @@ public class MenuController extends Controller<MenuView, MenuModel> {
             private static final String[] topScoreColumns = { "Rank", "Name", "Total points", "Join date" };
             private static final String[] topWinColumns = { "Rank", "Name", "Wins", "Played", "Percentage", "Join date" };
 
-            public RankingButtonPropertyChangeListener(JDialog dialog) {
-                this.dialog = dialog;
+            public RankingButtonPropertyChangeListener(JDialog loadingDialog) {
+                this.loadingDialog = loadingDialog;
             }
 
             @Override
             public void propertyChange(PropertyChangeEvent evt) {
-                if (evt.getPropertyName().equals("state")) {
-                    if (evt.getNewValue() == SwingWorker.StateValue.DONE && dialog.isShowing()) {
-                        dialog.dispose();
+                if (evt.getPropertyName().equals("state") &&
+                    evt.getNewValue() == SwingWorker.StateValue.DONE &&
+                    loadingDialog.isShowing()) {
 
-                        if (!Database.connected()) {
-                            showErrorDialog();
-                            return;
-                        }
+                    loadingDialog.dispose();
 
-                        align.setHorizontalAlignment(JLabel.CENTER);
-
-                        tabbedPane.add("Top Score", getTopScoreTab());
-                        tabbedPane.add("Top Wins", getTopWinTab());
-
-                        tabbedPane.setBackground(Color.yellow);
-                        tabbedPane.setPreferredSize(new Dimension(500, 255));
-                        tabbedPane.setFocusable(false);
-
-                        showRanking(tabbedPane);
+                    if (!Database.connected()) {
+                        showErrorDialog();
+                        return;
                     }
+
+                    align.setHorizontalAlignment(JLabel.CENTER);
+
+                    tabbedPane.add("Top Score", getTopScoreTab());
+                    tabbedPane.add("Top Wins", getTopWinTab());
+
+                    tabbedPane.setBackground(Color.yellow);
+                    tabbedPane.setPreferredSize(new Dimension(500, 255));
+                    tabbedPane.setFocusable(false);
+
+                    showRanking(tabbedPane);
                 }
             }
-
 
             private void showErrorDialog() {
                 JOptionPane.showOptionDialog(
@@ -220,13 +221,11 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
                 JTable topScoreTable = new JTable(topScoreTableModel);
 
-                topScoreTable.getColumnModel().getColumn(0).setCellRenderer(align);
-                topScoreTable.getColumnModel().getColumn(1).setCellRenderer(align);
-                topScoreTable.getColumnModel().getColumn(2).setCellRenderer(align);
-                topScoreTable.getColumnModel().getColumn(3).setCellRenderer(align);
+                for (int i = 0; i < topScoreTable.getColumnModel().getColumnCount(); i++) {
+                    topScoreTable.getColumnModel().getColumn(i).setCellRenderer(align);
+                }
 
                 topScoreTable.getColumnModel().getColumn(0).setMaxWidth(50);
-                topScoreTable.getColumnModel().getColumn(2).setMinWidth(90);
                 topScoreTable.getColumnModel().getColumn(2).setMaxWidth(110);
                 topScoreTable.getColumnModel().getColumn(3).setMaxWidth(110);
 
@@ -244,12 +243,9 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
                 JTable topWinTable = new JTable(topWinTableModel);
 
-                topWinTable.getColumnModel().getColumn(0).setCellRenderer(align);
-                topWinTable.getColumnModel().getColumn(1).setCellRenderer(align);
-                topWinTable.getColumnModel().getColumn(2).setCellRenderer(align);
-                topWinTable.getColumnModel().getColumn(3).setCellRenderer(align);
-                topWinTable.getColumnModel().getColumn(4).setCellRenderer(align);
-                topWinTable.getColumnModel().getColumn(5).setCellRenderer(align);
+                for (int i = 0; i < topWinTable.getColumnModel().getColumnCount(); i++) {
+                    topWinTable.getColumnModel().getColumn(i).setCellRenderer(align);
+                }
 
                 topWinTable.getColumnModel().getColumn(0).setMaxWidth(50);
 
@@ -288,17 +284,21 @@ public class MenuController extends Controller<MenuView, MenuModel> {
 
     private void addExitButtonEvent() {
         view.getExitButton().addActionListener(e -> {
-            int output = JOptionPane.showConfirmDialog(
-                    view,
-                    "Do you want to exit",
-                    " ",
-                    JOptionPane.YES_NO_OPTION
-            );
+            int result = showExitDialog();
 
-            if (output == JOptionPane.YES_OPTION) {
+            if (result == JOptionPane.YES_OPTION) {
                 System.exit(0);
             }
         });
+    }
+
+    private int showExitDialog() {
+        return JOptionPane.showConfirmDialog(
+                view,
+                "Do you want to exit",
+                " ",
+                JOptionPane.YES_NO_OPTION
+        );
     }
 
     //#endregion

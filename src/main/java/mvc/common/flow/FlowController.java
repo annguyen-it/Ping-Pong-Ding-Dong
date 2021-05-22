@@ -42,6 +42,8 @@ public class FlowController {
      * <p>
      * It just calls to setup(), do to some stuff to setup program's UI and logics
      * </p>
+     *
+     * @implNote This function must be called right after a FlowController instance is created.
      */
     public void init() {
         setup();

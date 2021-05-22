@@ -43,9 +43,13 @@ public abstract class Controller<V extends View, M extends Model> {
         this.model = model;
     }
 
-    public V getView() { return view; }
+    public V getView() {
+        return view;
+    }
 
-    public M getModel() { return model; }
+    public M getModel() {
+        return model;
+    }
 
     /**
      * Initializes events fire in "MVC Block" when user interactive with program.
