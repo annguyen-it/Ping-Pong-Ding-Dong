@@ -8,7 +8,7 @@ import main.java.mvc.game.mechanics.common.collide.WallCollide;
  * We don't need to implement {{@link #wallCollide()} ()}} in {@code Paddle}, so override them right in this interface layer
  * </p>
  *
- * @see main.java.mvc.game.elements.component.gameObject.movable.paddle.Paddle
+ * @see main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.Paddle
  */
 public interface PaddleWallCollide extends WallCollide {
 

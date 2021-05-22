@@ -4,8 +4,8 @@ import main.java.App;
 
 import main.java.mvc.game.elements.function.intangible.bonus.Bonus;
 import main.java.mvc.game.elements.component.gameObject.immovable.pickup.Pickup;
-import main.java.mvc.game.elements.component.gameObject.movable.ball.Ball;
-import main.java.mvc.game.elements.component.gameObject.movable.paddle.Paddle;
+import main.java.mvc.game.elements.component.gameObject.movable.allDirectionMovableGameObject.ball.Ball;
+import main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.Paddle;
 
 import main.java.mvc.common.model.PlayerNamesModel;
 import main.java.mvc.common.View;

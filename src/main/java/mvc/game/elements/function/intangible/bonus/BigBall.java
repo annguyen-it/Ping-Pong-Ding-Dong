@@ -1,6 +1,6 @@
 package main.java.mvc.game.elements.function.intangible.bonus;
 
-import main.java.mvc.game.elements.component.gameObject.movable.ball.Ball;
+import main.java.mvc.game.elements.component.gameObject.movable.allDirectionMovableGameObject.ball.Ball;
 
 /**
  * Class {@code BigBall} is a implementation of Bonus. It makes {@code Ball}(s) in playground become bigger

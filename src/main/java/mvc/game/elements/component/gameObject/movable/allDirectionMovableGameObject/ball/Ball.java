@@ -1,12 +1,12 @@
-package main.java.mvc.game.elements.component.gameObject.movable.ball;
+package main.java.mvc.game.elements.component.gameObject.movable.allDirectionMovableGameObject.ball;
 
 import main.java.App;
 import main.java.mvc.game.elements.function.intangible.GameSide.Side;
 import main.java.mvc.game.elements.component.gameObject.immovable.pickup.Pickup;
-import main.java.mvc.game.elements.component.gameObject.movable.AllDirectionMovableGameObject;
-import main.java.mvc.game.elements.component.gameObject.movable.paddle.LeftPaddle;
-import main.java.mvc.game.elements.component.gameObject.movable.paddle.Paddle;
-import main.java.mvc.game.elements.component.gameObject.movable.paddle.RightPaddle;
+import main.java.mvc.game.elements.component.gameObject.movable.allDirectionMovableGameObject.AllDirectionMovableGameObject;
+import main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.LeftPaddle;
+import main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.Paddle;
+import main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.RightPaddle;
 import main.java.mvc.game.mechanics.ball.BallMechanics;
 import main.java.mvc.game.sound.GameSoundPlayer;
 import main.java.mvc.game.elements.function.intangible.Vector;
@@ -23,7 +23,7 @@ import java.awt.*;
  * If {@code Ball} reach cross of a side, the opposite side Paddle would be received one points.
  * </p>
  *
- * @see main.java.mvc.game.elements.component.gameObject.movable.paddle.Paddle
+ * @see main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.Paddle
  * @see main.java.mvc.game.elements.component.gameObject.immovable.pickup.Pickup
  */
 public class Ball extends AllDirectionMovableGameObject implements BallMechanics {
@@ -383,7 +383,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      *
      * @param paddle LeftPaddle
      *
-     * @see Ball#getRatioCollision(main.java.mvc.game.elements.component.gameObject.movable.paddle.Paddle)
+     * @see Ball#getRatioCollision(main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.Paddle)
      */
     @Override
     public void changeDirection(LeftPaddle paddle) {
@@ -406,7 +406,7 @@ public class Ball extends AllDirectionMovableGameObject implements BallMechanics
      *
      * @param paddle RightPaddle
      *
-     * @see Ball#getRatioCollision(main.java.mvc.game.elements.component.gameObject.movable.paddle.Paddle)
+     * @see Ball#getRatioCollision(main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.Paddle)
      */
     @Override
     public void changeDirection(RightPaddle paddle) {

@@ -1,7 +1,7 @@
 package main.java.mvc.game.elements.component.helper.factory;
 
 import main.java.mvc.game.elements.function.intangible.GameSide.Side;
-import main.java.mvc.game.elements.component.gameObject.movable.ball.Ball;
+import main.java.mvc.game.elements.component.gameObject.movable.allDirectionMovableGameObject.ball.Ball;
 import main.java.mvc.game.sound.GameSoundPlayer;
 
 import java.util.ArrayList;

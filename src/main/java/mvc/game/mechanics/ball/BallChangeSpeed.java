@@ -1,6 +1,6 @@
 package main.java.mvc.game.mechanics.ball;
 
-import main.java.mvc.game.elements.component.gameObject.movable.paddle.Paddle;
+import main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.Paddle;
 import main.java.mvc.game.mechanics.common.move.ChangeSpeed;
 
 /**

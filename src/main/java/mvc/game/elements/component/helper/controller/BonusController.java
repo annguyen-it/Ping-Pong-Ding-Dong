@@ -1,7 +1,7 @@
 package main.java.mvc.game.elements.component.helper.controller;
 
 import main.java.mvc.game.elements.function.intangible.GameSide.Side;
-import main.java.mvc.game.elements.component.gameObject.movable.ball.Ball;
+import main.java.mvc.game.elements.component.gameObject.movable.allDirectionMovableGameObject.ball.Ball;
 import main.java.mvc.game.elements.function.intangible.bonus.Bonus;
 import main.java.mvc.game.elements.function.intangible.bonus.BonusType;
 import main.java.mvc.game.GameModel;

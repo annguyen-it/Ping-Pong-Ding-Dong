@@ -1,7 +1,7 @@
 package main.java.mvc.game.elements.function.intangible.bonus;
 
 import main.java.mvc.game.elements.function.intangible.GameSide;
-import main.java.mvc.game.elements.component.gameObject.movable.paddle.Paddle;
+import main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.Paddle;
 
 /**
  * Class {@code SlowlyPaddle} is a implementation of Bonus. It makes opponent's paddle moves slower

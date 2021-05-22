@@ -2,15 +2,15 @@ package main.java.mvc.game.mechanics.ball;
 
 import main.java.mvc.game.elements.component.gameObject.GameObject;
 import main.java.mvc.game.elements.component.gameObject.immovable.pickup.Pickup;
-import main.java.mvc.game.elements.component.gameObject.movable.paddle.LeftPaddle;
-import main.java.mvc.game.elements.component.gameObject.movable.paddle.Paddle;
-import main.java.mvc.game.elements.component.gameObject.movable.paddle.RightPaddle;
+import main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.LeftPaddle;
+import main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.Paddle;
+import main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.RightPaddle;
 import main.java.mvc.game.mechanics.common.collide.GameObjectCollide;
 
 /**
  * Colliding mechanic of {@code Ball}
  *
- * @see main.java.mvc.game.elements.component.gameObject.movable.ball.Ball
+ * @see main.java.mvc.game.elements.component.gameObject.movable.allDirectionMovableGameObject.ball.Ball
  */
 public interface BallCollide extends GameObjectCollide {
 
@@ -60,7 +60,7 @@ public interface BallCollide extends GameObjectCollide {
      *
      * @param causeObject {@code GameObject} which cause collision
      *
-     * @see main.java.mvc.game.elements.component.gameObject.movable.paddle.Paddle
+     * @see main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.Paddle
      * @see main.java.mvc.game.elements.component.gameObject.immovable.pickup.Pickup
      */
     @Override
@@ -78,8 +78,8 @@ public interface BallCollide extends GameObjectCollide {
      *
      * @param object {@code GameObject} which needs to check
      *
-     * @see main.java.mvc.game.elements.component.gameObject.movable.paddle.LeftPaddle
-     * @see main.java.mvc.game.elements.component.gameObject.movable.paddle.RightPaddle
+     * @see main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.LeftPaddle
+     * @see main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.RightPaddle
      * @see main.java.mvc.game.elements.component.gameObject.immovable.pickup.Pickup
      */
     @Override

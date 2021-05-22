@@ -1,8 +1,8 @@
-package main.java.mvc.game.elements.component.gameObject.movable.paddle;
+package main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle;
 
 import main.java.App;
 import main.java.mvc.game.elements.function.intangible.GameSide.Side;
-import main.java.mvc.game.elements.component.gameObject.movable.VerticalOnlyMovableGameObject;
+import main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.VerticalOnlyMovableGameObject;
 import main.java.mvc.game.mechanics.paddle.PaddleMechanics;
 import main.java.mvc.game.elements.function.intangible.Vector;
 
@@ -82,8 +82,8 @@ public abstract class Paddle extends VerticalOnlyMovableGameObject implements Pa
      * @param side Side
      * @param x    initial position of paddle on x coordinate
      *
-     * @see main.java.mvc.game.elements.component.gameObject.movable.paddle.LeftPaddle
-     * @see main.java.mvc.game.elements.component.gameObject.movable.paddle.RightPaddle
+     * @see main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.LeftPaddle
+     * @see main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.RightPaddle
      */
     public Paddle(Side side, int x) {
         super(x, INITIAL_Y, INITIAL_VECTOR, INITIAL_SPEED);

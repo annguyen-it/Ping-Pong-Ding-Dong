@@ -1,11 +1,12 @@
-package main.java.mvc.game.elements.component.gameObject.movable;
+package main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject;
 
+import main.java.mvc.game.elements.component.gameObject.movable.MovableGameObject;
 import main.java.mvc.game.mechanics.common.move.VerticalMoveOnly;
 import main.java.mvc.game.elements.function.intangible.Vector;
 
 /**
  * Class {@code VerticalOnlyMovableGameObject} represents GameObject which can only move vertically <br>
- * (i.e {@link main.java.mvc.game.elements.component.gameObject.movable.ball.Ball}
+ * (i.e {@link main.java.mvc.game.elements.component.gameObject.movable.allDirectionMovableGameObject.ball.Ball}
  */
 public abstract class VerticalOnlyMovableGameObject extends MovableGameObject implements VerticalMoveOnly {
 

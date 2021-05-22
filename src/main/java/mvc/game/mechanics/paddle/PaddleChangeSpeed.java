@@ -10,7 +10,7 @@ import main.java.mvc.game.mechanics.common.move.ChangeSpeed;
  * and {{@link #speedUp()}} in {@code Paddle}, so override them right in this interface layer
  * </p>
  *
- * @see main.java.mvc.game.elements.component.gameObject.movable.paddle.Paddle
+ * @see main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.Paddle
  */
 interface PaddleChangeSpeed extends ChangeSpeed<GameObject> {
 

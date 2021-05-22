@@ -1,4 +1,4 @@
-package main.java.mvc.game.elements.component.gameObject.movable.paddle;
+package main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle;
 
 import main.java.mvc.game.elements.function.intangible.GameSide.Side;
 

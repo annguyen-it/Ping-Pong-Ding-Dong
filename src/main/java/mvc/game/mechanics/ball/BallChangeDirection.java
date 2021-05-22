@@ -1,14 +1,14 @@
 package main.java.mvc.game.mechanics.ball;
 
-import main.java.mvc.game.elements.component.gameObject.movable.paddle.LeftPaddle;
-import main.java.mvc.game.elements.component.gameObject.movable.paddle.Paddle;
-import main.java.mvc.game.elements.component.gameObject.movable.paddle.RightPaddle;
+import main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.LeftPaddle;
+import main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.Paddle;
+import main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.RightPaddle;
 import main.java.mvc.game.mechanics.common.move.ChangeDirection;
 
 /**
  * Mechanic to change direction of {@code Ball}.
  *
- * @see main.java.mvc.game.elements.component.gameObject.movable.ball.Ball
+ * @see main.java.mvc.game.elements.component.gameObject.movable.allDirectionMovableGameObject.ball.Ball
  */
 public interface BallChangeDirection extends ChangeDirection<Paddle> {
 
@@ -17,9 +17,9 @@ public interface BallChangeDirection extends ChangeDirection<Paddle> {
      *
      * @param paddle The {@code Paddle} that makes ball change its direction
      *
-     * @see main.java.mvc.game.elements.component.gameObject.movable.paddle.Paddle
-     * @see main.java.mvc.game.elements.component.gameObject.movable.paddle.LeftPaddle
-     * @see main.java.mvc.game.elements.component.gameObject.movable.paddle.RightPaddle
+     * @see main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.Paddle
+     * @see main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.LeftPaddle
+     * @see main.java.mvc.game.elements.component.gameObject.movable.verticalOnlyMovableGameObject.paddle.RightPaddle
      */
     @Override
     default void changeDirection(Paddle paddle) {
