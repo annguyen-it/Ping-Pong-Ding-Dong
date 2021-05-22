@@ -1,6 +1,5 @@
 package main.java.mvc.game.elements.component.gameObject.immovable.pickup;
 
-import main.java.App;
 import main.java.mvc.game.elements.component.gameObject.immovable.ImmovableGameObject;
 import main.java.mvc.game.elements.function.intangible.bonus.Bonus;
 import main.java.mvc.game.elements.function.intangible.bonus.BonusType;
@@ -16,20 +15,6 @@ import java.util.Calendar;
  * @see main.java.mvc.game.elements.function.intangible.bonus.Bonus
  */
 public class Pickup extends ImmovableGameObject {
-
-    /**
-     * Width of the appearing area of {@code Pickup}
-     * <p>
-     * Pickup should only appear in a specific area, not all playground. This will make game to be fair enough.
-     * </p>
-     */
-    private static final int APPEAR_AREA_WIDTH = 650;
-
-    /**
-     * Width of the appearing area of {@code Pickup}
-     */
-    private static final int APPEAR_AREA_HEIGHT = 600;
-
     /**
      * {@code Pickup}'s size
      * <p>
@@ -56,8 +41,8 @@ public class Pickup extends ImmovableGameObject {
      * When a {@code Pickup}'s instance is appear, it should be located randomly in allowed area, and has a random bonus type.
      * </p>
      */
-    public Pickup() {
-        super(randomX(), randomY());
+    public Pickup(int x, int y) {
+        super(x, y);
 
         appearTime = Calendar.getInstance().getTimeInMillis();
         bonusType = Bonus.randomType();
@@ -85,21 +70,5 @@ public class Pickup extends ImmovableGameObject {
      */
     public Rectangle getBound() {
         return new Rectangle(x, y, PICKUP_SIZE, PICKUP_SIZE);
-    }
-
-    /**
-     * Generate a random integer number that on x coordinate in allowed area
-     * @return A {@code int}
-     */
-    private static int randomX() {
-        return (int) (Math.random()*APPEAR_AREA_WIDTH) + (App.WIDTH - APPEAR_AREA_WIDTH)/2;
-    }
-
-    /**
-     * Generate a random integer number that on y coordinate in allowed area
-     * @return A int
-     */
-    private static int randomY() {
-        return (int) (Math.random()*APPEAR_AREA_HEIGHT) + (App.HEIGHT - APPEAR_AREA_HEIGHT)/2;
     }
 }
